@@ -4,3 +4,7 @@ node_modules/
 node_modules/
 
 /Samples_for_optimization/
+
+__MACOSX/
+.DS_Store
+._*
