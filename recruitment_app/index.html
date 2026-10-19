@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>招聘筛选</title><meta name="run-token" content="__CSRF__">
+<style>
+body{font:16px/1.55 system-ui,"Microsoft YaHei",sans-serif;background:#f5f7fa;color:#17212b;margin:0}
+main{max-width:1050px;margin:32px auto;padding:28px;background:white;border-radius:16px;box-shadow:0 8px 28px #14233413}
+h1{margin:0 0 8px;font-size:25px}p{color:#596778}label{display:block;margin:20px 0 7px;font-weight:600}
+textarea,input,select{box-sizing:border-box;width:100%;padding:11px 13px;border:1px solid #b9c5d0;border-radius:8px;font:inherit}
+textarea{min-height:180px;resize:vertical}#message{min-height:90px}details{margin-top:20px}
+.row{display:flex;gap:14px}.row>div{flex:1}button{background:#1457b8;color:white;border:0;padding:11px 18px;border-radius:8px;font:inherit;cursor:pointer;margin-top:22px}
+button.secondary{background:#e9eef5;color:#24364a;margin-left:8px}button:disabled{opacity:.5;cursor:not-allowed}
+#status{white-space:pre-wrap;border-left:4px solid #1457b8;background:#f0f5fc;padding:12px 15px;margin-top:22px;min-height:28px}
+small{color:#667487}
+.local-eval{border-top:1px solid #d7e0eb;margin-top:28px;padding-top:20px}.local-eval h2{font-size:20px}
+.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;margin-top:15px;font-size:14px}th,td{text-align:left;padding:9px;border-bottom:1px solid #e2e8f0;vertical-align:top}th{background:#f0f5fc;white-space:nowrap}
+.reason{min-width:240px}.gap{min-width:140px;color:#7a4b20}
+</style></head><body><main>
+<h1>招聘筛选</h1><p>填写岗位需求和目标人数，开始后自动筛选。联系前简历不完整时会暂缓联系。</p>
+<form id="run-form">
+<label for="job">完整招聘需求</label><textarea id="job" required placeholder="粘贴职位名称、职责、任职要求和优先条件"></textarea>
+<label for="quota">本次打招呼人数上限</label><input id="quota" type="number" min="1" max="100" value="10" required>
+<label for="message-mode">精筛通过后的消息方式</label>
+<select id="message-mode"><option value="fixed">固定消息</option><option value="llm">AI问候与提问（生成后自动复核）</option></select>
+<div id="fixed-message"><label for="message">打招呼后的第一条消息</label><textarea id="message" required>你好，我们在招「{职位名称}」，你的经历与岗位方向匹配。方便聊聊相关项目和求职意向吗？</textarea></div>
+<p id="ai-message-help" hidden>Qwen Plus根据招聘要求和简历生成约100字的问候与1—2个问题，再独立复核。复核通过才打招呼并发送；不通过会重写一次，仍不通过则跳过。API异常时暂停任务。</p>
+<details><summary>评分阈值</summary><div class="row"><div><label for="coarse">粗筛</label><input id="coarse" type="number" min="0" max="100" value="30"></div><div><label for="fine">精筛</label><input id="fine" type="number" min="0" max="100" value="75"></div></div></details>
+<button id="start" type="submit">开始筛选</button><button class="secondary" id="stop" type="button" disabled>暂停</button><button class="secondary" id="resume" type="button" hidden>恢复上次任务</button>
+</form><div id="status" role="status">等待开始</div><small>结果保存在 recruitment_app/.runtime/results/职位名称_日期/。请保持已登录的 BOSS Chrome 页面和本地连接器运行。</small>
+<div class="table-wrap"><table id="run-table" hidden><thead><tr><th>候选人</th><th>粗筛分</th><th>精筛分</th><th>结论</th><th class="reason">匹配理由</th><th class="gap">关键缺口</th><th class="reason">消息内容</th><th>复核状态</th><th class="gap">联系状态／原因</th></tr></thead><tbody id="run-rows"></tbody></table></div>
+<section class="local-eval" aria-labelledby="local-title"><h2 id="local-title">本地样本评测</h2>
+<p>使用上方岗位需求和本地样本测试粗筛、精筛。此操作仅调用阿里云模型 API，不连接 BOSS，也不发送消息。</p>
+<button id="load-sample-job" type="button" class="secondary">载入测试岗位</button>
+<button id="start-local-eval" type="button">评测本地样本</button>
+<div id="local-status" role="status">尚未运行本地评测</div>
+<p id="local-summary"></p><a id="local-report" hidden>查看完整报告</a>
+<div class="table-wrap"><table id="local-table" hidden><thead><tr><th>样本</th><th>层级</th><th>粗筛分</th><th>精筛分</th><th>精筛结论</th><th class="reason">匹配理由</th><th class="gap">关键缺口</th></tr></thead><tbody id="local-rows"></tbody></table></div>
+</section>
+</main><script src="/app.js"></script></body></html>

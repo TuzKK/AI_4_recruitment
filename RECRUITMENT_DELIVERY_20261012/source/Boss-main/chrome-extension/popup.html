@@ -1,0 +1,5 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>BOSS 本地连接</title><link rel="stylesheet" href="popup.css"></head>
+<body><h1>连接现有 BOSS 页面</h1><p>保持已登录的 BOSS 标签页打开。在本机招聘程序的“设置”页复制配对码，粘贴到这里。</p>
+<label for="token">本机配对码</label><input id="token" type="password" autocomplete="off" placeholder="从设置页复制配对码">
+<button id="connect">连接本机招聘程序</button><button id="disconnect" class="secondary">断开连接</button><p id="status" role="status">尚未连接</p>
+<p class="hint">无需重启浏览器或重新登录。连接和检测不会发送消息；只有在招聘程序中启动任务才会执行操作。</p><script type="module" src="popup.js"></script></body></html>

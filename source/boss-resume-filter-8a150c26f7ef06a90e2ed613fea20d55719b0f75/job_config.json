@@ -1,0 +1,189 @@
+{
+    "schema_version": 2,
+    "requirement_template": "职位描述【高级Java/Python工程师】：\n1. Java/Python基础扎实，具有实际开发经验，能够独立完成开发任务；\n2. 熟悉mysql、oracle其中一种数据库的使用及优化；\n3. 熟练使用Spring Cloud、Dubbo或类似的微服务框架,Dubbo优先；\n4. 熟练使用SpringBoot/Spring Mvc/Mybatis等常用java框架；\n5. 了解缓存技术Redis、消息中间件Kafka；\n6. 熟悉activiti、camunda、flowable等相关技术；\n7. 有AI开发背景（LLM、Al Agent、智能体、Spring AI、Langchain、智能问答、知识库）的优先；\n\n职位要求：\n1. 4-10年工作经验\n2. 本科学历\n3. 薪资范围：12k-15k\n4. 工作地点：南京市\n\n必要条件（硬性约束）：\n1. 具有4年以上工作经验\n2. 统招本科学历；",
+    "job_requirements": {
+        "中高级AI工程师": {
+            "job_uuid": "4d4ca69e-1211-56ec-a7f1-8a85a82d8968",
+            "min_exp": 4,
+            "edu": "本科",
+            "max_age": 35,
+            "work_location": "南京",
+            "salary_min": 12,
+            "salary_max": 15,
+            "keywords": [
+                {
+                    "name": "Spring Cloud",
+                    "weight": 2
+                },
+                {
+                    "name": "SpringBoot",
+                    "weight": 1
+                },
+                {
+                    "name": "Spring MVC",
+                    "weight": 1
+                },
+                {
+                    "name": "Spring AI",
+                    "weight": 2
+                },
+                {
+                    "name": "Spring",
+                    "weight": 2
+                },
+                {
+                    "name": "MySQL",
+                    "weight": 2
+                },
+                {
+                    "name": "Redis",
+                    "weight": 1
+                },
+                {
+                    "name": "Oracle",
+                    "weight": 1
+                },
+                {
+                    "name": "Java",
+                    "weight": 1
+                },
+                {
+                    "name": "Python",
+                    "weight": 1
+                },
+                {
+                    "name": "Dubbo",
+                    "weight": 2
+                },
+                {
+                    "name": "MyBatis",
+                    "weight": 1
+                },
+                {
+                    "name": "AI",
+                    "weight": 2
+                },
+                {
+                    "name": "LLM",
+                    "weight": 2
+                },
+                {
+                    "name": "智能体",
+                    "weight": 2
+                },
+                {
+                    "name": "Langchain",
+                    "weight": 2
+                },
+                {
+                    "name": "智能问答",
+                    "weight": 2
+                },
+                {
+                    "name": "知识库",
+                    "weight": 2
+                },
+                {
+                    "name": "微服务",
+                    "weight": 2
+                },
+                {
+                    "name": "Kafka",
+                    "weight": 1
+                },
+                {
+                    "name": "消息中间件",
+                    "weight": 1
+                },
+                {
+                    "name": "activiti",
+                    "weight": 2
+                },
+                {
+                    "name": "camunda",
+                    "weight": 1
+                },
+                {
+                    "name": "flowable",
+                    "weight": 1
+                }
+            ],
+            "preferred_keywords": [],
+            "required_conditions": [
+                "统招本科"
+            ],
+            "original_requirement": "职位描述【中高级AI工程师】：\n1. Java/Python基础扎实，具有实际开发经验，能够独立完成开发任务；\n2. 熟悉mysql、oracle其中一种数据库的使用及优化；\n3. 熟练使用Spring Cloud、Dubbo或类似的微服务框架,Dubbo优先；\n4. 熟练使用SpringBoot/Spring Mvc/Mybatis等常用java框架；\n5. 了解缓存技术Redis、消息中间件Kafka；\n6. 熟悉activiti、camunda、flowable等相关技术；\n7. 有AI开发背景（LLM、Al Agent、智能体、Spring AI、Langchain、智能问答、知识库）的优先；\n\n职位要求：\n1. 4-10年工作经验\n2. 本科学历\n3. 薪资范围：12k-15k\n4. 工作地点：南京市雨花区凯润大厦2号楼5层\n\n必要条件（硬性约束）：\n1. 具有4年以上工作经验\n2. 统招本科学历"
+        },
+        "证券固收业务python分析师": {
+            "job_uuid": "14d7ed44-7006-59e7-ad4e-ad5ec8fa5ed5",
+            "min_exp": 3,
+            "edu": "本科",
+            "max_age": 35,
+            "work_location": "北京",
+            "salary_min": 14,
+            "salary_max": 22,
+            "keywords": [
+                {
+                    "name": "Python",
+                    "weight": 3
+                },
+                {
+                    "name": "数据分析",
+                    "weight": 2
+                },
+                {
+                    "name": "数据挖掘",
+                    "weight": 1
+                },
+                {
+                    "name": "SQL",
+                    "weight": 3
+                },
+                {
+                    "name": "大模型",
+                    "weight": 1
+                },
+                {
+                    "name": "Git",
+                    "weight": 1
+                },
+                {
+                    "name": "爬虫",
+                    "weight": 1
+                }
+            ],
+            "preferred_keywords": [
+                {
+                    "name": "证券",
+                    "bonus": 2
+                },
+                {
+                    "name": "全栈开发",
+                    "bonus": 2
+                },
+                {
+                    "name": "数据库运维",
+                    "bonus": 2
+                },
+                {
+                    "name": "AI Agent",
+                    "bonus": 2
+                }
+            ],
+            "required_conditions": [
+                "统招本科",
+                {
+                    "type": "or",
+                    "items": [
+                        "债券",
+                        "基金",
+                        "期货",
+                        "期权"
+                    ],
+                    "category": "金融投资行业经验"
+                }
+            ],
+            "original_requirement": "岗位1：证券固收业务python分析师\n一、岗位职责：\n1.数据分析，数据挖掘，将市场多种来源数据处理成投研需要的数据类型及因子结果。\n2.使用数据开发工具处理数据，实现业务逻辑和数据处理，形成报表。\n3.使用git对项目代码进行管理。\n4.使用python获取数据库、万得API、彭博等数据，对数据进行清洗加工。\n5.通过爬虫等技术获取数据，使用大模型AI技术进行代码优化\n二、任职要求：\n1.本科及以上学历，三年以上相关工作经验。\n2.有证券行业从业经验者优先。\n3.有Python语言开发经验；精通python语言，有全栈开发经验优先。\n4.熟练掌握sql处理数据经验；精通数据库技术、有数据库运维经验优先。\n5.有使用大模型Agent经验优先；\n6.具备较强的服务意识和团队精神，较强的学习能力和执行能力。\n三、薪资范围：中级：14K-17K 高级：18K-22K\n四、工作地点：北京市丰台区西营街青海大厦银河证券\n\n必要条件（硬性约束）\n1、统招本科及以上学历，3年以上工作经验\n2、金融投资行业经验，债券、基金、期货、期权等"
+        }
+    }
+}

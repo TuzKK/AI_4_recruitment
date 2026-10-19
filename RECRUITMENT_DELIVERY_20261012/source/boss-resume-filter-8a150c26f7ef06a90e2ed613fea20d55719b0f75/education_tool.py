@@ -1,0 +1,155 @@
+"""学历证书核验助手独立入口。"""
+from __future__ import annotations
+
+import _tkinter
+from functools import partial
+import sys
+import time
+import tkinter as tk
+
+from education_tool_config import (
+    EDUCATION_TOOL_API_CONFIG,
+    get_education_tool_config_path,
+    get_education_tool_preferences_path,
+)
+from education_tool_security import (
+    get_education_api_key,
+    probe_education_credential_backend,
+    save_education_api_key,
+)
+from education_certificate import recognize_certificate_pdf
+from education_tool_pdf import extract_pdf_text_lightweight
+from gui_main import (
+    BossFilterGUI,
+    _enable_high_dpi_awareness,
+    _get_windows_monitor_area,
+    _show_main_window_centered,
+)
+
+
+def _assert_page_fills_viewport(gui: BossFilterGUI, page: tk.Widget) -> None:
+    """Fail the packaged smoke test when the first page collapses at startup."""
+    viewport_width = int(gui.pages_frame.winfo_width())
+    viewport_height = int(gui.pages_frame.winfo_height())
+    page_width = int(page.winfo_width())
+    page_height = int(page.winfo_height())
+    minimum_page_width = max(400, int(viewport_width * 0.8))
+    minimum_page_height = max(300, int(viewport_height * 0.8))
+    if (
+        viewport_width < 400
+        or viewport_height < 300
+        or page_width < minimum_page_width
+        or page_height < minimum_page_height
+    ):
+        raise RuntimeError(
+            "独立工具首个业务页面布局异常："
+            f"viewport={viewport_width}x{viewport_height}, "
+            f"page={page_width}x{page_height}"
+        )
+
+
+def _wait_for_smoke_layout(
+    gui: BossFilterGUI,
+    page: tk.Widget,
+    *,
+    timeout_seconds: float = 5.0,
+) -> None:
+    """Process bounded Tk events until the packaged page fills its viewport."""
+    deadline = time.monotonic() + timeout_seconds
+    last_error: RuntimeError | None = None
+    while time.monotonic() < deadline:
+        root = gui.root
+        root.tk.dooneevent(_tkinter.ALL_EVENTS | _tkinter.DONT_WAIT)
+        root.update_idletasks()
+        try:
+            _assert_page_fills_viewport(gui, page)
+        except RuntimeError as error:
+            last_error = error
+            time.sleep(0.01)
+            continue
+        return
+    if last_error is not None:
+        raise last_error
+    raise RuntimeError("独立工具布局烟测未能完成")
+
+
+def main(*, smoke_test: bool = False) -> None:
+    _enable_high_dpi_awareness()
+    startup_monitor_area = _get_windows_monitor_area()
+    root = tk.Tk()
+    root.withdraw()
+    config_path = get_education_tool_config_path()
+    gui = BossFilterGUI(
+        root,
+        standalone_education=True,
+        education_api_config=EDUCATION_TOOL_API_CONFIG,
+        education_api_config_path=config_path,
+        education_api_key_getter=get_education_api_key,
+        education_api_key_saver=save_education_api_key,
+        education_pdf_recognizer=partial(
+            recognize_certificate_pdf,
+            text_extractor=extract_pdf_text_lightweight,
+        ),
+        run_preferences_path=get_education_tool_preferences_path(),
+        start_with_settings=not config_path.is_file(),
+    )
+    _show_main_window_centered(root, startup_monitor_area)
+    if smoke_test:
+        # Exercise the packaged PDF renderer without user files or a model call.
+        from pathlib import Path
+        from tempfile import TemporaryDirectory
+        from PIL import Image
+        from education_pdf_images import extract_certificate_pages
+
+        with TemporaryDirectory(prefix="certificate-pdf-smoke-") as directory:
+            source = Path(directory) / "synthetic.pdf"
+            with Image.new("RGB", (200, 100), "blue") as image:
+                image.save(source, format="PDF")
+            # A deterministic text-only fixture validates the frozen native text API.
+            import base64
+            text_pdf = Path(directory) / "text.pdf"
+            text_pdf.write_bytes(base64.b64decode(
+                "JVBERi0xLjQKMSAwIG9iago8PCAvVHlwZSAvQ2F0YWxvZyAvUGFnZXMgMiAwIFIgPj4KZW5kb2JqCjIgMCBvYmoKPDwgL1R5cGUgL1BhZ2VzIC9LaWRzIFs0IDAgUl0gL0NvdW50IDEgPj4KZW5kb2JqCjMgMCBvYmoKPDwgL1R5cGUgL0ZvbnQgL1N1YnR5cGUgL1R5cGUxIC9CYXNlRm9udCAvSGVsdmV0aWNhID4+CmVuZG9iago0IDAgb2JqCjw8IC9UeXBlIC9QYWdlIC9QYXJlbnQgMiAwIFIgL01lZGlhQm94IFswIDAgNDAwIDEwMF0gL1JvdGF0ZSAwIC9SZXNvdXJjZXMgPDwgL0ZvbnQgPDwgL0YxIDMgMCBSID4+ID4+IC9Db250ZW50cyA1IDAgUiA+PgplbmRvYmoKNSAwIG9iago8PCAvTGVuZ3RoIDYwID4+CnN0cmVhbQpCVCAvRjEgMTIgVGYgMTAgNzAgVGQgKENlcnRpZmljYXRlIDEyMzQ1Njc4OTAxMjM0NTY3OCkgVGogRVQKZW5kc3RyZWFtCmVuZG9iagp4cmVmCjAgNgowMDAwMDAwMDAwIDY1NTM1IGYgCjAwMDAwMDAwMDkgMDAwMDAgbiAKMDAwMDAwMDA1OCAwMDAwMCBuIAowMDAwMDAwMTE1IDAwMDAwIG4gCjAwMDAwMDAxODUgMDAwMDAgbiAKMDAwMDAwMDMyMSAwMDAwMCBuIAp0cmFpbGVyCjw8IC9TaXplIDYgL1Jvb3QgMSAwIFIgPj4Kc3RhcnR4cmVmCjQzMQolJUVPRgo="
+            ))
+            if extract_pdf_text_lightweight(text_pdf) != "Certificate 123456789012345678":
+                raise RuntimeError("PDF 文本提取烟测失败")
+            pages = extract_certificate_pages(source, Path(directory))
+            if len(pages) != 1 or not pages[0].is_file():
+                raise RuntimeError("扫描 PDF 转换烟测失败")
+        # A slow frozen startup can make Tk's recurring 50 ms UI-queue poll
+        # continuously due inside ``root.update()``. Cancel only that poll so
+        # the bounded smoke pass still exercises real window mapping/layout.
+        ui_queue_after_id = getattr(gui, "_ui_queue_after_id", None)
+        if ui_queue_after_id is not None:
+            root.after_cancel(ui_queue_after_id)
+            gui._ui_queue_after_id = None
+        expected_page = (
+            gui.api_config_page if not config_path.is_file() else gui.education_page
+        )
+        if expected_page is None:
+            raise RuntimeError("独立工具首个业务页面未创建")
+        _wait_for_smoke_layout(gui, expected_page)
+        if not root.winfo_viewable():
+            raise RuntimeError("独立工具主窗口未进入可见状态")
+        root.destroy()
+        return
+    root.mainloop()
+
+
+if __name__ == "__main__":
+    _smoke_test = "--smoke-test" in sys.argv[1:]
+    _credential_smoke_test = "--credential-smoke-test" in sys.argv[1:]
+    if _credential_smoke_test:
+        try:
+            probe_education_credential_backend()
+        except Exception as error:
+            print(f"packaged credential smoke test failed: {error}", file=sys.stderr)
+            raise SystemExit(1) from error
+    elif _smoke_test:
+        try:
+            main(smoke_test=True)
+        except Exception as error:
+            print(f"packaged smoke test failed: {error}", file=sys.stderr)
+            raise SystemExit(1) from error
+    else:
+        main()

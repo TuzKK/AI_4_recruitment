@@ -1,0 +1,2954 @@
+{
+  "_meta": {
+    "comment": "Controlled skill vocabulary. Maps aliases to canonical skill names. Metadata is isolated under _meta so the loader iterates exactly one subtree.",
+    "schema_version": "2.1",
+    "generated_at": "2026-08-09",
+    "family_count": 15,
+    "canonical_count": 679,
+    "alias_count": 1554
+  },
+  "families": {
+    "programming_languages": {
+      "Python": [
+        "python",
+        "py",
+        "python3",
+        "python2"
+      ],
+      "JavaScript": [
+        "javascript",
+        "js",
+        "ecmascript",
+        "es6",
+        "es2015"
+      ],
+      "TypeScript": [
+        "typescript",
+        "ts"
+      ],
+      "Java": [
+        "java",
+        "jdk",
+        "jre",
+        "java8",
+        "java11",
+        "java17"
+      ],
+      "C#": [
+        "c#",
+        "csharp",
+        "c sharp",
+        "cs"
+      ],
+      "C++": [
+        "c++",
+        "cpp",
+        "cplusplus",
+        "c plus plus"
+      ],
+      "C": [
+        "c",
+        "c language",
+        "ansi c"
+      ],
+      "Go": [
+        "go",
+        "golang"
+      ],
+      "Rust": [
+        "rust",
+        "rustlang"
+      ],
+      "Ruby": [
+        "ruby",
+        "rb"
+      ],
+      "PHP": [
+        "php",
+        "php8"
+      ],
+      "Swift": [
+        "swift",
+        "swiftui language"
+      ],
+      "Kotlin": [
+        "kotlin",
+        "kt"
+      ],
+      "Scala": [
+        "scala"
+      ],
+      "R": [
+        "r",
+        "r language",
+        "rlang"
+      ],
+      "MATLAB": [
+        "matlab"
+      ],
+      "Perl": [
+        "perl"
+      ],
+      "Bash": [
+        "bash",
+        "shell",
+        "sh",
+        "shell scripting",
+        "zsh"
+      ],
+      "PowerShell": [
+        "powershell",
+        "pwsh",
+        "windows powershell"
+      ],
+      "SQL": [
+        "sql",
+        "structured query language"
+      ],
+      "T-SQL": [
+        "t-sql",
+        "tsql",
+        "transact-sql"
+      ],
+      "PL/SQL": [
+        "pl/sql",
+        "plsql"
+      ],
+      "HTML": [
+        "html",
+        "html5"
+      ],
+      "CSS": [
+        "css",
+        "css3"
+      ],
+      "Sass": [
+        "sass",
+        "scss"
+      ],
+      "XML": [
+        "xml"
+      ],
+      "JSON": [
+        "json"
+      ],
+      "YAML": [
+        "yaml",
+        "yml"
+      ],
+      "Objective-C": [
+        "objective-c",
+        "objc",
+        "objective c"
+      ],
+      "Dart": [
+        "dart"
+      ],
+      "Groovy": [
+        "groovy"
+      ],
+      "Lua": [
+        "lua"
+      ],
+      "Elixir": [
+        "elixir"
+      ],
+      "Haskell": [
+        "haskell"
+      ],
+      "VBA": [
+        "vba",
+        "visual basic for applications"
+      ],
+      "Visual Basic": [
+        "visual basic",
+        "vb",
+        "vb.net",
+        "vbnet"
+      ],
+      "COBOL": [
+        "cobol"
+      ],
+      "Fortran": [
+        "fortran"
+      ],
+      "Assembly": [
+        "assembly",
+        "asm",
+        "assembler"
+      ],
+      "Solidity": [
+        "solidity"
+      ],
+      "GraphQL": [
+        "graphql",
+        "gql"
+      ],
+      "Regular Expressions": [
+        "regex",
+        "regular expressions",
+        "regexp"
+      ],
+      "Object-Oriented Programming": [
+        "object-oriented programming",
+        "oop",
+        "object oriented programming",
+        "object-oriented"
+      ],
+      "Functional Programming": [
+        "functional programming",
+        "fp"
+      ],
+      "Data Structures": [
+        "data structures"
+      ],
+      "Algorithms": [
+        "algorithms",
+        "algorithm design"
+      ]
+    },
+    "frameworks": {
+      "React": [
+        "react",
+        "reactjs",
+        "react.js"
+      ],
+      "Next.js": [
+        "next.js",
+        "nextjs",
+        "next"
+      ],
+      "Angular": [
+        "angular",
+        "angularjs",
+        "angular.js"
+      ],
+      "Vue.js": [
+        "vue",
+        "vuejs",
+        "vue.js"
+      ],
+      "Svelte": [
+        "svelte",
+        "sveltekit"
+      ],
+      "Node.js": [
+        "node",
+        "nodejs",
+        "node.js"
+      ],
+      "Express.js": [
+        "express",
+        "expressjs",
+        "express.js"
+      ],
+      "NestJS": [
+        "nestjs",
+        "nest.js"
+      ],
+      "Django": [
+        "django",
+        "python django"
+      ],
+      "Flask": [
+        "flask",
+        "python flask"
+      ],
+      "FastAPI": [
+        "fastapi",
+        "fast api"
+      ],
+      "Spring Boot": [
+        "spring boot",
+        "springboot",
+        "spring"
+      ],
+      "ASP.NET": [
+        "asp.net",
+        "aspnet",
+        "asp net"
+      ],
+      ".NET": [
+        "dotnet",
+        ".net",
+        "dot net",
+        "net core",
+        "dotnet core"
+      ],
+      "Laravel": [
+        "laravel"
+      ],
+      "Symfony": [
+        "symfony"
+      ],
+      "Ruby on Rails": [
+        "ruby on rails",
+        "rails",
+        "ror"
+      ],
+      "jQuery": [
+        "jquery"
+      ],
+      "Bootstrap": [
+        "bootstrap"
+      ],
+      "Tailwind CSS": [
+        "tailwind",
+        "tailwind css",
+        "tailwindcss"
+      ],
+      "Material UI": [
+        "material ui",
+        "mui",
+        "material-ui"
+      ],
+      "Redux": [
+        "redux"
+      ],
+      "React Native": [
+        "react native",
+        "react-native"
+      ],
+      "Flutter": [
+        "flutter"
+      ],
+      "Ionic": [
+        "ionic"
+      ],
+      "Xamarin": [
+        "xamarin"
+      ],
+      "SwiftUI": [
+        "swiftui"
+      ],
+      "Jetpack Compose": [
+        "jetpack compose",
+        "compose"
+      ],
+      "Webpack": [
+        "webpack"
+      ],
+      "Vite": [
+        "vite"
+      ],
+      "REST API": [
+        "rest",
+        "rest api",
+        "restful",
+        "restful api",
+        "rest apis"
+      ],
+      "gRPC": [
+        "grpc"
+      ],
+      "WebSockets": [
+        "websockets",
+        "websocket"
+      ],
+      "Microservices": [
+        "microservices",
+        "micro services",
+        "microservice architecture"
+      ],
+      "Unit Testing": [
+        "unit testing",
+        "unit tests"
+      ],
+      "Jest": [
+        "jest"
+      ],
+      "Pytest": [
+        "pytest",
+        "py.test"
+      ],
+      "JUnit": [
+        "junit"
+      ],
+      "Selenium": [
+        "selenium",
+        "selenium webdriver"
+      ],
+      "Cypress": [
+        "cypress"
+      ],
+      "Playwright": [
+        "playwright"
+      ],
+      "Postman": [
+        "postman"
+      ],
+      "Test Automation": [
+        "test automation",
+        "automated testing",
+        "qa automation"
+      ],
+      "Responsive Design": [
+        "responsive design",
+        "responsive web design"
+      ],
+      "Accessibility": [
+        "accessibility",
+        "a11y",
+        "wcag"
+      ],
+      "Android": [
+        "android",
+        "android development",
+        "android sdk"
+      ],
+      "iOS": [
+        "ios",
+        "ios development"
+      ],
+      "Mobile Development": [
+        "mobile development",
+        "mobile app development",
+        "app development"
+      ],
+      "Embedded Systems": [
+        "embedded systems",
+        "embedded",
+        "firmware development"
+      ],
+      "Blockchain": [
+        "blockchain",
+        "distributed ledger",
+        "smart contracts"
+      ],
+      "Internet of Things": [
+        "internet of things",
+        "iot"
+      ]
+    },
+    "databases": {
+      "PostgreSQL": [
+        "postgresql",
+        "postgres",
+        "psql"
+      ],
+      "MySQL": [
+        "mysql"
+      ],
+      "MariaDB": [
+        "mariadb"
+      ],
+      "Microsoft SQL Server": [
+        "sql server",
+        "mssql",
+        "ms sql",
+        "microsoft sql server",
+        "ms sql server"
+      ],
+      "Oracle Database": [
+        "oracle",
+        "oracle db",
+        "oracle database"
+      ],
+      "SQLite": [
+        "sqlite",
+        "sqlite3"
+      ],
+      "MongoDB": [
+        "mongodb",
+        "mongo"
+      ],
+      "Redis": [
+        "redis"
+      ],
+      "Cassandra": [
+        "cassandra",
+        "apache cassandra"
+      ],
+      "DynamoDB": [
+        "dynamodb",
+        "dynamo db"
+      ],
+      "Elasticsearch": [
+        "elasticsearch",
+        "elastic search",
+        "elk"
+      ],
+      "Neo4j": [
+        "neo4j",
+        "graph database"
+      ],
+      "Firebase": [
+        "firebase",
+        "firestore"
+      ],
+      "Supabase": [
+        "supabase"
+      ],
+      "Snowflake": [
+        "snowflake"
+      ],
+      "BigQuery": [
+        "bigquery",
+        "big query",
+        "google bigquery"
+      ],
+      "Amazon Redshift": [
+        "redshift",
+        "amazon redshift"
+      ],
+      "Databricks": [
+        "databricks"
+      ],
+      "Apache Hive": [
+        "hive",
+        "apache hive"
+      ],
+      "Apache Spark": [
+        "spark",
+        "apache spark",
+        "pyspark"
+      ],
+      "Apache Kafka": [
+        "kafka",
+        "apache kafka"
+      ],
+      "RabbitMQ": [
+        "rabbitmq",
+        "rabbit mq"
+      ],
+      "Database Design": [
+        "database design",
+        "schema design",
+        "data modelling",
+        "data modeling"
+      ],
+      "Query Optimization": [
+        "query optimization",
+        "query tuning",
+        "sql tuning"
+      ],
+      "Indexing": [
+        "indexing",
+        "database indexing"
+      ],
+      "Stored Procedures": [
+        "stored procedures",
+        "stored procs"
+      ],
+      "Database Administration": [
+        "database administration",
+        "dba"
+      ],
+      "Database Migration": [
+        "database migration",
+        "schema migration"
+      ],
+      "Backup and Recovery": [
+        "backup and recovery",
+        "backup",
+        "disaster recovery"
+      ],
+      "Replication": [
+        "replication",
+        "database replication"
+      ],
+      "Sharding": [
+        "sharding"
+      ],
+      "Normalization": [
+        "normalization",
+        "normalisation"
+      ],
+      "ETL": [
+        "etl",
+        "extract transform load"
+      ],
+      "ELT": [
+        "elt"
+      ],
+      "Data Warehousing": [
+        "data warehousing",
+        "data warehouse",
+        "dwh"
+      ],
+      "Data Lake": [
+        "data lake",
+        "datalake"
+      ],
+      "OLAP": [
+        "olap"
+      ],
+      "OLTP": [
+        "oltp"
+      ],
+      "ORM": [
+        "orm",
+        "object relational mapping"
+      ],
+      "SQLAlchemy": [
+        "sqlalchemy"
+      ],
+      "Prisma": [
+        "prisma"
+      ],
+      "Entity Framework": [
+        "entity framework",
+        "ef core"
+      ],
+      "dbt": [
+        "dbt",
+        "data build tool"
+      ],
+      "Airflow": [
+        "airflow",
+        "apache airflow"
+      ]
+    },
+    "cloud_devops": {
+      "AWS": [
+        "aws",
+        "amazon web services",
+        "amazon cloud"
+      ],
+      "Microsoft Azure": [
+        "azure",
+        "microsoft azure",
+        "azure cloud"
+      ],
+      "Google Cloud Platform": [
+        "gcp",
+        "google cloud",
+        "google cloud platform"
+      ],
+      "Docker": [
+        "docker",
+        "containerization",
+        "containers",
+        "containerisation"
+      ],
+      "Kubernetes": [
+        "kubernetes",
+        "k8s"
+      ],
+      "Terraform": [
+        "terraform"
+      ],
+      "Ansible": [
+        "ansible"
+      ],
+      "Jenkins": [
+        "jenkins"
+      ],
+      "GitHub Actions": [
+        "github actions",
+        "gh actions"
+      ],
+      "GitLab CI": [
+        "gitlab ci",
+        "gitlab-ci"
+      ],
+      "CircleCI": [
+        "circleci",
+        "circle ci"
+      ],
+      "CI/CD": [
+        "ci/cd",
+        "cicd",
+        "ci-cd",
+        "continuous integration",
+        "continuous deployment",
+        "continuous delivery"
+      ],
+      "Git": [
+        "git",
+        "version control",
+        "source control"
+      ],
+      "GitHub": [
+        "github"
+      ],
+      "GitLab": [
+        "gitlab"
+      ],
+      "Bitbucket": [
+        "bitbucket"
+      ],
+      "Linux": [
+        "linux",
+        "unix",
+        "ubuntu",
+        "centos",
+        "rhel"
+      ],
+      "Windows Server": [
+        "windows server"
+      ],
+      "Nginx": [
+        "nginx"
+      ],
+      "Apache HTTP Server": [
+        "apache http server",
+        "apache",
+        "apache http",
+        "httpd"
+      ],
+      "Load Balancing": [
+        "load balancing",
+        "load balancer"
+      ],
+      "Prometheus": [
+        "prometheus"
+      ],
+      "Grafana": [
+        "grafana"
+      ],
+      "Datadog": [
+        "datadog",
+        "data dog"
+      ],
+      "Splunk": [
+        "splunk"
+      ],
+      "Monitoring": [
+        "monitoring",
+        "observability"
+      ],
+      "Logging": [
+        "logging",
+        "log management"
+      ],
+      "Infrastructure as Code": [
+        "infrastructure as code",
+        "iac"
+      ],
+      "Serverless": [
+        "serverless",
+        "lambda",
+        "aws lambda",
+        "azure functions"
+      ],
+      "CloudFormation": [
+        "cloudformation",
+        "cloud formation"
+      ],
+      "Helm": [
+        "helm",
+        "helm charts"
+      ],
+      "Service Mesh": [
+        "service mesh",
+        "istio"
+      ],
+      "Networking": [
+        "networking",
+        "tcp/ip",
+        "dns",
+        "vpn"
+      ],
+      "Firewall Configuration": [
+        "firewall",
+        "firewall configuration"
+      ],
+      "Security Hardening": [
+        "security hardening",
+        "hardening"
+      ],
+      "Penetration Testing": [
+        "penetration testing",
+        "pentest",
+        "pen testing"
+      ],
+      "Vulnerability Assessment": [
+        "vulnerability assessment",
+        "vulnerability scanning"
+      ],
+      "Identity and Access Management": [
+        "iam",
+        "identity and access management",
+        "access management"
+      ],
+      "OAuth": [
+        "oauth",
+        "oauth2",
+        "oidc"
+      ],
+      "SSL/TLS": [
+        "ssl",
+        "tls",
+        "ssl/tls",
+        "https"
+      ],
+      "Encryption": [
+        "encryption",
+        "cryptography"
+      ],
+      "Incident Response": [
+        "incident response",
+        "on-call",
+        "oncall"
+      ],
+      "Site Reliability Engineering": [
+        "sre",
+        "site reliability engineering"
+      ],
+      "Capacity Planning": [
+        "capacity planning"
+      ],
+      "Cost Optimization": [
+        "cost optimization",
+        "finops",
+        "cloud cost optimisation"
+      ],
+      "DevOps": [
+        "devops",
+        "dev ops",
+        "dev-ops",
+        "devsecops",
+        "dev sec ops"
+      ]
+    },
+    "data_and_ml": {
+      "Machine Learning": [
+        "machine learning",
+        "ml",
+        "machinelearning"
+      ],
+      "Deep Learning": [
+        "deep learning",
+        "dl",
+        "neural networks"
+      ],
+      "Natural Language Processing": [
+        "nlp",
+        "natural language processing",
+        "text processing"
+      ],
+      "Computer Vision": [
+        "computer vision",
+        "cv models",
+        "image recognition"
+      ],
+      "scikit-learn": [
+        "scikit-learn",
+        "sklearn",
+        "scikit learn",
+        "scikit"
+      ],
+      "TensorFlow": [
+        "tensorflow",
+        "tf"
+      ],
+      "PyTorch": [
+        "pytorch",
+        "torch"
+      ],
+      "Keras": [
+        "keras"
+      ],
+      "XGBoost": [
+        "xgboost",
+        "xg boost"
+      ],
+      "LightGBM": [
+        "lightgbm",
+        "light gbm"
+      ],
+      "Pandas": [
+        "pandas"
+      ],
+      "NumPy": [
+        "numpy"
+      ],
+      "SciPy": [
+        "scipy"
+      ],
+      "Matplotlib": [
+        "matplotlib"
+      ],
+      "Seaborn": [
+        "seaborn"
+      ],
+      "Jupyter": [
+        "jupyter",
+        "jupyter notebook",
+        "notebooks"
+      ],
+      "Statistics": [
+        "statistics",
+        "statistical analysis"
+      ],
+      "Hypothesis Testing": [
+        "hypothesis testing",
+        "a/b testing",
+        "ab testing"
+      ],
+      "Regression Analysis": [
+        "regression",
+        "regression analysis",
+        "linear regression"
+      ],
+      "Classification": [
+        "classification",
+        "classifier"
+      ],
+      "Clustering": [
+        "clustering",
+        "k-means",
+        "kmeans"
+      ],
+      "Time Series Analysis": [
+        "time series",
+        "time series analysis",
+        "forecasting models"
+      ],
+      "Feature Engineering": [
+        "feature engineering"
+      ],
+      "Model Evaluation": [
+        "model evaluation",
+        "model validation",
+        "cross validation"
+      ],
+      "Hyperparameter Tuning": [
+        "hyperparameter tuning",
+        "hyperparameter optimization"
+      ],
+      "MLOps": [
+        "mlops",
+        "ml ops"
+      ],
+      "Model Deployment": [
+        "model deployment",
+        "model serving"
+      ],
+      "Data Cleaning": [
+        "data cleaning",
+        "data cleansing",
+        "data wrangling"
+      ],
+      "Exploratory Data Analysis": [
+        "eda",
+        "exploratory data analysis"
+      ],
+      "Data Visualization": [
+        "data visualization",
+        "data visualisation",
+        "dataviz"
+      ],
+      "Tableau": [
+        "tableau"
+      ],
+      "Power BI": [
+        "power bi",
+        "powerbi",
+        "microsoft power bi"
+      ],
+      "Looker": [
+        "looker",
+        "looker studio"
+      ],
+      "Google Analytics": [
+        "google analytics",
+        "ga4",
+        "ga"
+      ],
+      "Dashboarding": [
+        "dashboarding",
+        "dashboards",
+        "dashboard development"
+      ],
+      "Reporting": [
+        "reporting",
+        "report building"
+      ],
+      "Data Pipelines": [
+        "data pipelines",
+        "pipeline development"
+      ],
+      "Big Data": [
+        "big data"
+      ],
+      "Large Language Models": [
+        "llm",
+        "large language models",
+        "gpt",
+        "generative ai",
+        "genai"
+      ],
+      "Prompt Engineering": [
+        "prompt engineering",
+        "prompting"
+      ],
+      "Retrieval Augmented Generation": [
+        "rag",
+        "retrieval augmented generation"
+      ],
+      "LangChain": [
+        "langchain",
+        "lang chain"
+      ],
+      "Vector Databases": [
+        "vector database",
+        "vector databases",
+        "embeddings"
+      ],
+      "Recommendation Systems": [
+        "recommendation systems",
+        "recommender systems"
+      ],
+      "Anomaly Detection": [
+        "anomaly detection",
+        "outlier detection"
+      ],
+      "Artificial Intelligence": [
+        "artificial intelligence",
+        "ai",
+        "a.i."
+      ],
+      "Apache Hadoop": [
+        "hadoop",
+        "apache hadoop",
+        "hdfs"
+      ],
+      "Data Science": [
+        "data science"
+      ],
+      "Data Analysis": [
+        "data analysis",
+        "data analytics"
+      ]
+    },
+    "sales_and_crm": {
+      "Salesforce": [
+        "salesforce",
+        "sfdc",
+        "salesforce crm"
+      ],
+      "HubSpot": [
+        "hubspot",
+        "hub spot"
+      ],
+      "Microsoft Dynamics CRM": [
+        "dynamics crm",
+        "microsoft dynamics crm",
+        "ms dynamics crm"
+      ],
+      "Zoho CRM": [
+        "zoho",
+        "zoho crm"
+      ],
+      "Pipedrive": [
+        "pipedrive"
+      ],
+      "CRM Administration": [
+        "crm",
+        "crm administration",
+        "crm management"
+      ],
+      "Lead Generation": [
+        "lead generation",
+        "lead gen",
+        "prospecting"
+      ],
+      "Lead Qualification": [
+        "lead qualification",
+        "qualifying leads",
+        "bant"
+      ],
+      "Cold Calling": [
+        "cold calling",
+        "cold calls"
+      ],
+      "Cold Outreach": [
+        "cold outreach",
+        "cold email",
+        "outbound"
+      ],
+      "Pipeline Management": [
+        "pipeline management",
+        "pipeline mgmt",
+        "sales pipeline"
+      ],
+      "Sales Forecasting": [
+        "sales forecasting",
+        "revenue forecasting"
+      ],
+      "Territory Management": [
+        "territory management",
+        "territory planning"
+      ],
+      "Account Management": [
+        "account management",
+        "client management"
+      ],
+      "Key Account Management": [
+        "key account management",
+        "strategic accounts"
+      ],
+      "Client Relationship Management": [
+        "client relationship management",
+        "client relationships",
+        "relationship management",
+        "customer relationships"
+      ],
+      "Contract Negotiation": [
+        "contract negotiation",
+        "negotiating contracts"
+      ],
+      "Negotiation": [
+        "negotiation",
+        "negotiating"
+      ],
+      "Closing Techniques": [
+        "closing",
+        "closing techniques",
+        "deal closing"
+      ],
+      "Upselling": [
+        "upselling",
+        "upsell"
+      ],
+      "Cross-Selling": [
+        "cross-selling",
+        "cross selling",
+        "crossselling"
+      ],
+      "Solution Selling": [
+        "solution selling",
+        "consultative selling"
+      ],
+      "Value Proposition Development": [
+        "value proposition development",
+        "value proposition",
+        "value prop"
+      ],
+      "Sales Presentations": [
+        "sales presentations",
+        "pitching",
+        "sales pitch"
+      ],
+      "Product Demonstrations": [
+        "product demonstrations",
+        "product demos",
+        "demos",
+        "product demonstration"
+      ],
+      "Proposal Writing": [
+        "proposal writing",
+        "proposals",
+        "rfp response"
+      ],
+      "Quota Attainment": [
+        "quota attainment",
+        "hitting quota",
+        "target attainment"
+      ],
+      "Sales Analytics": [
+        "sales analytics",
+        "sales reporting"
+      ],
+      "Customer Retention": [
+        "customer retention",
+        "retention",
+        "churn reduction"
+      ],
+      "Customer Onboarding": [
+        "customer onboarding",
+        "client onboarding"
+      ],
+      "Customer Success": [
+        "customer success",
+        "csm"
+      ],
+      "Channel Sales": [
+        "channel sales",
+        "partner sales",
+        "reseller management"
+      ],
+      "Partner Management": [
+        "partner management",
+        "partnerships"
+      ],
+      "B2B Sales": [
+        "b2b sales",
+        "b2b",
+        "business to business"
+      ],
+      "B2C Sales": [
+        "b2c sales",
+        "b2c",
+        "business to consumer"
+      ],
+      "Inside Sales": [
+        "inside sales"
+      ],
+      "Field Sales": [
+        "field sales",
+        "outside sales"
+      ],
+      "Retail Sales": [
+        "retail sales",
+        "in-store sales"
+      ],
+      "Point of Sale Systems": [
+        "point of sale systems",
+        "pos",
+        "point of sale",
+        "pos systems"
+      ],
+      "Merchandising": [
+        "merchandising",
+        "visual merchandising"
+      ],
+      "Sales Enablement": [
+        "sales enablement"
+      ],
+      "Sales Training": [
+        "sales training",
+        "sales coaching"
+      ],
+      "Objection Handling": [
+        "objection handling",
+        "handling objections"
+      ],
+      "Salesloft": [
+        "salesloft",
+        "sales loft"
+      ],
+      "Outreach.io": [
+        "outreach.io",
+        "outreach io"
+      ]
+    },
+    "marketing_and_content": {
+      "Search Engine Optimization": [
+        "seo",
+        "search engine optimization",
+        "search engine optimisation"
+      ],
+      "Search Engine Marketing": [
+        "sem",
+        "search engine marketing"
+      ],
+      "Pay Per Click Advertising": [
+        "pay per click advertising",
+        "ppc",
+        "pay per click",
+        "paid search"
+      ],
+      "Google Ads": [
+        "google ads",
+        "adwords",
+        "google adwords"
+      ],
+      "Meta Ads": [
+        "meta ads",
+        "facebook ads",
+        "instagram ads"
+      ],
+      "LinkedIn Ads": [
+        "linkedin ads"
+      ],
+      "Content Marketing": [
+        "content marketing"
+      ],
+      "Content Strategy": [
+        "content strategy"
+      ],
+      "Copywriting": [
+        "copywriting",
+        "copy writing"
+      ],
+      "Content Writing": [
+        "content writing",
+        "article writing",
+        "blogging"
+      ],
+      "Editing and Proofreading": [
+        "editing and proofreading",
+        "editing",
+        "proofreading",
+        "copy editing"
+      ],
+      "Email Marketing": [
+        "email marketing",
+        "email campaigns"
+      ],
+      "Mailchimp": [
+        "mailchimp",
+        "mail chimp"
+      ],
+      "Marketo": [
+        "marketo"
+      ],
+      "Marketing Automation": [
+        "marketing automation"
+      ],
+      "Social Media Management": [
+        "social media management",
+        "social media",
+        "smm"
+      ],
+      "Community Management": [
+        "community management",
+        "community building"
+      ],
+      "Brand Management": [
+        "brand management",
+        "branding"
+      ],
+      "Brand Strategy": [
+        "brand strategy",
+        "brand positioning"
+      ],
+      "Campaign Management": [
+        "campaign management",
+        "campaign planning"
+      ],
+      "Market Research": [
+        "market research",
+        "consumer research"
+      ],
+      "Competitive Analysis": [
+        "competitive analysis",
+        "competitor analysis"
+      ],
+      "Customer Segmentation": [
+        "customer segmentation",
+        "audience segmentation"
+      ],
+      "Persona Development": [
+        "persona development",
+        "buyer personas"
+      ],
+      "Marketing Analytics": [
+        "marketing analytics",
+        "marketing metrics"
+      ],
+      "Conversion Rate Optimization": [
+        "cro",
+        "conversion rate optimization",
+        "conversion optimisation"
+      ],
+      "Growth Marketing": [
+        "growth marketing",
+        "growth hacking"
+      ],
+      "Product Marketing": [
+        "product marketing",
+        "go to market",
+        "gtm"
+      ],
+      "Public Relations": [
+        "public relations",
+        "pr",
+        "media relations"
+      ],
+      "Press Release Writing": [
+        "press releases",
+        "press release writing"
+      ],
+      "Event Marketing": [
+        "event marketing",
+        "event management"
+      ],
+      "Influencer Marketing": [
+        "influencer marketing",
+        "influencer outreach"
+      ],
+      "Affiliate Marketing": [
+        "affiliate marketing",
+        "affiliates"
+      ],
+      "Video Production": [
+        "video production",
+        "video editing"
+      ],
+      "Adobe Photoshop": [
+        "photoshop",
+        "adobe photoshop"
+      ],
+      "Adobe Illustrator": [
+        "illustrator",
+        "adobe illustrator"
+      ],
+      "Adobe Premiere Pro": [
+        "adobe premiere pro",
+        "premiere pro",
+        "adobe premiere"
+      ],
+      "Canva": [
+        "canva"
+      ],
+      "Figma": [
+        "figma"
+      ],
+      "Graphic Design": [
+        "graphic design",
+        "visual design"
+      ],
+      "UX Writing": [
+        "ux writing",
+        "microcopy"
+      ],
+      "WordPress": [
+        "wordpress",
+        "wp"
+      ],
+      "Content Management Systems": [
+        "content management systems",
+        "cms",
+        "content management system"
+      ],
+      "HubSpot Marketing Hub": [
+        "hubspot marketing hub",
+        "hubspot marketing",
+        "marketing hub"
+      ],
+      "Webinar Production": [
+        "webinars",
+        "webinar production"
+      ],
+      "Storytelling": [
+        "storytelling",
+        "brand storytelling"
+      ]
+    },
+    "finance_and_accounting": {
+      "General Ledger": [
+        "general ledger",
+        "gl",
+        "gl accounting"
+      ],
+      "Accounts Payable": [
+        "accounts payable",
+        "ap",
+        "ap processing"
+      ],
+      "Accounts Receivable": [
+        "accounts receivable",
+        "ar",
+        "ar management"
+      ],
+      "Bank Reconciliation": [
+        "bank reconciliation",
+        "reconciliation",
+        "reconciliations"
+      ],
+      "Month-End Close": [
+        "month end close",
+        "month-end close",
+        "monthly close"
+      ],
+      "Year-End Close": [
+        "year end close",
+        "year-end close",
+        "annual close"
+      ],
+      "Financial Reporting": [
+        "financial reporting",
+        "financial statements"
+      ],
+      "Financial Analysis": [
+        "financial analysis",
+        "fin analysis"
+      ],
+      "Financial Modelling": [
+        "financial modelling",
+        "financial modeling",
+        "fin modelling"
+      ],
+      "Budgeting": [
+        "budgeting",
+        "budget preparation"
+      ],
+      "Forecasting": [
+        "forecasting",
+        "financial forecasting"
+      ],
+      "Variance Analysis": [
+        "variance analysis"
+      ],
+      "Cash Flow Management": [
+        "cash flow",
+        "cash flow management",
+        "cashflow"
+      ],
+      "Cost Accounting": [
+        "cost accounting",
+        "costing"
+      ],
+      "Management Accounting": [
+        "management accounting",
+        "managerial accounting"
+      ],
+      "Payroll Processing": [
+        "payroll",
+        "payroll processing"
+      ],
+      "Invoicing": [
+        "invoicing",
+        "invoice processing",
+        "billing"
+      ],
+      "Expense Management": [
+        "expense management",
+        "expense policy"
+      ],
+      "Fixed Asset Accounting": [
+        "fixed assets",
+        "fixed asset accounting",
+        "depreciation"
+      ],
+      "Inventory Accounting": [
+        "inventory accounting",
+        "stock valuation"
+      ],
+      "Tax Preparation": [
+        "tax preparation",
+        "tax filing"
+      ],
+      "VAT Returns": [
+        "vat",
+        "vat returns",
+        "vat filing"
+      ],
+      "Corporate Tax": [
+        "corporate tax",
+        "corporation tax"
+      ],
+      "Auditing": [
+        "auditing",
+        "audit"
+      ],
+      "Internal Controls": [
+        "internal controls",
+        "control testing"
+      ],
+      "IFRS": [
+        "ifrs",
+        "international financial reporting standards"
+      ],
+      "GAAP": [
+        "gaap",
+        "us gaap"
+      ],
+      "SOX Compliance": [
+        "sox",
+        "sarbanes oxley",
+        "sox compliance"
+      ],
+      "Accounts Analysis": [
+        "accounts analysis",
+        "account analysis"
+      ],
+      "Credit Control": [
+        "credit control",
+        "collections",
+        "debt collection"
+      ],
+      "Treasury Management": [
+        "treasury",
+        "treasury management"
+      ],
+      "Working Capital Management": [
+        "working capital management",
+        "working capital"
+      ],
+      "Capital Expenditure Planning": [
+        "capital expenditure planning",
+        "capex",
+        "capital expenditure"
+      ],
+      "Profit and Loss Management": [
+        "profit and loss management",
+        "p&l",
+        "profit and loss",
+        "pnl"
+      ],
+      "Balance Sheet Analysis": [
+        "balance sheet",
+        "balance sheet analysis"
+      ],
+      "Consolidation": [
+        "consolidation",
+        "group consolidation"
+      ],
+      "Intercompany Accounting": [
+        "intercompany",
+        "intercompany accounting"
+      ],
+      "Revenue Recognition": [
+        "revenue recognition",
+        "rev rec"
+      ],
+      "QuickBooks": [
+        "quickbooks",
+        "quick books",
+        "qbo"
+      ],
+      "Xero": [
+        "xero"
+      ],
+      "Sage": [
+        "sage",
+        "sage 50",
+        "sage 200"
+      ],
+      "Microsoft Excel": [
+        "excel",
+        "microsoft excel",
+        "ms excel",
+        "spreadsheets"
+      ],
+      "Advanced Excel": [
+        "advanced excel",
+        "pivot tables",
+        "vlookup",
+        "xlookup",
+        "power query"
+      ],
+      "Financial Due Diligence": [
+        "due diligence",
+        "financial due diligence"
+      ],
+      "Cost Reduction": [
+        "cost reduction",
+        "cost savings",
+        "cost cutting"
+      ]
+    },
+    "erp_and_business_systems": {
+      "SAP": [
+        "sap",
+        "sap erp"
+      ],
+      "SAP FICO": [
+        "sap fico",
+        "fico",
+        "sap fi/co"
+      ],
+      "SAP MM": [
+        "sap mm",
+        "materials management"
+      ],
+      "SAP SD": [
+        "sap sd",
+        "sales and distribution"
+      ],
+      "SAP HANA": [
+        "sap hana",
+        "hana"
+      ],
+      "Oracle ERP": [
+        "oracle erp",
+        "oracle financials",
+        "oracle e-business suite"
+      ],
+      "Microsoft Dynamics 365": [
+        "microsoft dynamics 365",
+        "dynamics 365",
+        "d365",
+        "microsoft dynamics"
+      ],
+      "NetSuite": [
+        "netsuite",
+        "net suite",
+        "oracle netsuite"
+      ],
+      "Odoo": [
+        "odoo"
+      ],
+      "Workday": [
+        "workday"
+      ],
+      "PeopleSoft": [
+        "peoplesoft",
+        "people soft"
+      ],
+      "Infor": [
+        "infor",
+        "infor erp"
+      ],
+      "Epicor": [
+        "epicor"
+      ],
+      "ERP Implementation": [
+        "erp implementation",
+        "erp rollout"
+      ],
+      "Business Process Mapping": [
+        "business process mapping",
+        "process mapping"
+      ],
+      "Business Process Improvement": [
+        "business process improvement",
+        "process improvement",
+        "bpi"
+      ],
+      "Requirements Gathering": [
+        "requirements gathering",
+        "requirements elicitation"
+      ],
+      "Gap Analysis": [
+        "gap analysis"
+      ],
+      "User Acceptance Testing": [
+        "uat",
+        "user acceptance testing"
+      ],
+      "System Configuration": [
+        "system configuration",
+        "system config"
+      ],
+      "Master Data Management": [
+        "master data management",
+        "mdm",
+        "master data"
+      ],
+      "Data Migration": [
+        "data migration"
+      ],
+      "Report Writing": [
+        "report writing"
+      ],
+      "SharePoint": [
+        "sharepoint",
+        "share point"
+      ],
+      "Microsoft Power Automate": [
+        "microsoft power automate",
+        "power automate",
+        "flow",
+        "microsoft flow"
+      ],
+      "Microsoft Power Apps": [
+        "microsoft power apps",
+        "power apps",
+        "powerapps"
+      ],
+      "ServiceNow": [
+        "servicenow",
+        "service now"
+      ],
+      "Jira": [
+        "jira",
+        "atlassian jira"
+      ],
+      "Confluence": [
+        "confluence"
+      ],
+      "Zendesk": [
+        "zendesk",
+        "zen desk"
+      ],
+      "Freshdesk": [
+        "freshdesk"
+      ],
+      "Ticketing Systems": [
+        "ticketing",
+        "ticketing systems",
+        "helpdesk systems"
+      ],
+      "Workflow Automation": [
+        "workflow automation",
+        "process automation"
+      ],
+      "Robotic Process Automation": [
+        "rpa",
+        "robotic process automation",
+        "uipath"
+      ],
+      "Systems Integration": [
+        "systems integration",
+        "system integration"
+      ],
+      "API Integration": [
+        "api integration",
+        "third party integration"
+      ],
+      "EDI": [
+        "edi",
+        "electronic data interchange"
+      ],
+      "Document Management Systems": [
+        "document management systems",
+        "document management",
+        "dms"
+      ],
+      "Business Intelligence": [
+        "business intelligence",
+        "bi"
+      ],
+      "KPI Development": [
+        "kpi",
+        "kpis",
+        "kpi development",
+        "key performance indicators"
+      ],
+      "Stakeholder Requirements": [
+        "stakeholder requirements",
+        "stakeholder analysis"
+      ],
+      "Change Request Management": [
+        "change request management",
+        "change requests",
+        "change control"
+      ],
+      "Vendor Management": [
+        "vendor management",
+        "supplier management"
+      ],
+      "License Management": [
+        "license management",
+        "licensing"
+      ]
+    },
+    "project_management": {
+      "Project Planning": [
+        "project planning",
+        "project plans"
+      ],
+      "Project Scheduling": [
+        "project scheduling",
+        "scheduling projects"
+      ],
+      "Agile": [
+        "agile",
+        "agile methodology"
+      ],
+      "Scrum": [
+        "scrum",
+        "scrum framework"
+      ],
+      "Kanban": [
+        "kanban"
+      ],
+      "SAFe": [
+        "safe",
+        "scaled agile",
+        "scaled agile framework"
+      ],
+      "Waterfall": [
+        "waterfall",
+        "waterfall methodology"
+      ],
+      "Sprint Planning": [
+        "sprint planning",
+        "sprints"
+      ],
+      "Backlog Grooming": [
+        "backlog grooming",
+        "backlog refinement",
+        "backlog management"
+      ],
+      "Retrospectives": [
+        "retrospectives",
+        "retros"
+      ],
+      "Stand-ups": [
+        "standups",
+        "stand-ups",
+        "daily standup"
+      ],
+      "Roadmapping": [
+        "roadmapping",
+        "roadmap",
+        "product roadmap"
+      ],
+      "Stakeholder Management": [
+        "stakeholder management",
+        "stakeholder engagement"
+      ],
+      "Risk Management": [
+        "risk management",
+        "risk mitigation",
+        "risk register"
+      ],
+      "Issue Management": [
+        "issue management",
+        "issue tracking"
+      ],
+      "Scope Management": [
+        "scope management",
+        "scope control"
+      ],
+      "Resource Allocation": [
+        "resource allocation",
+        "resource planning",
+        "resourcing"
+      ],
+      "Budget Management": [
+        "budget management",
+        "project budgeting"
+      ],
+      "Project Cost Control": [
+        "project cost control",
+        "project cost management"
+      ],
+      "Timeline Management": [
+        "timeline management",
+        "milestone tracking",
+        "milestones"
+      ],
+      "Critical Path Method": [
+        "critical path",
+        "cpm",
+        "critical path method"
+      ],
+      "Gantt Charts": [
+        "gantt",
+        "gantt charts"
+      ],
+      "Microsoft Project": [
+        "ms project",
+        "microsoft project"
+      ],
+      "Asana": [
+        "asana"
+      ],
+      "Trello": [
+        "trello"
+      ],
+      "Monday.com": [
+        "monday.com",
+        "monday com"
+      ],
+      "Smartsheet": [
+        "smartsheet"
+      ],
+      "Project Management": [
+        "project management",
+        "pm"
+      ],
+      "Program Management": [
+        "program management",
+        "programme management"
+      ],
+      "Portfolio Management": [
+        "portfolio management"
+      ],
+      "Product Management": [
+        "product management",
+        "product ownership"
+      ],
+      "Requirements Documentation": [
+        "requirements documentation",
+        "brd",
+        "functional specs"
+      ],
+      "User Stories": [
+        "user stories",
+        "story writing"
+      ],
+      "Prioritization": [
+        "prioritization",
+        "prioritisation",
+        "backlog prioritization"
+      ],
+      "Cross-Functional Leadership": [
+        "cross-functional leadership",
+        "cross functional leadership",
+        "cross-functional teams"
+      ],
+      "Vendor Coordination": [
+        "vendor coordination",
+        "contractor coordination"
+      ],
+      "Status Reporting": [
+        "status reporting",
+        "progress reporting"
+      ],
+      "PMP": [
+        "pmp",
+        "project management professional"
+      ],
+      "PRINCE2": [
+        "prince2",
+        "prince 2"
+      ],
+      "Change Management": [
+        "change management",
+        "organisational change"
+      ],
+      "Business Case Development": [
+        "business case",
+        "business case development"
+      ],
+      "Benefits Realisation": [
+        "benefits realisation",
+        "benefits realization"
+      ],
+      "Governance": [
+        "governance",
+        "project governance"
+      ],
+      "Team Leadership": [
+        "team leadership",
+        "leading teams"
+      ],
+      "Delegation": [
+        "delegation",
+        "task delegation"
+      ]
+    },
+    "office_and_administration": {
+      "Microsoft Office": [
+        "microsoft office",
+        "ms office",
+        "office suite"
+      ],
+      "Microsoft Word": [
+        "word",
+        "microsoft word",
+        "ms word"
+      ],
+      "Microsoft Outlook": [
+        "outlook",
+        "microsoft outlook",
+        "ms outlook"
+      ],
+      "Microsoft PowerPoint": [
+        "powerpoint",
+        "microsoft powerpoint",
+        "ms powerpoint",
+        "presentations software"
+      ],
+      "Google Workspace": [
+        "google workspace",
+        "g suite",
+        "gsuite"
+      ],
+      "Google Sheets": [
+        "google sheets"
+      ],
+      "Google Docs": [
+        "google docs"
+      ],
+      "Data Entry": [
+        "data entry",
+        "data input",
+        "data capture"
+      ],
+      "Typing": [
+        "typing",
+        "touch typing",
+        "keyboarding"
+      ],
+      "Calendar Management": [
+        "calendar management",
+        "diary management"
+      ],
+      "Scheduling": [
+        "scheduling",
+        "appointment scheduling"
+      ],
+      "Meeting Coordination": [
+        "meeting coordination",
+        "meeting scheduling"
+      ],
+      "Minute Taking": [
+        "minute taking",
+        "minutes",
+        "meeting minutes"
+      ],
+      "Travel Coordination": [
+        "travel coordination",
+        "travel booking",
+        "travel arrangements"
+      ],
+      "Expense Reporting": [
+        "expense reporting",
+        "expense reports",
+        "expense claims"
+      ],
+      "Filing Systems": [
+        "filing",
+        "filing systems",
+        "file management"
+      ],
+      "Records Management": [
+        "records management",
+        "recordkeeping",
+        "record keeping"
+      ],
+      "Document Control": [
+        "document control",
+        "controlled documentation"
+      ],
+      "Archiving": [
+        "archiving",
+        "document archiving"
+      ],
+      "Reception Duties": [
+        "reception",
+        "reception duties",
+        "front desk"
+      ],
+      "Switchboard Operation": [
+        "switchboard operation",
+        "switchboard",
+        "phone handling",
+        "call handling"
+      ],
+      "Customer Service": [
+        "customer service",
+        "client service"
+      ],
+      "Complaint Handling": [
+        "complaint handling",
+        "complaints"
+      ],
+      "Correspondence": [
+        "correspondence",
+        "business correspondence"
+      ],
+      "Email Management": [
+        "email management",
+        "inbox management"
+      ],
+      "Office Supplies Management": [
+        "office supplies management",
+        "office supplies",
+        "stationery ordering",
+        "supplies management"
+      ],
+      "Facilities Coordination": [
+        "facilities coordination",
+        "office facilities"
+      ],
+      "Event Coordination": [
+        "event coordination",
+        "event planning"
+      ],
+      "Onboarding Administration": [
+        "onboarding administration",
+        "new starter administration"
+      ],
+      "HR Administration": [
+        "hr administration",
+        "hr admin",
+        "personnel administration"
+      ],
+      "Recruitment Coordination": [
+        "recruitment coordination",
+        "interview scheduling"
+      ],
+      "Employee Records": [
+        "employee records",
+        "personnel files"
+      ],
+      "Attendance Tracking": [
+        "attendance tracking",
+        "time and attendance"
+      ],
+      "Petty Cash Handling": [
+        "petty cash handling",
+        "petty cash",
+        "cash handling"
+      ],
+      "Purchase Order Processing": [
+        "purchase order processing",
+        "purchase orders",
+        "po processing"
+      ],
+      "Database Maintenance": [
+        "database maintenance",
+        "record updating"
+      ],
+      "Confidentiality": [
+        "confidentiality",
+        "data confidentiality",
+        "discretion"
+      ],
+      "GDPR Awareness": [
+        "gdpr",
+        "data protection",
+        "gdpr awareness"
+      ],
+      "Multitasking": [
+        "multitasking",
+        "multi-tasking"
+      ],
+      "Prioritising Workload": [
+        "prioritising workload",
+        "workload management"
+      ],
+      "Transcription": [
+        "transcription",
+        "audio transcription"
+      ],
+      "Proofreading Documents": [
+        "proofreading documents",
+        "document proofreading"
+      ],
+      "Notary Support": [
+        "notary support",
+        "legal admin"
+      ],
+      "Visitor Management": [
+        "visitor management",
+        "visitor reception"
+      ]
+    },
+    "maintenance_and_trades": {
+      "Preventive Maintenance": [
+        "preventive maintenance",
+        "preventative maintenance",
+        "pm schedules"
+      ],
+      "Predictive Maintenance": [
+        "predictive maintenance",
+        "condition monitoring"
+      ],
+      "Corrective Maintenance": [
+        "corrective maintenance",
+        "reactive maintenance"
+      ],
+      "Troubleshooting": [
+        "troubleshooting",
+        "fault finding",
+        "diagnostics"
+      ],
+      "Root Cause Analysis": [
+        "root cause analysis",
+        "rca"
+      ],
+      "Mechanical Repair": [
+        "mechanical repair",
+        "mechanical maintenance"
+      ],
+      "Electrical Repair": [
+        "electrical repair",
+        "electrical maintenance"
+      ],
+      "Electrical Wiring": [
+        "electrical wiring",
+        "wiring",
+        "cabling"
+      ],
+      "Circuit Testing": [
+        "circuit testing",
+        "electrical testing"
+      ],
+      "PLC Programming": [
+        "plc",
+        "plc programming",
+        "programmable logic controller"
+      ],
+      "SCADA": [
+        "scada"
+      ],
+      "Industrial Automation": [
+        "industrial automation",
+        "automation systems"
+      ],
+      "Instrumentation": [
+        "instrumentation",
+        "instrument calibration"
+      ],
+      "Calibration": [
+        "calibration",
+        "equipment calibration"
+      ],
+      "HVAC Systems": [
+        "hvac systems",
+        "hvac",
+        "heating ventilation air conditioning",
+        "air conditioning"
+      ],
+      "Refrigeration": [
+        "refrigeration",
+        "refrigeration systems"
+      ],
+      "Boiler Operation": [
+        "boilers",
+        "boiler operation",
+        "boiler maintenance"
+      ],
+      "Plumbing": [
+        "plumbing",
+        "pipefitting",
+        "pipe fitting"
+      ],
+      "Welding": [
+        "welding",
+        "mig welding",
+        "tig welding",
+        "arc welding"
+      ],
+      "Fabrication": [
+        "fabrication",
+        "metal fabrication"
+      ],
+      "Machining": [
+        "machining",
+        "cnc",
+        "cnc machining",
+        "lathe"
+      ],
+      "Hydraulics": [
+        "hydraulics",
+        "hydraulic systems"
+      ],
+      "Pneumatics": [
+        "pneumatics",
+        "pneumatic systems"
+      ],
+      "Bearing Replacement": [
+        "bearings",
+        "bearing replacement"
+      ],
+      "Pump Maintenance": [
+        "pumps",
+        "pump maintenance"
+      ],
+      "Motor Maintenance": [
+        "motors",
+        "motor maintenance",
+        "electric motors"
+      ],
+      "Conveyor Systems": [
+        "conveyors",
+        "conveyor systems"
+      ],
+      "Generator Maintenance": [
+        "generators",
+        "generator maintenance"
+      ],
+      "Blueprint Reading": [
+        "blueprint reading",
+        "reading blueprints",
+        "technical drawings"
+      ],
+      "Schematic Interpretation": [
+        "schematics",
+        "schematic interpretation",
+        "wiring diagrams"
+      ],
+      "Hand Tools": [
+        "hand tools",
+        "power tools"
+      ],
+      "Multimeter Use": [
+        "multimeter",
+        "multimeter use"
+      ],
+      "Thermography": [
+        "thermography",
+        "thermal imaging"
+      ],
+      "Vibration Analysis": [
+        "vibration analysis"
+      ],
+      "Lubrication": [
+        "lubrication",
+        "greasing"
+      ],
+      "Facilities Maintenance": [
+        "facilities maintenance",
+        "building maintenance"
+      ],
+      "Fire Safety Systems": [
+        "fire safety systems",
+        "fire safety",
+        "fire alarm systems",
+        "fire suppression"
+      ],
+      "Building Management Systems": [
+        "bms",
+        "building management systems"
+      ],
+      "CMMS": [
+        "cmms",
+        "maintenance management software",
+        "maximo"
+      ],
+      "Work Order Management": [
+        "work orders",
+        "work order management"
+      ],
+      "Spare Parts Management": [
+        "spare parts management",
+        "spare parts",
+        "parts inventory"
+      ],
+      "Lockout Tagout": [
+        "lockout tagout",
+        "loto",
+        "lock out tag out"
+      ],
+      "Confined Space Entry": [
+        "confined space",
+        "confined space entry"
+      ],
+      "Working at Heights": [
+        "working at heights",
+        "height safety"
+      ],
+      "Permit to Work": [
+        "permit to work",
+        "ptw"
+      ]
+    },
+    "operations_and_supply_chain": {
+      "Supply Chain Management": [
+        "supply chain",
+        "supply chain management",
+        "scm"
+      ],
+      "Logistics Coordination": [
+        "logistics",
+        "logistics coordination"
+      ],
+      "Freight Forwarding": [
+        "freight forwarding",
+        "freight"
+      ],
+      "Shipping Coordination": [
+        "shipping",
+        "shipping coordination",
+        "despatch"
+      ],
+      "Customs Clearance": [
+        "customs",
+        "customs clearance",
+        "import export"
+      ],
+      "Inventory Management": [
+        "inventory management",
+        "stock management",
+        "inventory control"
+      ],
+      "Stock Taking": [
+        "stock taking",
+        "stocktake",
+        "cycle counting"
+      ],
+      "Warehouse Management": [
+        "warehouse management",
+        "warehousing"
+      ],
+      "Warehouse Management Systems": [
+        "warehouse management systems",
+        "wms",
+        "warehouse management system"
+      ],
+      "Order Fulfilment": [
+        "order fulfilment",
+        "order fulfillment",
+        "order processing"
+      ],
+      "Picking and Packing": [
+        "picking and packing",
+        "pick pack"
+      ],
+      "Distribution Planning": [
+        "distribution planning",
+        "distribution"
+      ],
+      "Route Planning": [
+        "route planning",
+        "route optimization",
+        "routing"
+      ],
+      "Fleet Management": [
+        "fleet management",
+        "fleet"
+      ],
+      "Demand Planning": [
+        "demand planning",
+        "demand forecasting"
+      ],
+      "Production Planning": [
+        "production planning",
+        "production scheduling"
+      ],
+      "Capacity Management": [
+        "capacity management",
+        "capacity utilisation"
+      ],
+      "Materials Requirements Planning": [
+        "mrp",
+        "materials requirements planning"
+      ],
+      "Procurement": [
+        "procurement",
+        "purchasing",
+        "sourcing"
+      ],
+      "Supplier Negotiation": [
+        "supplier negotiation",
+        "vendor negotiation"
+      ],
+      "Supplier Evaluation": [
+        "supplier evaluation",
+        "supplier assessment",
+        "vendor evaluation"
+      ],
+      "Contract Management": [
+        "contract management",
+        "contract administration"
+      ],
+      "Tendering": [
+        "tendering",
+        "tenders",
+        "rfq"
+      ],
+      "Cost Analysis": [
+        "cost analysis",
+        "spend analysis"
+      ],
+      "Lean Manufacturing": [
+        "lean",
+        "lean manufacturing"
+      ],
+      "Six Sigma": [
+        "six sigma",
+        "6 sigma",
+        "lean six sigma"
+      ],
+      "Kaizen": [
+        "kaizen",
+        "continuous improvement"
+      ],
+      "5S": [
+        "5s",
+        "5s methodology"
+      ],
+      "Value Stream Mapping": [
+        "value stream mapping",
+        "vsm"
+      ],
+      "Standard Operating Procedures": [
+        "sop",
+        "sops",
+        "standard operating procedures"
+      ],
+      "Process Optimization": [
+        "process optimization",
+        "process optimisation"
+      ],
+      "Throughput Improvement": [
+        "throughput",
+        "throughput improvement"
+      ],
+      "Shift Management": [
+        "shift management",
+        "shift supervision",
+        "rota management"
+      ],
+      "Workforce Scheduling": [
+        "workforce scheduling",
+        "staff scheduling",
+        "rostering"
+      ],
+      "Operations Reporting": [
+        "operations reporting",
+        "ops reporting"
+      ],
+      "Forklift Operation": [
+        "forklift",
+        "forklift operation",
+        "fltp"
+      ],
+      "Barcode Scanning": [
+        "barcode scanning",
+        "barcoding",
+        "rfid"
+      ],
+      "Returns Processing": [
+        "returns",
+        "returns processing",
+        "reverse logistics"
+      ],
+      "Cold Chain Management": [
+        "cold chain management",
+        "cold chain",
+        "temperature controlled logistics"
+      ],
+      "Hazardous Materials Handling": [
+        "hazardous materials handling",
+        "hazmat",
+        "hazardous materials",
+        "dangerous goods"
+      ],
+      "Loading and Unloading": [
+        "loading and unloading",
+        "loading",
+        "unloading",
+        "goods in"
+      ],
+      "Yard Management": [
+        "yard management",
+        "yard operations"
+      ],
+      "Third Party Logistics": [
+        "3pl",
+        "third party logistics"
+      ],
+      "Incoterms": [
+        "incoterms"
+      ]
+    },
+    "quality_and_compliance": {
+      "Quality Assurance": [
+        "quality assurance",
+        "qa"
+      ],
+      "Quality Control": [
+        "quality control",
+        "qc"
+      ],
+      "Quality Management Systems": [
+        "quality management systems",
+        "qms",
+        "quality management system"
+      ],
+      "ISO 9001": [
+        "iso 9001",
+        "iso9001"
+      ],
+      "ISO 14001": [
+        "iso 14001",
+        "iso14001",
+        "environmental management"
+      ],
+      "ISO 45001": [
+        "iso 45001",
+        "iso45001"
+      ],
+      "ISO 27001": [
+        "iso 27001",
+        "iso27001",
+        "information security management"
+      ],
+      "Internal Auditing": [
+        "internal auditing",
+        "internal audit"
+      ],
+      "External Audit Support": [
+        "external audit support",
+        "external audit",
+        "audit support"
+      ],
+      "Non-Conformance Management": [
+        "non conformance",
+        "ncr",
+        "non-conformance management"
+      ],
+      "Corrective and Preventive Actions": [
+        "capa",
+        "corrective and preventive actions",
+        "corrective actions"
+      ],
+      "Inspection": [
+        "inspection",
+        "product inspection",
+        "goods inspection"
+      ],
+      "Test Procedures": [
+        "test procedures",
+        "testing procedures"
+      ],
+      "Statistical Process Control": [
+        "spc",
+        "statistical process control"
+      ],
+      "Measurement Systems Analysis": [
+        "msa",
+        "measurement systems analysis",
+        "gauge r&r"
+      ],
+      "Failure Mode and Effects Analysis": [
+        "fmea",
+        "failure mode and effects analysis"
+      ],
+      "Documentation Control": [
+        "documentation control",
+        "controlled documents"
+      ],
+      "Batch Records": [
+        "batch records",
+        "batch documentation"
+      ],
+      "Traceability": [
+        "traceability",
+        "lot traceability"
+      ],
+      "Health and Safety": [
+        "health and safety",
+        "hse",
+        "ehs",
+        "occupational safety"
+      ],
+      "Risk Assessment": [
+        "risk assessment",
+        "risk assessments",
+        "hazard assessment"
+      ],
+      "Incident Investigation": [
+        "incident investigation",
+        "accident investigation"
+      ],
+      "Safety Training": [
+        "safety training",
+        "toolbox talks"
+      ],
+      "COSHH": [
+        "coshh",
+        "hazardous substances"
+      ],
+      "Personal Protective Equipment": [
+        "ppe",
+        "personal protective equipment"
+      ],
+      "Regulatory Compliance": [
+        "regulatory compliance",
+        "compliance"
+      ],
+      "GMP": [
+        "gmp",
+        "good manufacturing practice"
+      ],
+      "HACCP": [
+        "haccp",
+        "food safety"
+      ],
+      "Food Hygiene": [
+        "food hygiene",
+        "food safety standards"
+      ],
+      "Environmental Compliance": [
+        "environmental compliance",
+        "environmental regulations"
+      ],
+      "Waste Management": [
+        "waste management",
+        "waste disposal"
+      ],
+      "Anti-Money Laundering": [
+        "anti-money laundering",
+        "aml",
+        "anti money laundering"
+      ],
+      "Know Your Customer": [
+        "kyc",
+        "know your customer"
+      ],
+      "Data Protection Compliance": [
+        "data protection compliance",
+        "privacy compliance"
+      ],
+      "Policy Development": [
+        "policy development",
+        "policy writing"
+      ],
+      "Compliance Reporting": [
+        "compliance reporting",
+        "regulatory reporting"
+      ],
+      "Root Cause Investigation": [
+        "root cause investigation"
+      ],
+      "Continuous Improvement Programmes": [
+        "continuous improvement programmes",
+        "ci programmes"
+      ],
+      "Supplier Quality": [
+        "supplier quality",
+        "vendor quality"
+      ],
+      "Calibration Records": [
+        "calibration records"
+      ],
+      "Validation": [
+        "validation",
+        "process validation"
+      ],
+      "Certification Management": [
+        "certification management",
+        "certifications"
+      ]
+    },
+    "soft_skills": {
+      "Communication": [
+        "communication",
+        "communication skills",
+        "verbal communication"
+      ],
+      "Written Communication": [
+        "written communication",
+        "business writing"
+      ],
+      "Presentation Skills": [
+        "presentation skills",
+        "presenting"
+      ],
+      "Active Listening": [
+        "active listening",
+        "listening skills"
+      ],
+      "Teamwork": [
+        "teamwork",
+        "team working",
+        "collaboration"
+      ],
+      "Problem Solving": [
+        "problem solving",
+        "problem-solving"
+      ],
+      "Critical Thinking": [
+        "critical thinking"
+      ],
+      "Analytical Thinking": [
+        "analytical thinking",
+        "analytical skills",
+        "analysis"
+      ],
+      "Attention to Detail": [
+        "attention to detail",
+        "detail oriented",
+        "accuracy"
+      ],
+      "Time Management": [
+        "time management"
+      ],
+      "Organisational Skills": [
+        "organisational skills",
+        "organizational skills",
+        "organisation"
+      ],
+      "Adaptability": [
+        "adaptability",
+        "flexibility"
+      ],
+      "Initiative": [
+        "initiative",
+        "proactive",
+        "self starter"
+      ],
+      "Self-Motivation": [
+        "self-motivation",
+        "self motivation",
+        "self-motivated"
+      ],
+      "Work Under Pressure": [
+        "work under pressure",
+        "working under pressure"
+      ],
+      "Decision Making": [
+        "decision making",
+        "decision-making"
+      ],
+      "Conflict Resolution": [
+        "conflict resolution",
+        "conflict management"
+      ],
+      "Mentoring": [
+        "mentoring",
+        "coaching",
+        "mentorship"
+      ],
+      "Interpersonal Skills": [
+        "interpersonal skills",
+        "people skills"
+      ],
+      "Customer Focus": [
+        "customer focus",
+        "customer centric",
+        "client focus"
+      ],
+      "Emotional Intelligence": [
+        "emotional intelligence",
+        "eq"
+      ],
+      "Cultural Awareness": [
+        "cultural awareness",
+        "cross cultural"
+      ],
+      "Reliability": [
+        "reliability",
+        "dependability"
+      ],
+      "Integrity": [
+        "integrity",
+        "honesty",
+        "professionalism"
+      ],
+      "Creativity": [
+        "creativity",
+        "creative thinking"
+      ],
+      "Innovation": [
+        "innovation",
+        "innovative thinking"
+      ],
+      "Resilience": [
+        "resilience",
+        "perseverance"
+      ],
+      "Professional Networking": [
+        "professional networking",
+        "relationship building"
+      ],
+      "Influencing": [
+        "influencing",
+        "persuasion"
+      ],
+      "Facilitation": [
+        "facilitation",
+        "workshop facilitation"
+      ],
+      "Training Delivery": [
+        "training delivery",
+        "training others"
+      ],
+      "Documentation": [
+        "documentation",
+        "technical documentation",
+        "writing documentation"
+      ],
+      "Research Skills": [
+        "research",
+        "research skills"
+      ],
+      "Numeracy": [
+        "numeracy",
+        "numerical skills"
+      ],
+      "Commercial Awareness": [
+        "commercial awareness",
+        "business acumen"
+      ],
+      "Strategic Thinking": [
+        "strategic thinking",
+        "strategy"
+      ],
+      "Ownership": [
+        "ownership",
+        "accountability"
+      ],
+      "Continuous Learning": [
+        "continuous learning",
+        "self development"
+      ],
+      "Remote Collaboration": [
+        "remote collaboration",
+        "distributed teams"
+      ],
+      "Multilingual Communication": [
+        "multilingual communication",
+        "multilingual",
+        "bilingual",
+        "language skills"
+      ],
+      "Stakeholder Communication": [
+        "stakeholder communication"
+      ],
+      "Client Presentation": [
+        "client presentation",
+        "client presentations",
+        "pitching to clients"
+      ],
+      "Leadership": [
+        "leadership"
+      ]
+    }
+  }
+}

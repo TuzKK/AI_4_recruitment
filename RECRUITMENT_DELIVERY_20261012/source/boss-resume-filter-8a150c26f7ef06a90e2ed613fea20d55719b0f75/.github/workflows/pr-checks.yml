@@ -1,0 +1,82 @@
+name: PR Checks
+
+on:
+  pull_request:
+    branches: [master]
+
+permissions:
+  contents: read
+
+env:
+  PYTHONIOENCODING: utf-8
+  PYTHONUTF8: "1"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Stable regression (Windows, Python 3.12)
+    runs-on: windows-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: |
+            requirements.txt
+            requirements-release.txt
+
+      - name: Compute product code fingerprint
+        id: product
+        shell: pwsh
+        run: >-
+          python scripts/product_fingerprint.py
+          --github-output "$env:GITHUB_OUTPUT"
+
+      - name: Restore successful regression evidence
+        id: regression-cache
+        uses: actions/cache@v4
+        with:
+          path: .ci/regression-evidence
+          key: stable-regression-windows-py312-${{ steps.product.outputs.product_fingerprint }}
+
+      - name: Install dependencies
+        if: steps.regression-cache.outputs.cache-hit != 'true'
+        run: python -m pip install -r requirements.txt
+
+      - name: Install Ruff gate
+        run: python -m pip install --disable-pip-version-check -r requirements-release.txt
+
+      - name: Reject undefined names
+        run: python -c "import build; build._check_undefined_names()"
+
+      - name: Compile tracked source files
+        if: steps.regression-cache.outputs.cache-hit != 'true'
+        run: python -c "import build; build._check_source_compiles()"
+
+      - name: Run stable regression
+        if: steps.regression-cache.outputs.cache-hit != 'true'
+        run: python tests/run_unit_tests.py
+
+      - name: Run import smoke test
+        if: steps.regression-cache.outputs.cache-hit != 'true'
+        run: python tests/test_import.py
+
+      - name: Record successful regression evidence
+        if: steps.regression-cache.outputs.cache-hit != 'true'
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force .ci | Out-Null
+          Set-Content -Path .ci/regression-evidence -Value "${{ steps.product.outputs.product_fingerprint }}"
+
+      - name: Report reused regression evidence
+        if: steps.regression-cache.outputs.cache-hit == 'true'
+        run: echo "Product code fingerprint already passed stable regression; skipped duplicate tests."

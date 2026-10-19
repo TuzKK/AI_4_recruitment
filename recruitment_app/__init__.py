@@ -1,0 +1,1 @@
+"""Local recruitment screening application."""

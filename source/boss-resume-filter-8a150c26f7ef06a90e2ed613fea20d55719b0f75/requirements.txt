@@ -1,0 +1,28 @@
+# BOSS 直聘自动化
+DrissionPage>=4.0.0
+
+# Excel导出
+openpyxl>=3.1.0
+
+# HTTP 请求
+requests>=2.31.0
+
+# 工具库
+python-dotenv>=1.0.0
+
+# 安全存储（Windows DPAPI / macOS Keychain / Linux Secret Service）
+keyring>=25.0.0
+pywin32-ctypes>=0.2.3; sys_platform == "win32"
+
+# 图标渲染（抗锯齿矢量图标）
+Pillow>=10.0.0
+
+# 日历控件（筛选结果页日期选择）
+tkcalendar>=1.6.0
+
+# 简历文件解析（PDF/DOCX/TXT/MD/RTF/HTML 二次评估）
+
+# 证书与简历 PDF 文本提取、预览与整页渲染
+pypdfium2==5.13.0
+python-docx>=1.1.0
+striprtf>=0.0.26

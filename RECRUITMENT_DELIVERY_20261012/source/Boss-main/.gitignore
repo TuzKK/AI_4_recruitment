@@ -1,0 +1,56 @@
+# Environment & Secrets
+.env
+*.env.local
+backend/.env
+backend/.env.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Node / Frontend
+node_modules/
+frontend/dist/
+frontend/tsconfig.tsbuildinfo
+
+# Runtime data
+backend/data/boss_recruiter.db
+backend/data/chrome_profile/
+backend/data/chrome_rpa_profile/
+backend/data/chrome_profile_pw/
+backend/data/logs/
+backend/data/resumes/
+
+# Legacy remote project state
+state/
+openclaw-weixin-2.4.4.tgz
+openclaw-weixin-src/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local Chrome binding state
+backend/data/browser_bridge_token
+backend/data/boss_profiles/
+backend/data/*.db
+.runtime/

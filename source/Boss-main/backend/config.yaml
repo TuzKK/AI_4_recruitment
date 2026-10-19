@@ -1,0 +1,53 @@
+# Boss 直聘自动化招聘系统 - 全局配置
+
+# RPA 模式选择: "mac_app" (macOS桌面应用) 或 "browser" (Chrome浏览器)
+rpa_mode: "browser"
+
+# macOS BOSS直聘 App 配置
+mac_app:
+  app_path: "/Applications/BOSS直聘.app"
+  accessibility_flag: "--force-renderer-accessibility"
+  boot_timeout: 60                  # 启动超时 (秒)
+
+# RPA 浏览器配置 (legacy, rpa_mode=browser 时生效)
+browser:
+  chrome_path: ""  # 自动查找本机 Chrome；也可填写完整路径
+  profile_path: "./data/chrome_profile_pw"
+  debug_port: 9222
+
+# 操作限流 — 防检测关键配置
+throttle:
+  greeting_daily_limit: 80        # 每日打招呼上限 (Boss限制100, 留20% buffer)
+  action_delay_min: 2.0           # 操作间最小延迟 (秒)
+  action_delay_max: 8.0           # 操作间最大延迟 (秒)
+  batch_pause_count: 5            # 每打N个招呼后暂停 (降低频率,更像真人)
+  batch_pause_min: 45             # 批次暂停最短时间 (秒)
+  batch_pause_max: 120            # 批次暂停最长时间 (秒)
+  working_hours_start: "09:00"    # 工作时段开始 (非工作时间不操作)
+  working_hours_end: "18:00"      # 工作时段结束
+  # 防检测说明:
+  # - AXPress 操作走系统辅助功能API, 与 VoiceOver 相同, 不可检测
+  # - 无 JS注入/鼠标轨迹 等网页端检测特征
+  # - 主要防护手段: 随机延迟 + 批次暂停 + 工作时段限制
+
+# 简历评分权重
+scoring:
+  weights:
+    skill_match: 0.30             # 技能匹配度
+    experience_relevance: 0.25    # 经验相关性
+    education_fit: 0.15           # 学历契合度
+    project_quality: 0.20         # 项目质量
+    overall_recommendation: 0.10  # 综合推荐度
+  qualified_threshold: 50         # 达标分数线 (50分以上即打招呼)
+
+# 沟通策略
+communication:
+  max_followup_rounds: 3          # 最大跟进轮次
+  followup_wait_hours: 24         # 跟进等待时间 (小时)
+  recruiter_wechat: ""            # 招聘者微信号 (发给候选人)
+  recruiter_email: ""             # 招聘者邮箱
+
+# Web 服务
+web:
+  host: "0.0.0.0"
+  port: 8000

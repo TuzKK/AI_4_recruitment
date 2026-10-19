@@ -1,0 +1,1550 @@
+[
+  {
+    "demo_data_origin": "fully_synthetic",
+    "geek_id": "DEMO-001",
+    "name": "候选人A",
+    "job_name": "证券IT开发工程师（演示岗位）",
+    "batch_timestamp": "20260621_100000",
+    "summary": "候选人A  29岁  5年经验  本科  南京  期望薪资20-25K\n教育经历：某重点大学1 软件工程 本科 2014.09 2018.06\n工作经历：某金融科技公司1 Java开发工程师 2020.03 至今\n工作职责：负责交易周边系统和客户服务平台建设，参与微服务拆分、接口性能优化和生产问题分析。\n技能标签：Java、Spring Cloud、MySQL、Redis、微服务、金融系统",
+    "structured": {
+      "age": 29,
+      "exp_years": 5,
+      "salary": "20-25K",
+      "education": "本科",
+      "city": "南京",
+      "job_status": "在职-考虑机会"
+    },
+    "_api_profile": {
+      "educations": [
+        {
+          "school": "某重点大学1",
+          "major": "软件工程",
+          "degree": "本科",
+          "start": "2014.09",
+          "end": "2018.06"
+        }
+      ],
+      "works": [
+        {
+          "company": "某金融科技公司1",
+          "position": "Java开发工程师",
+          "category": "金融科技",
+          "start": "2020.03",
+          "end": "至今",
+          "responsibility": "负责证券业务系统开发、微服务改造与性能优化。",
+          "skills": [
+            "Java",
+            "Spring Cloud",
+            "MySQL",
+            "Redis"
+          ]
+        }
+      ],
+      "personal_summary": "具备金融系统研发经验，能够独立分析和处理复杂问题。"
+    },
+    "rule_score": 79,
+    "match_score": 86,
+    "recommend_level": "强烈推荐",
+    "skill_match_ratio": "6/6",
+    "skill_matches": [
+      {
+        "name": "Java",
+        "weight": 2
+      },
+      {
+        "name": "Spring Cloud",
+        "weight": 2
+      },
+      {
+        "name": "MySQL",
+        "weight": 1
+      },
+      {
+        "name": "Redis",
+        "weight": 1
+      },
+      {
+        "name": "金融系统",
+        "weight": 2
+      },
+      {
+        "name": "微服务",
+        "weight": 2
+      }
+    ],
+    "keyword_evidence": [
+      {
+        "name": "Spring Cloud",
+        "weight": 2,
+        "type": "skill",
+        "evidence": "参与核心系统微服务拆分和服务治理。"
+      },
+      {
+        "name": "金融系统",
+        "weight": 2,
+        "type": "skill",
+        "evidence": "持续参与交易周边和客户服务平台建设。"
+      },
+      {
+        "name": "证券行业",
+        "weight": 2,
+        "type": "preferred",
+        "evidence": "具备证券业务系统研发经历。"
+      }
+    ],
+    "score_breakdown": {
+      "base": 25,
+      "skill": 38,
+      "experience": 8,
+      "education": 5,
+      "preferred": 2,
+      "ai_adjustment": 4,
+      "resume_adjustment": 3
+    },
+    "score_explanation": [
+      "学历和工作年限满足岗位要求。",
+      "核心技术栈覆盖完整，具备金融系统开发经验。",
+      "项目经历与岗位职责具有较高相关性。"
+    ],
+    "llm_evaluated": true,
+    "llm_adjustment": 4,
+    "llm_model": "演示模型",
+    "llm_reason": "候选人的微服务研发和金融系统经历与岗位高度相关；能够提供性能优化和生产问题处理的具体经历。",
+    "qualification_status": "qualified",
+    "qualification_reasons": [],
+    "qualification_evidence": [
+      "学历、经验和核心技能均有明确材料支持。"
+    ],
+    "manual_review_required": false,
+    "greet_sent": true,
+    "followup_status": "已回复",
+    "feedback_status": "合适",
+    "feedback_updated_at": "20260622_100000",
+    "resume_file": "候选人A_脱敏简历.pdf",
+    "resume_imported_at": "20260622_093000",
+    "resume_eval_adjustment": 3,
+    "resume_eval_reason": "完整简历补充证明候选人曾负责核心模块设计，并主导接口性能优化；项目深度高于平台摘要所呈现的信息。",
+    "resume_eval_model": "演示模型",
+    "resume_eval_at": "20260622_094000",
+    "risk_flags": []
+  },
+  {
+    "demo_data_origin": "fully_synthetic",
+    "geek_id": "DEMO-002",
+    "name": "候选人B",
+    "job_name": "证券IT开发工程师（演示岗位）",
+    "batch_timestamp": "20260622_100000",
+    "summary": "候选人B  30岁  6年经验  本科  南京  期望薪资20-25K\n教育经历：某重点大学2 软件工程 本科 2014.09 2018.06\n工作经历：某金融科技公司2 Java开发工程师 2020.03 至今\n工作职责：负责交易周边系统和客户服务平台建设，参与微服务拆分、接口性能优化和生产问题分析。\n技能标签：Java、Spring Cloud、MySQL、Redis、微服务、金融系统",
+    "structured": {
+      "age": 30,
+      "exp_years": 6,
+      "salary": "20-25K",
+      "education": "本科",
+      "city": "南京",
+      "job_status": "在职-考虑机会"
+    },
+    "_api_profile": {
+      "educations": [
+        {
+          "school": "某重点大学2",
+          "major": "软件工程",
+          "degree": "本科",
+          "start": "2014.09",
+          "end": "2018.06"
+        }
+      ],
+      "works": [
+        {
+          "company": "某金融科技公司2",
+          "position": "Java开发工程师",
+          "category": "金融科技",
+          "start": "2020.03",
+          "end": "至今",
+          "responsibility": "负责证券业务系统开发、微服务改造与性能优化。",
+          "skills": [
+            "Java",
+            "Spring Cloud",
+            "MySQL",
+            "Redis"
+          ]
+        }
+      ],
+      "personal_summary": "具备金融系统研发经验，能够独立分析和处理复杂问题。"
+    },
+    "rule_score": 76,
+    "match_score": 79,
+    "recommend_level": "强烈推荐",
+    "skill_match_ratio": "6/6",
+    "skill_matches": [
+      {
+        "name": "Java",
+        "weight": 2
+      },
+      {
+        "name": "Spring Cloud",
+        "weight": 2
+      },
+      {
+        "name": "MySQL",
+        "weight": 1
+      },
+      {
+        "name": "Redis",
+        "weight": 1
+      },
+      {
+        "name": "金融系统",
+        "weight": 2
+      },
+      {
+        "name": "微服务",
+        "weight": 2
+      }
+    ],
+    "keyword_evidence": [
+      {
+        "name": "Spring Cloud",
+        "weight": 2,
+        "type": "skill",
+        "evidence": "参与核心系统微服务拆分和服务治理。"
+      },
+      {
+        "name": "金融系统",
+        "weight": 2,
+        "type": "skill",
+        "evidence": "持续参与交易周边和客户服务平台建设。"
+      },
+      {
+        "name": "证券行业",
+        "weight": 2,
+        "type": "preferred",
+        "evidence": "具备证券业务系统研发经历。"
+      }
+    ],
+    "score_breakdown": {
+      "base": 25,
+      "skill": 38,
+      "experience": 8,
+      "education": 5,
+      "preferred": 2,
+      "ai_adjustment": 3,
+      "resume_adjustment": 0
+    },
+    "score_explanation": [
+      "学历和工作年限满足岗位要求。",
+      "核心技术栈覆盖完整，具备金融系统开发经验。",
+      "项目经历与岗位职责具有较高相关性。"
+    ],
+    "llm_evaluated": true,
+    "llm_adjustment": 3,
+    "llm_model": "演示模型",
+    "llm_reason": "候选人的微服务研发和金融系统经历与岗位高度相关；能够提供性能优化和生产问题处理的具体经历。",
+    "qualification_status": "qualified",
+    "qualification_reasons": [],
+    "qualification_evidence": [
+      "学历、经验和核心技能均有明确材料支持。"
+    ],
+    "manual_review_required": false,
+    "greet_sent": true,
+    "followup_status": "待约面",
+    "feedback_status": "合适",
+    "feedback_updated_at": "20260622_100000",
+    "resume_file": "",
+    "resume_imported_at": "",
+    "resume_eval_adjustment": null,
+    "resume_eval_reason": "",
+    "resume_eval_model": "",
+    "resume_eval_at": "",
+    "risk_flags": []
+  },
+  {
+    "demo_data_origin": "fully_synthetic",
+    "geek_id": "DEMO-003",
+    "name": "候选人C",
+    "job_name": "证券IT开发工程师（演示岗位）",
+    "batch_timestamp": "20260620_100000",
+    "summary": "候选人C  31岁  7年经验  本科  南京  期望薪资20-25K\n教育经历：某重点大学3 软件工程 本科 2014.09 2018.06\n工作经历：某金融科技公司3 Java开发工程师 2020.03 至今\n工作职责：负责交易周边系统和客户服务平台建设，参与微服务拆分、接口性能优化和生产问题分析。\n技能标签：Java、Spring Cloud、MySQL、Redis、微服务、金融系统",
+    "structured": {
+      "age": 31,
+      "exp_years": 7,
+      "salary": "20-25K",
+      "education": "本科",
+      "city": "南京",
+      "job_status": "在职-考虑机会"
+    },
+    "_api_profile": {
+      "educations": [
+        {
+          "school": "某重点大学3",
+          "major": "软件工程",
+          "degree": "本科",
+          "start": "2014.09",
+          "end": "2018.06"
+        }
+      ],
+      "works": [
+        {
+          "company": "某金融科技公司3",
+          "position": "Java开发工程师",
+          "category": "金融科技",
+          "start": "2020.03",
+          "end": "至今",
+          "responsibility": "负责证券业务系统开发、微服务改造与性能优化。",
+          "skills": [
+            "Java",
+            "Spring Cloud",
+            "MySQL",
+            "Redis"
+          ]
+        }
+      ],
+      "personal_summary": "具备金融系统研发经验，能够独立分析和处理复杂问题。"
+    },
+    "rule_score": 74,
+    "match_score": 76,
+    "recommend_level": "强烈推荐",
+    "skill_match_ratio": "6/6",
+    "skill_matches": [
+      {
+        "name": "Java",
+        "weight": 2
+      },
+      {
+        "name": "Spring Cloud",
+        "weight": 2
+      },
+      {
+        "name": "MySQL",
+        "weight": 1
+      },
+      {
+        "name": "Redis",
+        "weight": 1
+      },
+      {
+        "name": "金融系统",
+        "weight": 2
+      },
+      {
+        "name": "微服务",
+        "weight": 2
+      }
+    ],
+    "keyword_evidence": [
+      {
+        "name": "Spring Cloud",
+        "weight": 2,
+        "type": "skill",
+        "evidence": "参与核心系统微服务拆分和服务治理。"
+      },
+      {
+        "name": "金融系统",
+        "weight": 2,
+        "type": "skill",
+        "evidence": "持续参与交易周边和客户服务平台建设。"
+      },
+      {
+        "name": "证券行业",
+        "weight": 2,
+        "type": "preferred",
+        "evidence": "具备证券业务系统研发经历。"
+      }
+    ],
+    "score_breakdown": {
+      "base": 25,
+      "skill": 38,
+      "experience": 8,
+      "education": 5,
+      "preferred": 2,
+      "ai_adjustment": 2,
+      "resume_adjustment": 0
+    },
+    "score_explanation": [
+      "学历和工作年限满足岗位要求。",
+      "核心技术栈覆盖完整，具备金融系统开发经验。",
+      "项目经历与岗位职责具有较高相关性。"
+    ],
+    "llm_evaluated": true,
+    "llm_adjustment": 2,
+    "llm_model": "演示模型",
+    "llm_reason": "候选人的微服务研发和金融系统经历与岗位高度相关；能够提供性能优化和生产问题处理的具体经历。",
+    "qualification_status": "qualified",
+    "qualification_reasons": [],
+    "qualification_evidence": [
+      "学历、经验和核心技能均有明确材料支持。"
+    ],
+    "manual_review_required": false,
+    "greet_sent": true,
+    "followup_status": "已约面",
+    "feedback_status": "合适",
+    "feedback_updated_at": "20260622_100000",
+    "resume_file": "",
+    "resume_imported_at": "",
+    "resume_eval_adjustment": null,
+    "resume_eval_reason": "",
+    "resume_eval_model": "",
+    "resume_eval_at": "",
+    "risk_flags": []
+  },
+  {
+    "demo_data_origin": "fully_synthetic",
+    "geek_id": "DEMO-004",
+    "name": "候选人D",
+    "job_name": "证券IT开发工程师（演示岗位）",
+    "batch_timestamp": "20260621_100000",
+    "summary": "候选人D  32岁  8年经验  本科  南京  期望薪资20-25K\n教育经历：某重点大学4 软件工程 本科 2014.09 2018.06\n工作经历：某金融科技公司4 Java开发工程师 2020.03 至今\n工作职责：负责交易周边系统和客户服务平台建设，参与微服务拆分、接口性能优化和生产问题分析。\n技能标签：Java、Spring Cloud、MySQL、Redis、微服务、金融系统",
+    "structured": {
+      "age": 32,
+      "exp_years": 8,
+      "salary": "20-25K",
+      "education": "本科",
+      "city": "南京",
+      "job_status": "在职-考虑机会"
+    },
+    "_api_profile": {
+      "educations": [
+        {
+          "school": "某重点大学4",
+          "major": "软件工程",
+          "degree": "本科",
+          "start": "2014.09",
+          "end": "2018.06"
+        }
+      ],
+      "works": [
+        {
+          "company": "某金融科技公司4",
+          "position": "Java开发工程师",
+          "category": "金融科技",
+          "start": "2020.03",
+          "end": "至今",
+          "responsibility": "负责证券业务系统开发、微服务改造与性能优化。",
+          "skills": [
+            "Java",
+            "Spring Cloud",
+            "MySQL",
+            "Redis"
+          ]
+        }
+      ],
+      "personal_summary": "具备金融系统研发经验，能够独立分析和处理复杂问题。"
+    },
+    "rule_score": 70,
+    "match_score": 72,
+    "recommend_level": "推荐",
+    "skill_match_ratio": "6/6",
+    "skill_matches": [
+      {
+        "name": "Java",
+        "weight": 2
+      },
+      {
+        "name": "Spring Cloud",
+        "weight": 2
+      },
+      {
+        "name": "MySQL",
+        "weight": 1
+      },
+      {
+        "name": "Redis",
+        "weight": 1
+      },
+      {
+        "name": "金融系统",
+        "weight": 2
+      },
+      {
+        "name": "微服务",
+        "weight": 2
+      }
+    ],
+    "keyword_evidence": [
+      {
+        "name": "Spring Cloud",
+        "weight": 2,
+        "type": "skill",
+        "evidence": "参与核心系统微服务拆分和服务治理。"
+      },
+      {
+        "name": "金融系统",
+        "weight": 2,
+        "type": "skill",
+        "evidence": "持续参与交易周边和客户服务平台建设。"
+      },
+      {
+        "name": "证券行业",
+        "weight": 2,
+        "type": "preferred",
+        "evidence": "具备证券业务系统研发经历。"
+      }
+    ],
+    "score_breakdown": {
+      "base": 25,
+      "skill": 38,
+      "experience": 8,
+      "education": 5,
+      "preferred": 2,
+      "ai_adjustment": 2,
+      "resume_adjustment": 0
+    },
+    "score_explanation": [
+      "学历和工作年限满足岗位要求。",
+      "核心技术栈覆盖完整，具备金融系统开发经验。",
+      "项目经历与岗位职责具有较高相关性。"
+    ],
+    "llm_evaluated": true,
+    "llm_adjustment": 2,
+    "llm_model": "演示模型",
+    "llm_reason": "候选人的微服务研发和金融系统经历与岗位高度相关；能够提供性能优化和生产问题处理的具体经历。",
+    "qualification_status": "qualified",
+    "qualification_reasons": [],
+    "qualification_evidence": [
+      "学历、经验和核心技能均有明确材料支持。"
+    ],
+    "manual_review_required": false,
+    "greet_sent": true,
+    "followup_status": "已回复",
+    "feedback_status": "",
+    "feedback_updated_at": "",
+    "resume_file": "",
+    "resume_imported_at": "",
+    "resume_eval_adjustment": null,
+    "resume_eval_reason": "",
+    "resume_eval_model": "",
+    "resume_eval_at": "",
+    "risk_flags": []
+  },
+  {
+    "demo_data_origin": "fully_synthetic",
+    "geek_id": "DEMO-005",
+    "name": "候选人E",
+    "job_name": "证券IT开发工程师（演示岗位）",
+    "batch_timestamp": "20260622_100000",
+    "summary": "候选人E  33岁  4年经验  本科  南京  期望薪资20-25K\n教育经历：某重点大学5 软件工程 本科 2014.09 2018.06\n工作经历：某金融科技公司5 Java开发工程师 2020.03 至今\n工作职责：负责交易周边系统和客户服务平台建设，参与微服务拆分、接口性能优化和生产问题分析。\n技能标签：Java、Spring Cloud、MySQL、Redis、微服务、金融系统",
+    "structured": {
+      "age": 33,
+      "exp_years": 4,
+      "salary": "20-25K",
+      "education": "本科",
+      "city": "南京",
+      "job_status": "在职-考虑机会"
+    },
+    "_api_profile": {
+      "educations": [
+        {
+          "school": "某重点大学5",
+          "major": "软件工程",
+          "degree": "本科",
+          "start": "2014.09",
+          "end": "2018.06"
+        }
+      ],
+      "works": [
+        {
+          "company": "某金融科技公司5",
+          "position": "Java开发工程师",
+          "category": "金融科技",
+          "start": "2020.03",
+          "end": "至今",
+          "responsibility": "负责证券业务系统开发、微服务改造与性能优化。",
+          "skills": [
+            "Java",
+            "Spring Cloud",
+            "MySQL",
+            "Redis"
+          ]
+        }
+      ],
+      "personal_summary": "具备金融系统研发经验，能够独立分析和处理复杂问题。"
+    },
+    "rule_score": 68,
+    "match_score": 69,
+    "recommend_level": "推荐",
+    "skill_match_ratio": "6/6",
+    "skill_matches": [
+      {
+        "name": "Java",
+        "weight": 2
+      },
+      {
+        "name": "Spring Cloud",
+        "weight": 2
+      },
+      {
+        "name": "MySQL",
+        "weight": 1
+      },
+      {
+        "name": "Redis",
+        "weight": 1
+      },
+      {
+        "name": "金融系统",
+        "weight": 2
+      },
+      {
+        "name": "微服务",
+        "weight": 2
+      }
+    ],
+    "keyword_evidence": [
+      {
+        "name": "Spring Cloud",
+        "weight": 2,
+        "type": "skill",
+        "evidence": "参与核心系统微服务拆分和服务治理。"
+      },
+      {
+        "name": "金融系统",
+        "weight": 2,
+        "type": "skill",
+        "evidence": "持续参与交易周边和客户服务平台建设。"
+      },
+      {
+        "name": "证券行业",
+        "weight": 2,
+        "type": "preferred",
+        "evidence": "具备证券业务系统研发经历。"
+      }
+    ],
+    "score_breakdown": {
+      "base": 25,
+      "skill": 38,
+      "experience": 8,
+      "education": 5,
+      "preferred": 2,
+      "ai_adjustment": 1,
+      "resume_adjustment": 0
+    },
+    "score_explanation": [
+      "学历和工作年限满足岗位要求。",
+      "核心技术栈覆盖完整，具备金融系统开发经验。",
+      "项目经历与岗位职责具有较高相关性。"
+    ],
+    "llm_evaluated": true,
+    "llm_adjustment": 1,
+    "llm_model": "演示模型",
+    "llm_reason": "候选人的微服务研发和金融系统经历与岗位高度相关；能够提供性能优化和生产问题处理的具体经历。",
+    "qualification_status": "qualified",
+    "qualification_reasons": [],
+    "qualification_evidence": [
+      "学历、经验和核心技能均有明确材料支持。"
+    ],
+    "manual_review_required": false,
+    "greet_sent": false,
+    "followup_status": "未沟通",
+    "feedback_status": "",
+    "feedback_updated_at": "",
+    "resume_file": "",
+    "resume_imported_at": "",
+    "resume_eval_adjustment": null,
+    "resume_eval_reason": "",
+    "resume_eval_model": "",
+    "resume_eval_at": "",
+    "risk_flags": []
+  },
+  {
+    "demo_data_origin": "fully_synthetic",
+    "geek_id": "DEMO-006",
+    "name": "候选人F",
+    "job_name": "证券IT开发工程师（演示岗位）",
+    "batch_timestamp": "20260620_100000",
+    "summary": "候选人F  34岁  5年经验  本科  南京  期望薪资20-25K\n教育经历：某重点大学6 软件工程 本科 2014.09 2018.06\n工作经历：某金融科技公司6 Java开发工程师 2020.03 至今\n工作职责：负责交易周边系统和客户服务平台建设，参与微服务拆分、接口性能优化和生产问题分析。\n技能标签：Java、Spring Cloud、MySQL、Redis、微服务、金融系统",
+    "structured": {
+      "age": 34,
+      "exp_years": 5,
+      "salary": "20-25K",
+      "education": "本科",
+      "city": "南京",
+      "job_status": "在职-考虑机会"
+    },
+    "_api_profile": {
+      "educations": [
+        {
+          "school": "某重点大学6",
+          "major": "软件工程",
+          "degree": "本科",
+          "start": "2014.09",
+          "end": "2018.06"
+        }
+      ],
+      "works": [
+        {
+          "company": "某金融科技公司6",
+          "position": "Java开发工程师",
+          "category": "金融科技",
+          "start": "2020.03",
+          "end": "至今",
+          "responsibility": "负责证券业务系统开发、微服务改造与性能优化。",
+          "skills": [
+            "Java",
+            "Spring Cloud",
+            "MySQL",
+            "Redis"
+          ]
+        }
+      ],
+      "personal_summary": "具备金融系统研发经验，能够独立分析和处理复杂问题。"
+    },
+    "rule_score": 65,
+    "match_score": 66,
+    "recommend_level": "推荐",
+    "skill_match_ratio": "6/6",
+    "skill_matches": [
+      {
+        "name": "Java",
+        "weight": 2
+      },
+      {
+        "name": "Spring Cloud",
+        "weight": 2
+      },
+      {
+        "name": "MySQL",
+        "weight": 1
+      },
+      {
+        "name": "Redis",
+        "weight": 1
+      },
+      {
+        "name": "金融系统",
+        "weight": 2
+      },
+      {
+        "name": "微服务",
+        "weight": 2
+      }
+    ],
+    "keyword_evidence": [
+      {
+        "name": "Spring Cloud",
+        "weight": 2,
+        "type": "skill",
+        "evidence": "参与核心系统微服务拆分和服务治理。"
+      },
+      {
+        "name": "金融系统",
+        "weight": 2,
+        "type": "skill",
+        "evidence": "持续参与交易周边和客户服务平台建设。"
+      },
+      {
+        "name": "证券行业",
+        "weight": 2,
+        "type": "preferred",
+        "evidence": "具备证券业务系统研发经历。"
+      }
+    ],
+    "score_breakdown": {
+      "base": 25,
+      "skill": 38,
+      "experience": 8,
+      "education": 5,
+      "preferred": 2,
+      "ai_adjustment": 1,
+      "resume_adjustment": 0
+    },
+    "score_explanation": [
+      "学历和工作年限满足岗位要求。",
+      "核心技术栈覆盖完整，具备金融系统开发经验。",
+      "项目经历与岗位职责具有较高相关性。"
+    ],
+    "llm_evaluated": true,
+    "llm_adjustment": 1,
+    "llm_model": "演示模型",
+    "llm_reason": "候选人的微服务研发和金融系统经历与岗位高度相关；能够提供性能优化和生产问题处理的具体经历。",
+    "qualification_status": "qualified",
+    "qualification_reasons": [],
+    "qualification_evidence": [
+      "学历、经验和核心技能均有明确材料支持。"
+    ],
+    "manual_review_required": false,
+    "greet_sent": true,
+    "followup_status": "已打招呼",
+    "feedback_status": "误推",
+    "feedback_updated_at": "20260622_100000",
+    "resume_file": "",
+    "resume_imported_at": "",
+    "resume_eval_adjustment": null,
+    "resume_eval_reason": "",
+    "resume_eval_model": "",
+    "resume_eval_at": "",
+    "risk_flags": []
+  },
+  {
+    "demo_data_origin": "fully_synthetic",
+    "geek_id": "DEMO-007",
+    "name": "候选人G",
+    "job_name": "证券IT开发工程师（演示岗位）",
+    "batch_timestamp": "20260621_100000",
+    "summary": "候选人G  35岁  6年经验  本科  南京  期望薪资20-25K\n教育经历：某重点大学7 软件工程 本科 2014.09 2018.06\n工作经历：某金融科技公司7 Java开发工程师 2020.03 至今\n工作职责：负责交易周边系统和客户服务平台建设，参与微服务拆分、接口性能优化和生产问题分析。\n技能标签：Java、Spring Cloud、MySQL、Redis、微服务、金融系统",
+    "structured": {
+      "age": 35,
+      "exp_years": 6,
+      "salary": "20-25K",
+      "education": "本科",
+      "city": "南京",
+      "job_status": "在职-考虑机会"
+    },
+    "_api_profile": {
+      "educations": [
+        {
+          "school": "某重点大学7",
+          "major": "软件工程",
+          "degree": "本科",
+          "start": "2014.09",
+          "end": "2018.06"
+        }
+      ],
+      "works": [
+        {
+          "company": "某金融科技公司7",
+          "position": "Java开发工程师",
+          "category": "金融科技",
+          "start": "2020.03",
+          "end": "至今",
+          "responsibility": "负责证券业务系统开发、微服务改造与性能优化。",
+          "skills": [
+            "Java",
+            "Spring Cloud",
+            "MySQL",
+            "Redis"
+          ]
+        }
+      ],
+      "personal_summary": "具备金融系统研发经验，能够独立分析和处理复杂问题。"
+    },
+    "rule_score": 63,
+    "match_score": 63,
+    "recommend_level": "待定",
+    "skill_match_ratio": "6/6",
+    "skill_matches": [
+      {
+        "name": "Java",
+        "weight": 2
+      },
+      {
+        "name": "Spring Cloud",
+        "weight": 2
+      },
+      {
+        "name": "MySQL",
+        "weight": 1
+      },
+      {
+        "name": "Redis",
+        "weight": 1
+      },
+      {
+        "name": "金融系统",
+        "weight": 2
+      },
+      {
+        "name": "微服务",
+        "weight": 2
+      }
+    ],
+    "keyword_evidence": [
+      {
+        "name": "Spring Cloud",
+        "weight": 2,
+        "type": "skill",
+        "evidence": "参与核心系统微服务拆分和服务治理。"
+      },
+      {
+        "name": "金融系统",
+        "weight": 2,
+        "type": "skill",
+        "evidence": "持续参与交易周边和客户服务平台建设。"
+      },
+      {
+        "name": "证券行业",
+        "weight": 2,
+        "type": "preferred",
+        "evidence": "具备证券业务系统研发经历。"
+      }
+    ],
+    "score_breakdown": {
+      "base": 25,
+      "skill": 38,
+      "experience": 8,
+      "education": 5,
+      "preferred": 2,
+      "ai_adjustment": 0,
+      "resume_adjustment": 0
+    },
+    "score_explanation": [
+      "学历和工作年限满足岗位要求。",
+      "核心技术栈覆盖完整，具备金融系统开发经验。",
+      "项目经历与岗位职责具有较高相关性。"
+    ],
+    "llm_evaluated": true,
+    "llm_adjustment": 0,
+    "llm_model": "演示模型",
+    "llm_reason": "候选人的微服务研发和金融系统经历与岗位高度相关；能够提供性能优化和生产问题处理的具体经历。",
+    "qualification_status": "qualified",
+    "qualification_reasons": [],
+    "qualification_evidence": [
+      "学历、经验和核心技能均有明确材料支持。"
+    ],
+    "manual_review_required": false,
+    "greet_sent": false,
+    "followup_status": "未沟通",
+    "feedback_status": "",
+    "feedback_updated_at": "",
+    "resume_file": "",
+    "resume_imported_at": "",
+    "resume_eval_adjustment": null,
+    "resume_eval_reason": "",
+    "resume_eval_model": "",
+    "resume_eval_at": "",
+    "risk_flags": []
+  },
+  {
+    "demo_data_origin": "fully_synthetic",
+    "geek_id": "DEMO-008",
+    "name": "候选人H",
+    "job_name": "证券IT开发工程师（演示岗位）",
+    "batch_timestamp": "20260622_100000",
+    "summary": "候选人H  36岁  7年经验  本科  南京  期望薪资20-25K\n教育经历：某重点大学8 软件工程 本科 2014.09 2018.06\n工作经历：某金融科技公司8 Java开发工程师 2020.03 至今\n工作职责：负责交易周边系统和客户服务平台建设，参与微服务拆分、接口性能优化和生产问题分析。\n技能标签：Java、Spring Cloud、MySQL、Redis、微服务、金融系统",
+    "structured": {
+      "age": 36,
+      "exp_years": 7,
+      "salary": "20-25K",
+      "education": "本科",
+      "city": "南京",
+      "job_status": "在职-考虑机会"
+    },
+    "_api_profile": {
+      "educations": [
+        {
+          "school": "某重点大学8",
+          "major": "软件工程",
+          "degree": "本科",
+          "start": "2014.09",
+          "end": "2018.06"
+        }
+      ],
+      "works": [
+        {
+          "company": "某金融科技公司8",
+          "position": "Java开发工程师",
+          "category": "金融科技",
+          "start": "2020.03",
+          "end": "至今",
+          "responsibility": "负责证券业务系统开发、微服务改造与性能优化。",
+          "skills": [
+            "Java",
+            "Spring Cloud",
+            "MySQL",
+            "Redis"
+          ]
+        }
+      ],
+      "personal_summary": "具备金融系统研发经验，能够独立分析和处理复杂问题。"
+    },
+    "rule_score": 60,
+    "match_score": 59,
+    "recommend_level": "待定",
+    "skill_match_ratio": "6/6",
+    "skill_matches": [
+      {
+        "name": "Java",
+        "weight": 2
+      },
+      {
+        "name": "Spring Cloud",
+        "weight": 2
+      },
+      {
+        "name": "MySQL",
+        "weight": 1
+      },
+      {
+        "name": "Redis",
+        "weight": 1
+      },
+      {
+        "name": "金融系统",
+        "weight": 2
+      },
+      {
+        "name": "微服务",
+        "weight": 2
+      }
+    ],
+    "keyword_evidence": [
+      {
+        "name": "Spring Cloud",
+        "weight": 2,
+        "type": "skill",
+        "evidence": "参与核心系统微服务拆分和服务治理。"
+      },
+      {
+        "name": "金融系统",
+        "weight": 2,
+        "type": "skill",
+        "evidence": "持续参与交易周边和客户服务平台建设。"
+      },
+      {
+        "name": "证券行业",
+        "weight": 2,
+        "type": "preferred",
+        "evidence": "具备证券业务系统研发经历。"
+      }
+    ],
+    "score_breakdown": {
+      "base": 25,
+      "skill": 38,
+      "experience": 8,
+      "education": 5,
+      "preferred": 2,
+      "ai_adjustment": -1,
+      "resume_adjustment": 0
+    },
+    "score_explanation": [
+      "学历和工作年限满足岗位要求。",
+      "核心技术栈覆盖完整，具备金融系统开发经验。",
+      "项目经历与岗位职责具有较高相关性。"
+    ],
+    "llm_evaluated": true,
+    "llm_adjustment": -1,
+    "llm_model": "演示模型",
+    "llm_reason": "候选人的微服务研发和金融系统经历与岗位高度相关；能够提供性能优化和生产问题处理的具体经历。",
+    "qualification_status": "qualified",
+    "qualification_reasons": [],
+    "qualification_evidence": [
+      "学历、经验和核心技能均有明确材料支持。"
+    ],
+    "manual_review_required": false,
+    "greet_sent": false,
+    "followup_status": "未沟通",
+    "feedback_status": "",
+    "feedback_updated_at": "",
+    "resume_file": "",
+    "resume_imported_at": "",
+    "resume_eval_adjustment": null,
+    "resume_eval_reason": "",
+    "resume_eval_model": "",
+    "resume_eval_at": "",
+    "risk_flags": []
+  },
+  {
+    "demo_data_origin": "fully_synthetic",
+    "geek_id": "DEMO-009",
+    "name": "候选人I",
+    "job_name": "数据分析工程师（演示岗位）",
+    "batch_timestamp": "20260620_100000",
+    "summary": "候选人I  37岁  8年经验  本科  南京  期望薪资20-25K\n教育经历：某重点大学9 软件工程 本科 2014.09 2018.06\n工作经历：某金融科技公司9 Java开发工程师 2020.03 至今\n工作职责：负责交易周边系统和客户服务平台建设，参与微服务拆分、接口性能优化和生产问题分析。\n技能标签：Java、Spring Cloud、MySQL、Redis、微服务、金融系统",
+    "structured": {
+      "age": 37,
+      "exp_years": 8,
+      "salary": "20-25K",
+      "education": "本科",
+      "city": "南京",
+      "job_status": "在职-考虑机会"
+    },
+    "_api_profile": {
+      "educations": [
+        {
+          "school": "某重点大学9",
+          "major": "软件工程",
+          "degree": "本科",
+          "start": "2014.09",
+          "end": "2018.06"
+        }
+      ],
+      "works": [
+        {
+          "company": "某金融科技公司9",
+          "position": "Java开发工程师",
+          "category": "金融科技",
+          "start": "2020.03",
+          "end": "至今",
+          "responsibility": "负责证券业务系统开发、微服务改造与性能优化。",
+          "skills": [
+            "Java",
+            "Spring Cloud",
+            "MySQL",
+            "Redis"
+          ]
+        }
+      ],
+      "personal_summary": "具备金融系统研发经验，能够独立分析和处理复杂问题。"
+    },
+    "rule_score": 78,
+    "match_score": 82,
+    "recommend_level": "强烈推荐",
+    "skill_match_ratio": "6/6",
+    "skill_matches": [
+      {
+        "name": "Java",
+        "weight": 2
+      },
+      {
+        "name": "Spring Cloud",
+        "weight": 2
+      },
+      {
+        "name": "MySQL",
+        "weight": 1
+      },
+      {
+        "name": "Redis",
+        "weight": 1
+      },
+      {
+        "name": "金融系统",
+        "weight": 2
+      },
+      {
+        "name": "微服务",
+        "weight": 2
+      }
+    ],
+    "keyword_evidence": [
+      {
+        "name": "Spring Cloud",
+        "weight": 2,
+        "type": "skill",
+        "evidence": "参与核心系统微服务拆分和服务治理。"
+      },
+      {
+        "name": "金融系统",
+        "weight": 2,
+        "type": "skill",
+        "evidence": "持续参与交易周边和客户服务平台建设。"
+      },
+      {
+        "name": "证券行业",
+        "weight": 2,
+        "type": "preferred",
+        "evidence": "具备证券业务系统研发经历。"
+      }
+    ],
+    "score_breakdown": {
+      "base": 25,
+      "skill": 38,
+      "experience": 8,
+      "education": 5,
+      "preferred": 2,
+      "ai_adjustment": 4,
+      "resume_adjustment": 0
+    },
+    "score_explanation": [
+      "学历和工作年限满足岗位要求。",
+      "核心技术栈覆盖完整，具备金融系统开发经验。",
+      "项目经历与岗位职责具有较高相关性。"
+    ],
+    "llm_evaluated": true,
+    "llm_adjustment": 4,
+    "llm_model": "演示模型",
+    "llm_reason": "候选人的微服务研发和金融系统经历与岗位高度相关；能够提供性能优化和生产问题处理的具体经历。",
+    "qualification_status": "qualified",
+    "qualification_reasons": [],
+    "qualification_evidence": [
+      "学历、经验和核心技能均有明确材料支持。"
+    ],
+    "manual_review_required": false,
+    "greet_sent": true,
+    "followup_status": "已回复",
+    "feedback_status": "合适",
+    "feedback_updated_at": "20260622_100000",
+    "resume_file": "",
+    "resume_imported_at": "",
+    "resume_eval_adjustment": null,
+    "resume_eval_reason": "",
+    "resume_eval_model": "",
+    "resume_eval_at": "",
+    "risk_flags": []
+  },
+  {
+    "demo_data_origin": "fully_synthetic",
+    "geek_id": "DEMO-010",
+    "name": "候选人J",
+    "job_name": "数据分析工程师（演示岗位）",
+    "batch_timestamp": "20260621_100000",
+    "summary": "候选人J  38岁  4年经验  本科  南京  期望薪资20-25K\n教育经历：某重点大学10 软件工程 本科 2014.09 2018.06\n工作经历：某金融科技公司10 Java开发工程师 2020.03 至今\n工作职责：负责交易周边系统和客户服务平台建设，参与微服务拆分、接口性能优化和生产问题分析。\n技能标签：Java、Spring Cloud、MySQL、Redis、微服务、金融系统",
+    "structured": {
+      "age": 38,
+      "exp_years": 4,
+      "salary": "20-25K",
+      "education": "本科",
+      "city": "南京",
+      "job_status": "在职-考虑机会"
+    },
+    "_api_profile": {
+      "educations": [
+        {
+          "school": "某重点大学10",
+          "major": "软件工程",
+          "degree": "本科",
+          "start": "2014.09",
+          "end": "2018.06"
+        }
+      ],
+      "works": [
+        {
+          "company": "某金融科技公司10",
+          "position": "Java开发工程师",
+          "category": "金融科技",
+          "start": "2020.03",
+          "end": "至今",
+          "responsibility": "负责证券业务系统开发、微服务改造与性能优化。",
+          "skills": [
+            "Java",
+            "Spring Cloud",
+            "MySQL",
+            "Redis"
+          ]
+        }
+      ],
+      "personal_summary": "具备金融系统研发经验，能够独立分析和处理复杂问题。"
+    },
+    "rule_score": 71,
+    "match_score": 73,
+    "recommend_level": "推荐",
+    "skill_match_ratio": "6/6",
+    "skill_matches": [
+      {
+        "name": "Java",
+        "weight": 2
+      },
+      {
+        "name": "Spring Cloud",
+        "weight": 2
+      },
+      {
+        "name": "MySQL",
+        "weight": 1
+      },
+      {
+        "name": "Redis",
+        "weight": 1
+      },
+      {
+        "name": "金融系统",
+        "weight": 2
+      },
+      {
+        "name": "微服务",
+        "weight": 2
+      }
+    ],
+    "keyword_evidence": [
+      {
+        "name": "Spring Cloud",
+        "weight": 2,
+        "type": "skill",
+        "evidence": "参与核心系统微服务拆分和服务治理。"
+      },
+      {
+        "name": "金融系统",
+        "weight": 2,
+        "type": "skill",
+        "evidence": "持续参与交易周边和客户服务平台建设。"
+      },
+      {
+        "name": "证券行业",
+        "weight": 2,
+        "type": "preferred",
+        "evidence": "具备证券业务系统研发经历。"
+      }
+    ],
+    "score_breakdown": {
+      "base": 25,
+      "skill": 38,
+      "experience": 8,
+      "education": 5,
+      "preferred": 2,
+      "ai_adjustment": 2,
+      "resume_adjustment": 0
+    },
+    "score_explanation": [
+      "学历和工作年限满足岗位要求。",
+      "核心技术栈覆盖完整，具备金融系统开发经验。",
+      "项目经历与岗位职责具有较高相关性。"
+    ],
+    "llm_evaluated": true,
+    "llm_adjustment": 2,
+    "llm_model": "演示模型",
+    "llm_reason": "候选人的微服务研发和金融系统经历与岗位高度相关；能够提供性能优化和生产问题处理的具体经历。",
+    "qualification_status": "qualified",
+    "qualification_reasons": [],
+    "qualification_evidence": [
+      "学历、经验和核心技能均有明确材料支持。"
+    ],
+    "manual_review_required": false,
+    "greet_sent": true,
+    "followup_status": "已约面",
+    "feedback_status": "合适",
+    "feedback_updated_at": "20260622_100000",
+    "resume_file": "",
+    "resume_imported_at": "",
+    "resume_eval_adjustment": null,
+    "resume_eval_reason": "",
+    "resume_eval_model": "",
+    "resume_eval_at": "",
+    "risk_flags": []
+  },
+  {
+    "demo_data_origin": "fully_synthetic",
+    "geek_id": "DEMO-011",
+    "name": "候选人K",
+    "job_name": "数据分析工程师（演示岗位）",
+    "batch_timestamp": "20260622_100000",
+    "summary": "候选人K  39岁  5年经验  本科  南京  期望薪资20-25K\n教育经历：某重点大学11 软件工程 本科 2014.09 2018.06\n工作经历：某金融科技公司11 Java开发工程师 2020.03 至今\n工作职责：负责交易周边系统和客户服务平台建设，参与微服务拆分、接口性能优化和生产问题分析。\n技能标签：Java、Spring Cloud、MySQL、Redis、微服务、金融系统",
+    "structured": {
+      "age": 39,
+      "exp_years": 5,
+      "salary": "20-25K",
+      "education": "本科",
+      "city": "南京",
+      "job_status": "在职-考虑机会"
+    },
+    "_api_profile": {
+      "educations": [
+        {
+          "school": "某重点大学11",
+          "major": "软件工程",
+          "degree": "本科",
+          "start": "2014.09",
+          "end": "2018.06"
+        }
+      ],
+      "works": [
+        {
+          "company": "某金融科技公司11",
+          "position": "Java开发工程师",
+          "category": "金融科技",
+          "start": "2020.03",
+          "end": "至今",
+          "responsibility": "负责证券业务系统开发、微服务改造与性能优化。",
+          "skills": [
+            "Java",
+            "Spring Cloud",
+            "MySQL",
+            "Redis"
+          ]
+        }
+      ],
+      "personal_summary": "具备金融系统研发经验，能够独立分析和处理复杂问题。"
+    },
+    "rule_score": 66,
+    "match_score": 67,
+    "recommend_level": "推荐",
+    "skill_match_ratio": "6/6",
+    "skill_matches": [
+      {
+        "name": "Java",
+        "weight": 2
+      },
+      {
+        "name": "Spring Cloud",
+        "weight": 2
+      },
+      {
+        "name": "MySQL",
+        "weight": 1
+      },
+      {
+        "name": "Redis",
+        "weight": 1
+      },
+      {
+        "name": "金融系统",
+        "weight": 2
+      },
+      {
+        "name": "微服务",
+        "weight": 2
+      }
+    ],
+    "keyword_evidence": [
+      {
+        "name": "Spring Cloud",
+        "weight": 2,
+        "type": "skill",
+        "evidence": "参与核心系统微服务拆分和服务治理。"
+      },
+      {
+        "name": "金融系统",
+        "weight": 2,
+        "type": "skill",
+        "evidence": "持续参与交易周边和客户服务平台建设。"
+      },
+      {
+        "name": "证券行业",
+        "weight": 2,
+        "type": "preferred",
+        "evidence": "具备证券业务系统研发经历。"
+      }
+    ],
+    "score_breakdown": {
+      "base": 25,
+      "skill": 38,
+      "experience": 8,
+      "education": 5,
+      "preferred": 2,
+      "ai_adjustment": 1,
+      "resume_adjustment": 0
+    },
+    "score_explanation": [
+      "学历和工作年限满足岗位要求。",
+      "核心技术栈覆盖完整，具备金融系统开发经验。",
+      "项目经历与岗位职责具有较高相关性。"
+    ],
+    "llm_evaluated": true,
+    "llm_adjustment": 1,
+    "llm_model": "演示模型",
+    "llm_reason": "候选人的微服务研发和金融系统经历与岗位高度相关；能够提供性能优化和生产问题处理的具体经历。",
+    "qualification_status": "qualified",
+    "qualification_reasons": [],
+    "qualification_evidence": [
+      "学历、经验和核心技能均有明确材料支持。"
+    ],
+    "manual_review_required": false,
+    "greet_sent": false,
+    "followup_status": "未沟通",
+    "feedback_status": "",
+    "feedback_updated_at": "",
+    "resume_file": "",
+    "resume_imported_at": "",
+    "resume_eval_adjustment": null,
+    "resume_eval_reason": "",
+    "resume_eval_model": "",
+    "resume_eval_at": "",
+    "risk_flags": []
+  },
+  {
+    "demo_data_origin": "fully_synthetic",
+    "geek_id": "DEMO-012",
+    "name": "候选人L",
+    "job_name": "数据分析工程师（演示岗位）",
+    "batch_timestamp": "20260620_100000",
+    "summary": "候选人L  40岁  6年经验  本科  南京  期望薪资20-25K\n教育经历：某重点大学12 软件工程 本科 2014.09 2018.06\n工作经历：某金融科技公司12 Java开发工程师 2020.03 至今\n工作职责：负责交易周边系统和客户服务平台建设，参与微服务拆分、接口性能优化和生产问题分析。\n技能标签：Java、Spring Cloud、MySQL、Redis、微服务、金融系统",
+    "structured": {
+      "age": 40,
+      "exp_years": 6,
+      "salary": "20-25K",
+      "education": "本科",
+      "city": "南京",
+      "job_status": "在职-考虑机会"
+    },
+    "_api_profile": {
+      "educations": [
+        {
+          "school": "某重点大学12",
+          "major": "软件工程",
+          "degree": "本科",
+          "start": "2014.09",
+          "end": "2018.06"
+        }
+      ],
+      "works": [
+        {
+          "company": "某金融科技公司12",
+          "position": "Java开发工程师",
+          "category": "金融科技",
+          "start": "2020.03",
+          "end": "至今",
+          "responsibility": "负责证券业务系统开发、微服务改造与性能优化。",
+          "skills": [
+            "Java",
+            "Spring Cloud",
+            "MySQL",
+            "Redis"
+          ]
+        }
+      ],
+      "personal_summary": "具备金融系统研发经验，能够独立分析和处理复杂问题。"
+    },
+    "rule_score": 59,
+    "match_score": 58,
+    "recommend_level": "待定",
+    "skill_match_ratio": "6/6",
+    "skill_matches": [
+      {
+        "name": "Java",
+        "weight": 2
+      },
+      {
+        "name": "Spring Cloud",
+        "weight": 2
+      },
+      {
+        "name": "MySQL",
+        "weight": 1
+      },
+      {
+        "name": "Redis",
+        "weight": 1
+      },
+      {
+        "name": "金融系统",
+        "weight": 2
+      },
+      {
+        "name": "微服务",
+        "weight": 2
+      }
+    ],
+    "keyword_evidence": [
+      {
+        "name": "Spring Cloud",
+        "weight": 2,
+        "type": "skill",
+        "evidence": "参与核心系统微服务拆分和服务治理。"
+      },
+      {
+        "name": "金融系统",
+        "weight": 2,
+        "type": "skill",
+        "evidence": "持续参与交易周边和客户服务平台建设。"
+      },
+      {
+        "name": "证券行业",
+        "weight": 2,
+        "type": "preferred",
+        "evidence": "具备证券业务系统研发经历。"
+      }
+    ],
+    "score_breakdown": {
+      "base": 25,
+      "skill": 38,
+      "experience": 8,
+      "education": 5,
+      "preferred": 2,
+      "ai_adjustment": -1,
+      "resume_adjustment": 0
+    },
+    "score_explanation": [
+      "学历和工作年限满足岗位要求。",
+      "核心技术栈覆盖完整，具备金融系统开发经验。",
+      "项目经历与岗位职责具有较高相关性。"
+    ],
+    "llm_evaluated": true,
+    "llm_adjustment": -1,
+    "llm_model": "演示模型",
+    "llm_reason": "候选人的微服务研发和金融系统经历与岗位高度相关；能够提供性能优化和生产问题处理的具体经历。",
+    "qualification_status": "qualified",
+    "qualification_reasons": [],
+    "qualification_evidence": [
+      "学历、经验和核心技能均有明确材料支持。"
+    ],
+    "manual_review_required": false,
+    "greet_sent": false,
+    "followup_status": "未沟通",
+    "feedback_status": "",
+    "feedback_updated_at": "",
+    "resume_file": "",
+    "resume_imported_at": "",
+    "resume_eval_adjustment": null,
+    "resume_eval_reason": "",
+    "resume_eval_model": "",
+    "resume_eval_at": "",
+    "risk_flags": []
+  }
+]

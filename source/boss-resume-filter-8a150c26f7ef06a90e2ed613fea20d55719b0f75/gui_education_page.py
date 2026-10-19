@@ -1,0 +1,919 @@
+"""Tk widget construction for the education-certificate page."""
+from __future__ import annotations
+
+import tkinter as tk
+import re
+from collections.abc import Mapping
+from dataclasses import dataclass
+from tkinter import font, ttk
+from typing import Any, Protocol
+from education_presenter import format_recognition_notice
+
+
+def _wrap_warning_text(text: str, width: int, measure) -> str:
+    """Wrap Chinese notices by rendered width, keeping numeric units together."""
+    lines = []
+    for paragraph in text.replace("；", "\n").splitlines():
+        line = ""
+        for token in re.findall(r"(?:\d+(?:\s*位)?|[^\d])[，。、？！]*", paragraph.strip()):
+            token = re.sub(r"(?<=\d)\s+(?=位)", "", token)
+            if line and measure(line + token) > width:
+                lines.append(line.rstrip())
+                line = token.lstrip()
+            else:
+                line += token
+        if line:
+            lines.append(line.rstrip())
+    return "\n".join(lines)
+
+
+class ScrollSupport(Protocol):
+    def create_scroll_container(
+        self,
+        parent: tk.Misc,
+        bg_color: str,
+        *,
+        auto_hide_scrollbar: bool = False,
+        content_style: str = "TFrame",
+    ) -> tuple[tk.Canvas, ttk.Frame]: ...
+
+    def bind_mousewheel(self, canvas: tk.Canvas, frame: tk.Misc) -> None: ...
+
+
+class InputSupport(Protocol):
+    def bind_entry_context_menu(self, entry: tk.Misc) -> None: ...
+
+
+class FeedbackSupport(Protocol):
+    def show_tooltip(
+        self,
+        text: str,
+        x: int,
+        y: int,
+        tooltip_key: Any = None,
+        *,
+        parent: tk.Misc | None = None,
+        wraplength: int | None = None,
+    ) -> None: ...
+
+    def hide_tooltip(self, event: tk.Event | None = None) -> None: ...
+
+
+class WidgetSupport(Protocol):
+    def create_page_header(
+        self,
+        parent: tk.Misc,
+        title: str,
+        subtitle: str | None = None,
+        top_padding: int = 0,
+        trailing_builder: Any = None,
+    ) -> tk.Misc: ...
+
+    def create_card(
+        self,
+        parent: tk.Misc,
+        title: str,
+        **kwargs: Any,
+    ) -> tk.Misc: ...
+
+
+class LayoutSupport(Protocol):
+    def update_education_queue_columns(self) -> None: ...
+
+
+class EducationPageHost(Protocol):
+    """Narrow host contract required to build the education page."""
+
+    pages_frame: tk.Misc
+    root: tk.Misc
+    colors: Mapping[str, str]
+    dpi_scale: float
+    zoom_factor: float
+    font_scale: float
+    font_label: Any
+    icons: Any
+    _context_menus: list[tk.Menu]
+    scroll_support: ScrollSupport
+    input_support: InputSupport
+    feedback_support: FeedbackSupport
+    widget_support: WidgetSupport
+    layout_support: LayoutSupport
+
+    def show_page_api(self) -> None: ...
+
+    def _remove_current_education_image(self) -> None: ...
+
+    def _select_education_images(self) -> None: ...
+
+    def _on_education_queue_select(self, event: tk.Event | None = None) -> None: ...
+
+    def _on_education_queue_motion(self, event: tk.Event) -> None: ...
+
+    def _show_education_queue_context_menu(self, event: tk.Event) -> None: ...
+
+    def _recognize_education_image(self) -> None: ...
+
+    def _stop_education_recognition(self) -> None: ...
+
+    def _confirm_current_education_fields(self) -> None: ...
+
+    def _remove_selected_education_images(self) -> None: ...
+
+    def _rotate_education_image_cw90(self) -> None: ...
+
+    def _schedule_education_preview_render(self) -> None: ...
+
+    def _show_education_original(self) -> None: ...
+
+    def _fill_chsi_page(self) -> None: ...
+
+    def _solve_captcha(self) -> None: ...
+
+    def _capture_education_results(self) -> None: ...
+
+    def _open_education_screenshot_folder(self) -> None: ...
+
+
+@dataclass(frozen=True)
+class EducationPageWidgets:
+    """Page-local state and widget references exposed to the GUI controller."""
+
+    page: ttk.Frame
+    canvas: tk.Canvas
+    scrollable_frame: ttk.Frame
+    items: dict[str, dict[str, Any]]
+    current_id: str | None
+    item_counter: int
+    recognition_running: bool
+    screenshot_running: bool
+    manual_rotation: dict[str, int]
+    rotation_locked: set[str]
+    file_var: tk.StringVar
+    remove_button: ttk.Button
+    queue_card: tk.Misc
+    tree_font: font.Font
+    queue_tree: ttk.Treeview
+    queue_scrollbar: ttk.Scrollbar
+    queue_menu: tk.Menu
+    workspace: ttk.Frame
+    rotate_button: tk.Label
+    preview_label: tk.Label
+    name_var: tk.StringVar
+    number_var: tk.StringVar
+    type_var: tk.StringVar
+    status_var: tk.StringVar
+    confirmation_visible_var: tk.BooleanVar
+    duplicate_notice_var: tk.StringVar
+    warning_var: tk.StringVar
+    batch_status_var: tk.StringVar
+    recognition_progress_frame: tk.Frame
+    recognition_progress_var: tk.DoubleVar
+    recognition_progress_text_var: tk.StringVar
+    recognition_progress_bar: ttk.Progressbar
+    recognize_button: ttk.Button
+    confirm_button: ttk.Button
+    fill_button: ttk.Button
+    captcha_button: ttk.Button
+    screenshot_folder_var: tk.StringVar
+    screenshot_summary_var: tk.StringVar
+    screenshot_button: ttk.Button
+
+
+def build_education_page(
+    host: EducationPageHost,
+    ui_config: Mapping[str, Any],
+    *,
+    font_family: str,
+    screenshot_folder: str = "",
+) -> EducationPageWidgets:
+    """Build the education page without reading certificates or accessing AI/browser services."""
+    scale = host.dpi_scale * host.zoom_factor
+    standalone = bool(getattr(host, "standalone_education", False))
+    page_style = "EducationTool.TFrame" if standalone else "Page.TFrame"
+    page_background = host.colors["home_bg"] if standalone else host.colors["bg_main"]
+    page = ttk.Frame(host.pages_frame, style=page_style)
+
+    def _build_settings_navigation(parent: tk.Misc) -> None:
+        settings_button = host.widget_support.create_navigation_button(
+            parent,
+            text="模型配置",
+            icon_name="ai_spark",
+            command=host.show_page_api,
+            surface_color=host.colors["bg_card"],
+        )
+        settings_button.pack()
+
+    host.widget_support.create_page_header(
+        page,
+        "证书核验",
+        "导入毕业证书或学位证书图片/PDF，自动识别并提交验证码；按网页提示完成验证后，可批量保存结果页截图。",
+        trailing_builder=_build_settings_navigation if standalone else None,
+    )
+
+    scroll_frame = ttk.Frame(page, style=page_style)
+    scroll_frame.pack(fill="both", expand=True)
+    canvas, scrollable_frame = host.scroll_support.create_scroll_container(
+        scroll_frame,
+        page_background,
+        auto_hide_scrollbar=True,
+        content_style=page_style,
+    )
+    content = scrollable_frame
+
+    toolbar = host.widget_support.create_card(
+        content,
+        "学历 / 学位证书",
+        fill="x",
+        pady=(0, int(16 * scale)),
+    )
+    file_var = tk.StringVar(value="尚未导入学历或学位证书")
+    ttk.Label(
+        toolbar,
+        textvariable=file_var,
+        font=host.font_label,
+        foreground=host.colors["text_secondary"],
+    ).pack(side="left", fill="x", expand=True)
+    remove_icon = host.icons.button("trash", host.colors["danger"])
+    remove_button = ttk.Button(
+        toolbar,
+        text=" 移除当前",
+        image=remove_icon,
+        compound=tk.LEFT,
+        command=host._remove_current_education_image,
+        state="disabled",
+    )
+    remove_button._icon_ref = remove_icon
+    remove_button.pack(side="right", padx=(10, 0))
+    select_icon = host.icons.button("folder", host.colors["text_primary"])
+    select_button = ttk.Button(
+        toolbar,
+        text=" 导入证书",
+        image=select_icon,
+        compound=tk.LEFT,
+        command=host._select_education_images,
+    )
+    select_button._icon_ref = select_icon
+    select_button.pack(side="right")
+
+    queue_content = host.widget_support.create_card(
+        content,
+        "待核验队列",
+        fill="x",
+        pady=(0, int(16 * scale)),
+    )
+    queue_card = queue_content.master
+    queue_columns = (
+        "file", "name", "number", "school", "major", "status", "screenshot"
+    )
+    education_style = ttk.Style()
+    education_style.configure(
+        "Education.Treeview",
+        font=(font_family, int(10 * host.font_scale)),
+        rowheight=int(ui_config["treeview_rowheight"] * scale),
+    )
+    education_style.configure(
+        "Education.Treeview.Heading",
+        font=(font_family, int(11 * host.font_scale), "bold"),
+    )
+    education_style.configure(
+        "Education.Vertical.TScrollbar",
+        width=max(14, int(16 * scale)),
+        arrowsize=max(14, int(16 * scale)),
+        background=host.colors.get("border_strong", host.colors["border"]),
+        troughcolor=host.colors.get("bg_footer", host.colors["bg_main"]),
+        bordercolor=host.colors["border"],
+        arrowcolor=host.colors["text_secondary"],
+        lightcolor=host.colors.get("border_strong", host.colors["border"]),
+        darkcolor=host.colors.get("border_strong", host.colors["border"]),
+    )
+    education_style.map(
+        "Education.Vertical.TScrollbar",
+        background=[
+            ("active", host.colors["text_secondary"]),
+            ("pressed", host.colors["text_secondary"]),
+        ],
+    )
+    tree_font = font.Font(
+        family=font_family,
+        size=int(10 * host.font_scale),
+    )
+    queue_tree = ttk.Treeview(
+        queue_content,
+        columns=queue_columns,
+        show="headings",
+        height=5,
+        selectmode="extended",
+        style="Education.Treeview",
+    )
+    for column, title, width in (
+        ("file", "文件", 230),
+        ("name", "姓名", 120),
+        ("number", "证书编号", 160),
+        ("school", "学校", 175),
+        ("major", "专业", 210),
+        ("status", "状态", 140),
+        ("screenshot", "截图", 100),
+    ):
+        queue_tree.heading(column, text=title)
+        queue_tree.column(
+            column,
+            width=width,
+            minwidth=80,
+            anchor="w" if column == "file" else "center",
+            stretch=column in ("file", "number", "school", "major"),
+        )
+    queue_scrollbar = ttk.Scrollbar(
+        queue_content,
+        orient="vertical",
+        command=queue_tree.yview,
+        style="Education.Vertical.TScrollbar",
+    )
+    queue_tree.configure(yscrollcommand=queue_scrollbar.set)
+    queue_content.columnconfigure(0, weight=1)
+    queue_content.rowconfigure(0, weight=1)
+    queue_tree.grid(row=0, column=0, sticky="nsew")
+    queue_scrollbar.grid(row=0, column=1, sticky="ns")
+    queue_scrollbar.grid_remove()
+    queue_tree.bind("<<TreeviewSelect>>", host._on_education_queue_select)
+
+    def select_all_certificates(_event: tk.Event) -> str:
+        queue_tree.selection_set(queue_tree.get_children())
+        return "break"
+
+    queue_tree.bind("<Control-a>", select_all_certificates)
+    queue_tree.bind("<Control-A>", select_all_certificates)
+
+    def remove_selected_on_delete(_event: tk.Event) -> str:
+        if queue_tree.selection():
+            host._remove_selected_education_images()
+        return "break"
+
+    queue_tree.bind("<Delete>", remove_selected_on_delete)
+    queue_tree.bind("<Motion>", host._on_education_queue_motion, add="+")
+    queue_tree.bind("<Leave>", host.feedback_support.hide_tooltip, add="+")
+    queue_tree.bind("<Button-3>", host._show_education_queue_context_menu)
+    queue_tree.bind(
+        "<Configure>",
+        lambda _event: host.layout_support.update_education_queue_columns(),
+        add="+",
+    )
+    queue_menu = tk.Menu(
+        host.root,
+        tearoff=0,
+        font=(font_family, int(11 * host.font_scale)),
+    )
+    queue_menu.add_command(
+        label="识别证书",
+        command=host._recognize_education_image,
+    )
+    queue_menu.add_command(
+        label="删除证书",
+        command=host._remove_selected_education_images,
+    )
+    host._context_menus.append(queue_menu)
+
+    screenshot_folder_var = tk.StringVar(value="")
+    screenshot_summary_var = tk.StringVar(
+        value="已保存 0｜未保存 0｜保存失败 0"
+    )
+    queue_batch_area = ttk.Frame(queue_content, style="TFrame")
+    queue_batch_area.grid(
+        row=1,
+        column=0,
+        columnspan=2,
+        sticky="ew",
+        pady=(int(12 * scale), 0),
+    )
+    batch_status_var = tk.StringVar(value="尚未导入证书")
+    batch_header = ttk.Frame(queue_batch_area, style="TFrame")
+    batch_header.pack(fill="x", pady=(0, int(18 * scale)))
+    ttk.Label(
+        batch_header,
+        text="批量核验流程",
+        font=(font_family, int(10 * host.font_scale), "bold"),
+        foreground=host.colors["text_primary"],
+    ).pack(side="left")
+    ttk.Label(
+        batch_header,
+        textvariable=batch_status_var,
+        font=(font_family, int(9 * host.font_scale)),
+        foreground=host.colors["text_secondary"],
+        justify=tk.RIGHT,
+        anchor="e",
+    ).pack(side="right", padx=(16, 0))
+    duplicate_notice_var = tk.StringVar(value="")
+    duplicate_notice = ttk.Label(
+        queue_batch_area, textvariable=duplicate_notice_var,
+        foreground=host.colors["warning"], justify="left",
+        wraplength=max(400, int(900 * scale)),
+    )
+    queue_batch_actions = ttk.Frame(queue_batch_area, style="TFrame")
+    queue_batch_actions.pack(fill="x")
+
+    def refresh_duplicate_notice(*_args):
+        if duplicate_notice_var.get():
+            duplicate_notice.pack(fill="x", pady=(0, 6), before=queue_batch_actions)
+        else:
+            duplicate_notice.pack_forget()
+
+    duplicate_notice_var.trace_add("write", refresh_duplicate_notice)
+    recognize_icon = host.icons.button("search", host.colors["text_primary"])
+    recognize_button = ttk.Button(
+        queue_batch_actions,
+        text=" 1 识别证书",
+        image=recognize_icon,
+        compound=tk.LEFT,
+        command=host._recognize_education_image,
+        state="disabled",
+    )
+    recognize_button._icon_ref = recognize_icon
+    recognize_button.grid(row=0, column=0, sticky="w")
+    ttk.Label(
+        queue_batch_actions,
+        text="→",
+        font=host.font_label,
+        foreground=host.colors["text_secondary"],
+    ).grid(row=0, column=1, padx=8)
+    fill_icon = host.icons.button("play", host.colors["text_primary"])
+    fill_button = ttk.Button(
+        queue_batch_actions,
+        text=" 2 验证证书",
+        image=fill_icon,
+        compound=tk.LEFT,
+        command=host._fill_chsi_page,
+        state="disabled",
+    )
+    fill_button._icon_ref = fill_icon
+    fill_button.grid(row=0, column=2, sticky="w")
+    ttk.Label(
+        queue_batch_actions,
+        text="→",
+        font=host.font_label,
+        foreground=host.colors["text_secondary"],
+    ).grid(row=0, column=3, padx=8)
+    screenshot_icon = host.icons.button("save", host.colors["text_primary"])
+    screenshot_button = ttk.Button(
+        queue_batch_actions,
+        text=" 3 一键截图",
+        image=screenshot_icon,
+        compound=tk.LEFT,
+        command=host._capture_education_results,
+        state="disabled",
+    )
+    screenshot_button._icon_ref = screenshot_icon
+    screenshot_button.grid(row=0, column=4, sticky="w")
+
+    def refresh_step_emphasis(_event=None):
+        steps = (recognize_button, fill_button, screenshot_button)
+        primary = next((button for button in steps if not button.instate(["disabled"])), None)
+        for button in steps:
+            button.configure(style="Step.Primary.TButton" if button is primary else "TButton")
+
+    host._refresh_education_step_emphasis = refresh_step_emphasis
+    queue_batch_actions.bind("<Enter>", refresh_step_emphasis)
+    queue_batch_actions.bind("<Map>", refresh_step_emphasis)
+
+    for button, help_text in (
+        (recognize_button, "识别待处理证书，已完成及人工修正的记录自动跳过。"),
+        (fill_button, "打开学信网，填写已就绪证书信息后扫码验证；已提交的记录自动跳过。"),
+        (screenshot_button, "保存已完成核验的结果页截图。"),
+    ):
+        def show_step_help(event: tk.Event, text: str = help_text) -> None:
+            if event.widget is recognize_button and recognize_button.cget("text").strip() != "1 识别证书":
+                text = "停止本轮识别，已完成结果保留，未完成记录可稍后继续。"
+            host.feedback_support.show_tooltip(
+                text, event.x_root + 12, event.y_root + 12,
+                tooltip_key=text, parent=host.root,
+                wraplength=max(280, int(360 * scale)),
+            )
+
+        button.bind("<Enter>", show_step_help, add="+")
+        button.bind("<Leave>", host.feedback_support.hide_tooltip, add="+")
+
+    recognition_progress_var = tk.DoubleVar(value=0)
+    recognition_progress_text_var = tk.StringVar(value="")
+    recognition_progress_frame = ttk.Frame(
+        queue_batch_actions,
+        style="TFrame",
+    )
+    recognition_progress_frame.grid(
+        row=1,
+        column=0,
+        columnspan=5,
+        sticky="ew",
+        pady=(int(10 * scale), 0),
+    )
+    queue_batch_actions.columnconfigure(4, weight=1)
+    ttk.Label(
+        recognition_progress_frame,
+        textvariable=recognition_progress_text_var,
+        foreground=host.colors["text_secondary"],
+        font=(font_family, int(10 * host.font_scale)),
+        anchor="w",
+        justify="left",
+    ).pack(fill="x", pady=(0, 5))
+    recognition_progress_bar = ttk.Progressbar(
+        recognition_progress_frame,
+        variable=recognition_progress_var,
+        maximum=100,
+        mode="determinate",
+    )
+    recognition_progress_bar.pack(
+        fill="x",
+        pady=(0, int(2 * scale)),
+    )
+    recognition_progress_frame.grid_remove()
+
+    ttk.Separator(queue_batch_area, orient="horizontal").pack(
+        fill="x",
+        pady=(int(12 * scale), int(10 * scale)),
+    )
+    queue_batch_support = ttk.Frame(queue_batch_area, style="TFrame")
+    queue_batch_support.pack(fill="x")
+    captcha_support = ttk.Frame(queue_batch_support, style="TFrame")
+    captcha_support.pack(side="left", anchor="n")
+    ttk.Label(
+        captcha_support,
+        text="异常处理",
+        font=(font_family, int(9 * host.font_scale), "bold"),
+        foreground=host.colors["text_secondary"],
+    ).pack(anchor="w")
+    captcha_icon = host.icons.button("refresh", host.colors["text_primary"])
+    captcha_button = ttk.Button(
+        captcha_support,
+        text=" 重试异常验证码（0）",
+        image=captcha_icon,
+        compound=tk.LEFT,
+        command=host._solve_captcha,
+        state="disabled",
+    )
+    captcha_button._icon_ref = captcha_icon
+    captcha_button.pack(anchor="w", pady=(5, 0))
+
+    def _show_captcha_retry_help(event: tk.Event) -> None:
+        host.feedback_support.show_tooltip(
+            "仅重试队列中待人工验证或验证码识别失败的记录。",
+            event.x_root + 12,
+            event.y_root + 12,
+            tooltip_key="education-captcha-retry",
+            parent=host.root,
+            wraplength=max(280, int(360 * scale)),
+        )
+
+    captcha_button.bind("<Enter>", _show_captcha_retry_help, add="+")
+    captcha_button.bind("<Leave>", host.feedback_support.hide_tooltip, add="+")
+    ttk.Separator(queue_batch_support, orient="vertical").pack(
+        side="left",
+        fill="y",
+        padx=(int(18 * scale), int(18 * scale)),
+    )
+    screenshot_support = ttk.Frame(queue_batch_support, style="TFrame")
+    screenshot_support.pack(side="left", fill="x", expand=True, anchor="n")
+    screenshot_heading = ttk.Frame(screenshot_support, style="TFrame")
+    screenshot_heading.pack(fill="x")
+    ttk.Label(
+        screenshot_heading,
+        text="截图与保存",
+        font=(font_family, int(9 * host.font_scale), "bold"),
+        foreground=host.colors["text_secondary"],
+    ).pack(side="left")
+    folder_style = "Education.Folder.TButton"
+    folder_background = education_style.lookup("TFrame", "background") or host.colors["bg_card"]
+    education_style.configure(
+        folder_style,
+        font=(font_family, int(9 * host.font_scale)),
+        padding=(int(8 * scale), int(3 * scale)),
+        background=folder_background,
+        foreground=host.colors["text_secondary"],
+        borderwidth=0, relief="flat",
+        bordercolor=folder_background,
+        lightcolor=folder_background, darkcolor=folder_background,
+        focuscolor=host.colors["primary"],
+    )
+    education_style.map(
+        folder_style,
+        background=[("active", host.colors.get("primary_light", "#EAF2FF"))],
+        foreground=[("active", host.colors["primary"])],
+    )
+    folder_icon = host.icons.get("folder", max(12, int(14 * scale)), host.colors["primary"])
+    folder_button = ttk.Button(
+        screenshot_heading, text=" 打开文件夹", image=folder_icon,
+        compound=tk.LEFT, style=folder_style,
+        command=host._open_education_screenshot_folder,
+        state="disabled",
+    )
+    folder_button._icon_ref = folder_icon
+    folder_button.pack(side="left", padx=(int(12 * scale), 0))
+    screenshot_folder_var.trace_add(
+        "write",
+        lambda *_: folder_button.configure(
+            state="normal" if screenshot_folder_var.get() else "disabled"
+        ),
+    )
+    ttk.Label(
+        screenshot_support,
+        textvariable=screenshot_summary_var,
+        font=(font_family, int(10 * host.font_scale)),
+        foreground=host.colors["text_primary"],
+        wraplength=max(520, int(820 * scale)),
+        justify="left",
+    ).pack(anchor="w", fill="x", pady=(4, 0))
+    ttk.Label(
+        screenshot_support,
+        textvariable=screenshot_folder_var,
+        font=(font_family, int(10 * host.font_scale)),
+        foreground=host.colors["text_secondary"],
+        wraplength=max(520, int(820 * scale)),
+        justify="left",
+    ).pack(anchor="w", fill="x", pady=(4, 0))
+
+    workspace = ttk.Frame(
+        content,
+        style=page_style,
+        height=max(420, int(440 * scale)),
+    )
+    workspace.pack(fill="both", expand=True)
+    workspace.pack_propagate(False)
+
+    rotate_button: tk.Label | None = None
+
+    def _build_rotate_button(title_bar: tk.Misc, padding: Any) -> None:
+        nonlocal rotate_button
+        title_bg = title_bar.cget("bg")
+        rotate_button = tk.Label(
+            title_bar,
+            text="顺转 90°",
+            font=host.font_label,
+            fg=host.colors["primary"],
+            bg=title_bg,
+            cursor="hand2",
+            takefocus=True,
+        )
+        rotate_button.pack(side="right", padx=padding)
+        rotate_button.bind(
+            "<Button-1>",
+            lambda _event: host._rotate_education_image_cw90(),
+        )
+
+        rotate_button.bind("<Return>", lambda _event: host._rotate_education_image_cw90())
+        rotate_button.bind("<space>", lambda _event: host._rotate_education_image_cw90())
+        rotate_button.bind("<FocusIn>", lambda _event: rotate_button.configure(bg=host.colors["bg_hover"]))
+        rotate_button.bind("<FocusOut>", lambda _event: rotate_button.configure(bg=title_bg))
+
+    preview = host.widget_support.create_card(
+        workspace,
+        "证书预览",
+        fill="both",
+        expand=True,
+        side="left",
+        title_trailing_builder=_build_rotate_button,
+        content_style=(
+            "EducationTool.Workbench.TFrame" if standalone else "TFrame"
+        ),
+    )
+    if rotate_button is None:
+        raise RuntimeError("证书预览旋转按钮未创建")
+
+    pager = ttk.Frame(preview)
+    page_text = tk.StringVar(value="")
+
+    def change_preview_page(delta: int) -> None:
+        item = host.education_items.get(host.education_current_id, {})
+        count = item.get("preview_page_count", 1)
+        item["preview_page"] = max(0, min(count - 1, item.get("preview_page", 0) + delta))
+        host._schedule_education_preview_render()
+
+    previous = ttk.Button(pager, text="上一页", command=lambda: change_preview_page(-1))
+    previous.pack(side="left")
+    ttk.Label(pager, textvariable=page_text).pack(side="left", padx=12)
+    following = ttk.Button(pager, text="下一页", command=lambda: change_preview_page(1))
+    following.pack(side="left")
+
+    def refresh_preview_pager(item: dict) -> None:
+        count = item.get("preview_page_count", 1) if item.get("is_pdf") else 1
+        index = item.get("preview_page", 0)
+        if count > 1:
+            pager.pack(side="bottom", pady=6, before=preview_label)
+            page_text.set(f"{index + 1} / {count}")
+            previous.configure(state="normal" if index else "disabled")
+            following.configure(state="normal" if index + 1 < count else "disabled")
+        else:
+            pager.pack_forget()
+
+    host._education_refresh_preview_pager = refresh_preview_pager
+
+    preview_label = tk.Label(
+        preview,
+        text="请选择 JPG、JPEG、PNG、BMP、WEBP 图片或 PDF 文件",
+        wraplength=int(300 * scale),
+        bg=(host.colors["home_surface_quiet"] if standalone else host.colors["bg_card"]),
+        fg=host.colors["text_secondary"],
+        font=host.font_label,
+        justify="center",
+    )
+    def resize_preview(event):
+        preview_label.configure(wraplength=max(160, event.width - int(24 * scale)))
+        host._schedule_education_preview_render()
+
+    preview_label.bind("<Configure>", resize_preview)
+    preview_label.bind(
+        "<Double-Button-1>",
+        lambda _event: host._show_education_original(),
+    )
+    preview_label.pack(fill="both", expand=True)
+
+    form = host.widget_support.create_card(
+        workspace,
+        "识别结果",
+        fill="both",
+        expand=True,
+        side="left",
+        padx=(int(16 * scale), 0),
+        content_style=(
+            "EducationTool.Workbench.TFrame" if standalone else "TFrame"
+        ),
+    )
+    name_var = tk.StringVar()
+    number_var = tk.StringVar()
+    type_var = tk.StringVar(value="待确认")
+    status_var = tk.StringVar(value="请从上方队列选择一张证书查看结果")
+    warning_var = tk.StringVar(value="")
+
+    workbench_label_style = (
+        "EducationTool.Workbench.TLabel" if standalone else "TLabel"
+    )
+    field_style = "EducationTool.Workbench.TFrame" if standalone else "TFrame"
+    gap = int(16 * scale)
+    label_gap = int(4 * scale)
+    row_gap = int(12 * scale)
+    identity_fields = ttk.Frame(form, style=field_style)
+    identity_fields.pack(fill="x", pady=(0, row_gap))
+    type_field = ttk.Frame(identity_fields, style=field_style)
+    name_field = ttk.Frame(identity_fields, style=field_style)
+    ttk.Label(
+        type_field, text="证书类型", font=host.font_label,
+        style=workbench_label_style,
+    ).pack(anchor="w", pady=(0, label_gap))
+    type_combo = ttk.Combobox(
+        type_field, textvariable=type_var, state="readonly", width=12,
+        values=("待确认", "学历证书", "学位证书"), font=host.font_label,
+    )
+    type_combo.pack(fill="x")
+    ttk.Label(
+        name_field, text="姓名", font=host.font_label,
+        style=workbench_label_style,
+    ).pack(anchor="w", pady=(0, label_gap))
+    name_entry = ttk.Entry(
+        name_field, textvariable=name_var, font=host.font_label, width=14,
+    )
+    name_entry.pack(fill="x")
+    host.input_support.bind_entry_context_menu(name_entry)
+    ttk.Label(
+        form, text="证书编号", font=host.font_label,
+        style=workbench_label_style,
+    ).pack(anchor="w", pady=(0, label_gap))
+    number_entry = ttk.Entry(form, textvariable=number_var, font=host.font_label)
+    number_entry.pack(fill="x", pady=(0, row_gap))
+    host.input_support.bind_entry_context_menu(number_entry)
+
+    confirmation_area = ttk.Frame(form, style=field_style)
+    confirmation_visible_var = tk.BooleanVar(value=False)
+    confirm_button = ttk.Button(confirmation_area, text="关键信息已核对", command=host._confirm_current_education_fields)
+
+    status_label = ttk.Label(
+        form, textvariable=status_var,
+        font=(font_family, int(10 * host.font_scale)),
+        foreground=host.colors["primary"], style=workbench_label_style,
+        justify="left",
+    )
+    status_label.pack(anchor="w", fill="x", pady=(0, int(6 * scale)))
+
+    def refresh_confirmation_area(*_args):
+        if confirmation_visible_var.get():
+            confirmation_area.pack(fill="x", before=status_label)
+        else:
+            confirmation_area.pack_forget()
+
+    confirmation_visible_var.trace_add("write", refresh_confirmation_area)
+    warning_label = ttk.Label(
+        form, text="",
+        font=(font_family, int(10 * host.font_scale)),
+        foreground=host.colors["warning"], style=workbench_label_style,
+        justify="left",
+    )
+    warning_label.pack(anchor="w", fill="x", padx=int(8 * scale), pady=int(6 * scale))
+    warning_font = font.Font(root=form, font=warning_label.cget("font"))
+    warning_expanded = False
+    warning_toggle = ttk.Button(form, text="展开完整提示")
+    warning_toggle.pack(anchor="w")
+
+    def refresh_warning(*_args):
+        width = max(1, form.winfo_width() - int(16 * scale))
+        text = format_recognition_notice(warning_var.get())
+        wrapped = _wrap_warning_text(text, width, warning_font.measure)
+        lines = wrapped.splitlines()
+        warning_label.configure(text=wrapped if warning_expanded else "\n".join(lines[:3]))
+        if text:
+            warning_label.pack(anchor="w", fill="x", padx=int(8 * scale), pady=int(6 * scale), before=privacy_label)
+        else:
+            warning_label.pack_forget()
+        if len(lines) > 3:
+            warning_toggle.pack(anchor="w", before=privacy_label)
+            warning_toggle.configure(text="收起提示" if warning_expanded else "展开完整提示")
+        else:
+            warning_toggle.pack_forget()
+
+    def toggle_warning():
+        nonlocal warning_expanded
+        warning_expanded = not warning_expanded
+        refresh_warning()
+
+    warning_toggle.configure(command=toggle_warning)
+
+    warning_trace = warning_var.trace_add("write", refresh_warning)
+    warning_label.bind("<Destroy>", lambda _event: warning_var.trace_remove("write", warning_trace))
+    privacy_label = ttk.Label(
+        form,
+        text="识别时图片/PDF 会发送当前配置的 AI 模型，请确认已取得候选人授权。",
+        font=(font_family, int(10 * host.font_scale)),
+        foreground=host.colors["text_secondary"], style=workbench_label_style,
+        justify="left",
+    )
+    privacy_label.pack(anchor="w", fill="x", pady=(row_gap, 0))
+
+    last_layout: tuple[bool, int] | None = None
+
+    def arrange_fields(event: tk.Event) -> None:
+        """Keep short fields together when their requested widths fit."""
+        nonlocal last_layout
+        width = max(1, event.width)
+        required = 2 * max(type_combo.winfo_reqwidth(), name_entry.winfo_reqwidth()) + gap
+        compact = width < max(int(320 * scale), required)
+        state = (compact, width)
+        if state == last_layout:
+            return
+        last_layout = state
+        uniform = "certificate_identity" if not compact else ""
+        identity_fields.columnconfigure(0, weight=1, uniform=uniform)
+        identity_fields.columnconfigure(1, weight=0 if compact else 1, uniform=uniform)
+        type_field.grid(
+            row=0, column=0, sticky="ew", padx=(0, 0 if compact else gap // 2),
+        )
+        name_field.grid(
+            row=1 if compact else 0, column=0 if compact else 1,
+            sticky="ew", pady=(row_gap if compact else 0, 0),
+            padx=(0 if compact else gap - gap // 2, 0),
+        )
+        for label in (status_label, privacy_label):
+            label.configure(wraplength=width)
+        refresh_warning()
+
+    # Start stacked until the actual available width is known.
+    type_field.grid(row=0, column=0, sticky="ew")
+    name_field.grid(row=1, column=0, sticky="ew", pady=(row_gap, 0))
+    identity_fields.columnconfigure(0, weight=1)
+    form.bind("<Configure>", arrange_fields, add="+")
+    queue_card.pack_forget()
+    host.scroll_support.bind_mousewheel(canvas, scrollable_frame)
+
+    return EducationPageWidgets(
+        page=page,
+        canvas=canvas,
+        scrollable_frame=scrollable_frame,
+        items={},
+        current_id=None,
+        item_counter=0,
+        recognition_running=False,
+        screenshot_running=False,
+        manual_rotation={},
+        rotation_locked=set(),
+        file_var=file_var,
+        remove_button=remove_button,
+        queue_card=queue_card,
+        tree_font=tree_font,
+        queue_tree=queue_tree,
+        queue_scrollbar=queue_scrollbar,
+        queue_menu=queue_menu,
+        workspace=workspace,
+        rotate_button=rotate_button,
+        preview_label=preview_label,
+        name_var=name_var,
+        number_var=number_var,
+        type_var=type_var,
+        status_var=status_var,
+        warning_var=warning_var,
+        duplicate_notice_var=duplicate_notice_var,
+        confirmation_visible_var=confirmation_visible_var,
+        batch_status_var=batch_status_var,
+        recognition_progress_frame=recognition_progress_frame,
+        recognition_progress_var=recognition_progress_var,
+        recognition_progress_text_var=recognition_progress_text_var,
+        recognition_progress_bar=recognition_progress_bar,
+        recognize_button=recognize_button,
+        confirm_button=confirm_button,
+        fill_button=fill_button,
+        captcha_button=captcha_button,
+        screenshot_folder_var=screenshot_folder_var,
+        screenshot_summary_var=screenshot_summary_var,
+        screenshot_button=screenshot_button,
+    )

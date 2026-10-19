@@ -1,0 +1,1536 @@
+"""storage 模块单元测试 — 覆盖去重、打招呼状态合并、原子写入、备份恢复、
+get_greeted_geek_ids、is_already_greeted、build_greeted_index、build_blacklist_index。"""
+
+import contextlib
+import io
+import json
+import os
+import tempfile
+import threading
+from pathlib import Path
+
+from storage import (
+    CandidateRepository,
+    _dedupe_candidates,
+    build_blacklist_index,
+    build_greeted_index,
+    candidate_key,
+    get_greeted_geek_ids,
+    is_already_greeted,
+    is_recommended_candidate,
+    load_candidates_all,
+    mark_candidate_greeted,
+    mark_candidate_not_greeted,
+    merge_candidates_all,
+    mutate_candidates_all,
+    persist_candidate_greeted,
+    persist_candidate_greeting_pending,
+    read_candidates_snapshot,
+    remove_candidates_all,
+    remove_candidates_all_with_resume_cleanup,
+    repair_candidate_resume_storage,
+    resolve_candidate_greeting_confirmation,
+    save_candidates_all,
+    update_candidate_greeted,
+)
+
+
+def test_read_candidates_snapshot_never_restores_missing_primary_file():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = os.path.join(tmpdir, "candidates_all.json")
+        backup = target + ".bak"
+        with open(backup, "w", encoding="utf-8") as handle:
+            json.dump([{"geek_id": "g1"}], handle)
+
+        try:
+            read_candidates_snapshot(target)
+            assert False, "Expected FileNotFoundError"
+        except FileNotFoundError:
+            pass
+
+        assert not os.path.exists(target)
+        with open(backup, "r", encoding="utf-8") as handle:
+            assert json.load(handle) == [{"geek_id": "g1"}]
+
+
+def test_remove_candidates_all_persists_only_nonmatching_records():
+    """Bulk removal must be atomic and must not retain a deleted candidate in storage."""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = Path(tmpdir) / "candidates_all.json"
+        save_candidates_all(
+            [
+                {"geek_id": "keep", "job_name": "Java", "match_score": 60},
+                {"geek_id": "drop-1", "job_name": "Java", "match_score": 60},
+                {"geek_id": "drop-2", "job_name": "Java", "match_score": 60},
+            ],
+            str(target),
+        )
+
+        removed = remove_candidates_all(
+            lambda candidate: str(candidate.get("geek_id")).startswith("drop-"),
+            str(target),
+        )
+
+        assert removed == 2
+        assert [item["geek_id"] for item in load_candidates_all(str(target))] == ["keep"]
+
+
+def test_remove_candidates_cleanup_retains_shared_resume_until_last_reference():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        target = root / "candidates_all.json"
+        resume = root / "resumes" / "shared.pdf"
+        resume.parent.mkdir()
+        resume.write_bytes(b"shared")
+        save_candidates_all(
+            [
+                {"geek_id": "g1", "resume_file": "resumes/shared.pdf"},
+                {"geek_id": "g2", "resume_file": "resumes/shared.pdf"},
+            ],
+            str(target),
+        )
+
+        removed, first_cleanup = remove_candidates_all_with_resume_cleanup(
+            lambda candidate: candidate.get("geek_id") == "g1",
+            str(target),
+            base_dir=root,
+        )
+
+        assert removed == 1
+        assert first_cleanup.deleted_file_count == 0
+        assert first_cleanup.target_file_count == 0
+        assert resume.exists()
+
+        removed, second_cleanup = remove_candidates_all_with_resume_cleanup(
+            lambda candidate: candidate.get("geek_id") == "g2",
+            str(target),
+            base_dir=root,
+        )
+
+        assert removed == 1
+        assert second_cleanup.deleted_file_count == 1
+        assert second_cleanup.reclaimed_bytes == len(b"shared")
+        assert not resume.exists()
+
+
+def test_repair_candidate_resume_storage_persists_repairs_and_cleans_orphans():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        target = root / "candidates_all.json"
+        orphan = root / "resumes" / "orphan.pdf"
+        orphan.parent.mkdir()
+        orphan.write_bytes(b"orphan")
+        external = root / "external.pdf"
+        external.write_bytes(b"external")
+        save_candidates_all(
+            [
+                {
+                    "geek_id": "missing",
+                    "resume_file": "resumes/missing.pdf",
+                    "resume_eval_adjustment": 10,
+                    "rule_score": 60,
+                    "match_score": 70,
+                },
+                {
+                    "geek_id": "external",
+                    "resume_file": str(external),
+                    "resume_eval_reason": "旧评估",
+                    "rule_score": 65,
+                    "match_score": 75,
+                },
+            ],
+            str(target),
+        )
+
+        repair, cleanup = repair_candidate_resume_storage(
+            str(target),
+            base_dir=root,
+        )
+
+        assert repair.repaired_candidate_count == 2
+        assert repair.missing_reference_count == 1
+        assert repair.unmanaged_reference_count == 1
+        assert cleanup.deleted_file_count == 1
+        assert not orphan.exists()
+        assert external.exists()
+        repaired = load_candidates_all(str(target))
+        assert all("resume_file" not in candidate for candidate in repaired)
+        assert {candidate["match_score"] for candidate in repaired} == {60, 65}
+
+
+def test_candidate_key_uses_shared_unicode_whitespace_normalization():
+    assert candidate_key("g1", "高级 Java\t工程师\u00a0") == (
+        "g1",
+        "高级Java工程师",
+    )
+
+
+def test_candidate_key_prefers_stable_job_uuid():
+    job_uuid = "d8ea0e21-a53c-41ec-8869-6b370ed70a95"
+    assert candidate_key("g1", "旧名称", job_uuid) == (
+        "g1",
+        f"uuid:{job_uuid}",
+    )
+
+
+def test_resolve_greeting_confirmation_as_sent_clears_pending_and_marks_contacted():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        path = os.path.join(tmpdir, "candidates.json")
+        candidate = {"geek_id": "g1", "job_name": "Java", "match_score": 80}
+        save_candidates_all([candidate], path)
+        persist_candidate_greeting_pending(candidate, "button unchanged", path)
+
+        assert resolve_candidate_greeting_confirmation(candidate, sent=True, path=path)
+        saved = load_candidates_all(path)[0]
+        assert saved["greet_sent"] is True
+        assert saved["followup_status"] == "已打招呼"
+        assert saved["greet_method"] == "manual_confirmed"
+        assert "greet_confirmation_pending" not in saved
+
+
+def test_resolve_greeting_confirmation_as_not_sent_allows_safe_retry():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        path = os.path.join(tmpdir, "candidates.json")
+        candidate = {"geek_id": "g1", "job_name": "Java", "match_score": 80}
+        save_candidates_all([candidate], path)
+        persist_candidate_greeting_pending(candidate, "button unchanged", path)
+
+        assert resolve_candidate_greeting_confirmation(candidate, sent=False, path=path)
+        saved = load_candidates_all(path)[0]
+        assert saved["greet_sent"] is False
+        assert "greet_confirmation_pending" not in saved
+        assert "greet_confirmation_reason" not in saved
+
+
+def test_mark_candidate_not_greeted_clears_contact_fact_and_schedule():
+    candidate = {
+        "greet_sent": True,
+        "greet_sent_at": "20260728_100000",
+        "greet_method": "manual_status",
+        "greet_confirmation_pending": True,
+        "followup_status": "已回复",
+        "next_followup_at": "20260729_100000",
+    }
+
+    mark_candidate_not_greeted(candidate, "20260729_120000")
+
+    assert candidate["greet_sent"] is False
+    assert candidate["followup_status"] == "未沟通"
+    assert candidate["followup_updated_at"] == "20260729_120000"
+    for field in (
+        "greet_sent_at",
+        "greet_method",
+        "greet_confirmation_pending",
+        "next_followup_at",
+    ):
+        assert field not in candidate
+
+
+# ========== _dedupe_candidates ==========
+
+def test_dedupe_keeps_higher_score():
+    result = _dedupe_candidates([
+        {"geek_id": "g1", "job_name": "Java", "match_score": 60},
+        {"geek_id": "g1", "job_name": "Java", "match_score": 80},
+    ])
+    assert len(result) == 1
+    assert result[0]["match_score"] == 80
+
+
+def test_dedupe_uses_latest_scan_even_when_score_decreases():
+    result = _dedupe_candidates([
+        {
+            "geek_id": "g1",
+            "job_name": "Java",
+            "match_score": 80,
+            "batch_timestamp": "20260701_100000",
+            "feedback_status": "合适",
+        },
+        {
+            "geek_id": "g1",
+            "job_name": "Java",
+            "match_score": 65,
+            "batch_timestamp": "20260702_100000",
+            "llm_evaluated": True,
+            "llm_adjustment": -5,
+        },
+    ])
+
+    assert len(result) == 1
+    assert result[0]["match_score"] == 65
+    assert result[0]["batch_timestamp"] == "20260701_100000"
+    assert result[0]["first_seen_at"] == "20260701_100000"
+    assert result[0]["last_evaluated_at"] == "20260702_100000"
+    assert result[0]["llm_adjustment"] == -5
+    assert result[0]["feedback_status"] == "合适"
+
+
+def test_dedupe_same_batch_keeps_later_ai_result():
+    result = _dedupe_candidates([
+        {
+            "geek_id": "g1",
+            "job_name": "Java",
+            "match_score": 70,
+            "batch_timestamp": "20260702_100000",
+            "llm_evaluated": False,
+        },
+        {
+            "geek_id": "g1",
+            "job_name": "Java",
+            "match_score": 70,
+            "batch_timestamp": "20260702_100000",
+            "llm_evaluated": True,
+            "llm_adjustment": 0,
+        },
+    ])
+
+    assert result[0]["llm_evaluated"] is True
+    assert result[0]["llm_adjustment"] == 0
+
+
+def test_dedupe_does_not_replace_newer_scan_with_older_snapshot():
+    result = _dedupe_candidates([
+        {
+            "geek_id": "g1",
+            "job_name": "Java",
+            "match_score": 65,
+            "batch_timestamp": "20260702_100000",
+        },
+        {
+            "geek_id": "g1",
+            "job_name": "Java",
+            "match_score": 90,
+            "batch_timestamp": "20260701_100000",
+        },
+    ])
+
+    assert result[0]["match_score"] == 65
+    assert result[0]["batch_timestamp"] == "20260702_100000"
+
+
+def test_dedupe_different_job_names_not_merged():
+    result = _dedupe_candidates([
+        {"geek_id": "g1", "job_name": "Java", "match_score": 70},
+        {"geek_id": "g1", "job_name": "Python", "match_score": 60},
+    ])
+    assert len(result) == 2
+
+
+def test_dedupe_merges_renamed_job_by_stable_id():
+    job_uuid = "d8ea0e21-a53c-41ec-8869-6b370ed70a95"
+    result = _dedupe_candidates([
+        {
+            "geek_id": "g1",
+            "job_uuid": job_uuid,
+            "job_name": "Java 工程师",
+            "match_score": 70,
+            "last_evaluated_at": "20260701_090000",
+        },
+        {
+            "geek_id": "g1",
+            "job_uuid": job_uuid,
+            "job_name": "高级 Java 工程师",
+            "match_score": 80,
+            "last_evaluated_at": "20260702_090000",
+        },
+    ])
+
+    assert len(result) == 1
+    assert result[0]["job_name"] == "高级 Java 工程师"
+    assert result[0]["job_uuid"] == job_uuid
+
+
+def test_dedupe_migrates_legacy_name_record_into_stable_identity():
+    job_uuid = "d8ea0e21-a53c-41ec-8869-6b370ed70a95"
+    result = _dedupe_candidates([
+        {
+            "geek_id": "g1",
+            "job_name": "Java 工程师",
+            "match_score": 70,
+            "last_evaluated_at": "20260701_090000",
+        },
+        {
+            "geek_id": "g1",
+            "job_uuid": job_uuid,
+            "job_name": "Java工程师",
+            "match_score": 80,
+            "last_evaluated_at": "20260702_090000",
+        },
+    ])
+
+    assert len(result) == 1
+    assert result[0]["job_uuid"] == job_uuid
+
+
+def test_dedupe_keeps_same_named_jobs_with_different_stable_ids():
+    first_uuid = "11111111-1111-4111-8111-111111111111"
+    second_uuid = "22222222-2222-4222-8222-222222222222"
+    result = _dedupe_candidates([
+        {
+            "geek_id": "g1",
+            "job_uuid": first_uuid,
+            "job_name": "Java 工程师",
+            "match_score": 70,
+        },
+        {
+            "geek_id": "g1",
+            "job_uuid": second_uuid,
+            "job_name": "Java 工程师",
+            "match_score": 80,
+        },
+    ])
+
+    assert len(result) == 2
+    assert {candidate["job_uuid"] for candidate in result} == {
+        first_uuid,
+        second_uuid,
+    }
+
+
+def test_dedupe_merges_greet_sent_from_old_to_new():
+    """old 有 greet_sent=True，new 没有 → 合并后保留 True。"""
+    result = _dedupe_candidates([
+        {"geek_id": "g1", "job_name": "Java", "match_score": 70, "greet_sent": True},
+        {"geek_id": "g1", "job_name": "Java", "match_score": 80},
+    ])
+    assert len(result) == 1
+    assert result[0]["greet_sent"] is True
+    assert result[0]["match_score"] == 80
+
+
+def test_mark_candidate_greeted_writes_status_time_and_method():
+    candidate = {"geek_id": "g1", "job_name": "Java", "match_score": 70}
+
+    mark_candidate_greeted(candidate, "auto_list", "20260619_120000")
+
+    assert candidate["greet_sent"] is True
+    assert candidate["greet_sent_at"] == "20260619_120000"
+    assert candidate["greet_method"] == "auto_list"
+    assert candidate["followup_status"] == "已打招呼"
+    assert candidate["followup_updated_at"] == "20260619_120000"
+    assert candidate["next_followup_at"] == "20260620_120000"
+
+
+def test_update_candidate_greeted_persists_immediately():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = os.path.join(tmpdir, "candidates_all.json")
+        save_candidates_all([
+            {"geek_id": "g1", "job_name": "Java", "match_score": 70}
+        ], target)
+
+        updated = update_candidate_greeted(
+            "g1", "Java", "manual_context", target
+        )
+        loaded = load_candidates_all(target)
+
+    assert updated is True
+    assert loaded[0]["greet_sent"] is True
+    assert loaded[0]["greet_method"] == "manual_context"
+    assert loaded[0]["greet_sent_at"]
+
+
+def test_persist_candidate_greeted_merges_with_latest_disk_data():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = os.path.join(tmpdir, "candidates_all.json")
+        save_candidates_all([
+            {"geek_id": "g1", "job_name": "Java", "match_score": 70},
+            {"geek_id": "g2", "job_name": "Python", "match_score": 80,
+             "feedback_status": "合适"},
+        ], target)
+        candidate = {
+            "geek_id": "g1", "job_name": "Java", "match_score": 70,
+            "summary": "完整候选人信息",
+        }
+
+        persisted = persist_candidate_greeted(
+            candidate, "auto_list", target
+        )
+        loaded = load_candidates_all(target)
+
+    assert persisted is True
+    assert len(loaded) == 2
+    assert next(c for c in loaded if c["geek_id"] == "g1")["greet_sent"] is True
+    assert next(c for c in loaded if c["geek_id"] == "g2")["feedback_status"] == "合适"
+
+
+def test_merge_candidates_all_preserves_existing_records():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = os.path.join(tmpdir, "candidates_all.json")
+        save_candidates_all([
+            {"geek_id": "g1", "job_name": "Java", "match_score": 70}
+        ], target)
+
+        merge_candidates_all([
+            {"geek_id": "g2", "job_name": "Python", "match_score": 80}
+        ], target)
+        loaded = load_candidates_all(target)
+
+    assert {c["geek_id"] for c in loaded} == {"g1", "g2"}
+
+
+def test_merge_candidates_all_updates_latest_scan_and_preserves_feedback():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = os.path.join(tmpdir, "candidates_all.json")
+        save_candidates_all([{
+            "geek_id": "g1",
+            "job_name": "Java",
+            "match_score": 80,
+            "batch_timestamp": "20260701_100000",
+            "feedback_status": "合适",
+            "feedback_updated_at": "20260701_120000",
+        }], target)
+
+        merge_candidates_all([{
+            "geek_id": "g1",
+            "job_name": "Java",
+            "match_score": 65,
+            "batch_timestamp": "20260702_100000",
+            "llm_evaluated": True,
+            "llm_adjustment": -5,
+        }], target)
+        loaded = load_candidates_all(target)
+
+    assert len(loaded) == 1
+    assert loaded[0]["match_score"] == 65
+    assert loaded[0]["batch_timestamp"] == "20260701_100000"
+    assert loaded[0]["first_seen_at"] == "20260701_100000"
+    assert loaded[0]["last_evaluated_at"] == "20260702_100000"
+    assert loaded[0]["llm_adjustment"] == -5
+    assert loaded[0]["feedback_status"] == "合适"
+
+
+def test_dedupe_preserves_feedback_from_old_to_new():
+    """高分新记录替换旧记录时，保留旧记录上的人工反馈。"""
+    result = _dedupe_candidates([
+        {
+            "geek_id": "g1",
+            "job_name": "Java",
+            "match_score": 70,
+            "feedback_status": "误推",
+            "feedback_reasons": ["技能不匹配", "规则过宽"],
+            "feedback_note": "项目深度不足",
+            "feedback_updated_at": "20260608_100000",
+        },
+        {"geek_id": "g1", "job_name": "Java", "match_score": 80},
+    ])
+    assert len(result) == 1
+    assert result[0]["match_score"] == 80
+    assert result[0]["feedback_status"] == "误推"
+    assert result[0]["feedback_reasons"] == ["技能不匹配", "规则过宽"]
+    assert result[0]["feedback_note"] == "项目深度不足"
+
+
+def test_dedupe_preserves_feedback_from_new_to_old():
+    """低分新记录不替换旧记录时，也要把新记录上的人工反馈合并回旧记录。"""
+    result = _dedupe_candidates([
+        {"geek_id": "g1", "job_name": "Java", "match_score": 80},
+        {
+            "geek_id": "g1",
+            "job_name": "Java",
+            "match_score": 70,
+            "feedback_status": "合适",
+            "feedback_reasons": ["行业经验不符"],
+            "feedback_note": "可约面",
+            "feedback_updated_at": "20260608_110000",
+        },
+    ])
+    assert len(result) == 1
+    assert result[0]["match_score"] == 80
+    assert result[0]["feedback_status"] == "合适"
+    assert result[0]["feedback_reasons"] == ["行业经验不符"]
+    assert result[0]["feedback_note"] == "可约面"
+
+
+def test_dedupe_preserves_manual_contact_approval_across_rescan():
+    result = _dedupe_candidates([
+        {
+            "geek_id": "g1",
+            "job_name": "Java",
+            "match_score": 64,
+            "batch_timestamp": "20260701_100000",
+            "contact_approved_at": "20260701_120000",
+            "contact_approval_reason": "人工确认待定候选人可联系",
+            "review_passed_at": "20260701_120000",
+            "review_passed_reasons": ["评分处于待定区间（64 分）"],
+        },
+        {
+            "geek_id": "g1",
+            "job_name": "Java",
+            "match_score": 62,
+            "batch_timestamp": "20260702_100000",
+        },
+    ])
+
+    assert result[0]["match_score"] == 62
+    assert result[0]["contact_approved_at"] == "20260701_120000"
+    assert result[0]["contact_approval_reason"] == "人工确认待定候选人可联系"
+    assert result[0]["review_passed_at"] == "20260701_120000"
+    assert result[0]["review_passed_reasons"] == ["评分处于待定区间（64 分）"]
+
+
+def test_ai_failure_does_not_remove_rule_recommended_status():
+    assert is_recommended_candidate({
+        "geek_id": "ai-failed",
+        "job_name": "Java",
+        "match_score": 70,
+        "qualification_status": "qualified",
+        "llm_error": "请求超时",
+    }) is True
+
+
+def test_dedupe_preserves_followup_from_old_to_new():
+    """高分新记录替换旧记录时，保留旧记录上的跟进状态。"""
+    result = _dedupe_candidates([
+        {
+            "geek_id": "g1",
+            "job_name": "Java",
+            "match_score": 70,
+            "followup_status": "已回复",
+            "followup_note": "等候选人确认时间",
+            "followup_updated_at": "20260608_120000",
+            "next_followup_at": "20260609_090000",
+        },
+        {"geek_id": "g1", "job_name": "Java", "match_score": 80},
+    ])
+    assert len(result) == 1
+    assert result[0]["match_score"] == 80
+    assert result[0]["followup_status"] == "已回复"
+    assert result[0]["followup_note"] == "等候选人确认时间"
+    assert result[0]["next_followup_at"] == "20260609_090000"
+
+
+def test_dedupe_preserves_followup_from_new_to_old():
+    """低分新记录不替换旧记录时，也要把新记录上的跟进状态合并回旧记录。"""
+    result = _dedupe_candidates([
+        {"geek_id": "g1", "job_name": "Java", "match_score": 80},
+        {
+            "geek_id": "g1",
+            "job_name": "Java",
+            "match_score": 70,
+            "followup_status": "待约面",
+            "followup_note": "周三沟通",
+            "followup_updated_at": "20260608_130000",
+            "next_followup_at": "20260610_090000",
+        },
+    ])
+    assert len(result) == 1
+    assert result[0]["match_score"] == 80
+    assert result[0]["followup_status"] == "待约面"
+    assert result[0]["followup_note"] == "周三沟通"
+    assert result[0]["next_followup_at"] == "20260610_090000"
+
+
+def test_dedupe_newer_terminal_followup_clears_old_due_date():
+    result = _dedupe_candidates([
+        {
+            "geek_id": "g1",
+            "job_name": "Java",
+            "match_score": 80,
+            "followup_status": "待约面",
+            "followup_updated_at": "20260608_130000",
+            "next_followup_at": "20260610_090000",
+        },
+        {
+            "geek_id": "g1",
+            "job_name": "Java",
+            "match_score": 70,
+            "followup_status": "已归档",
+            "followup_note": "",
+            "followup_updated_at": "20260609_130000",
+        },
+    ])
+
+    assert result[0]["followup_status"] == "已归档"
+    assert "next_followup_at" not in result[0]
+
+
+def test_dedupe_preserves_greeting_pending_and_success_clears_it():
+    pending = {
+        "geek_id": "g1",
+        "job_name": "Java",
+        "match_score": 70,
+        "greet_confirmation_pending": True,
+        "greet_confirmation_reason": "按钮未变化",
+        "greet_confirmation_updated_at": "20260622_100000",
+    }
+    result = _dedupe_candidates([
+        pending,
+        {"geek_id": "g1", "job_name": "Java", "match_score": 80},
+    ])
+    assert result[0]["greet_confirmation_pending"] is True
+
+    greeted = dict(result[0])
+    mark_candidate_greeted(greeted, "auto_list", "20260622_100100")
+    result = _dedupe_candidates([pending, greeted])
+    assert result[0]["greet_sent"] is True
+    assert "greet_confirmation_pending" not in result[0]
+
+
+def test_dedupe_preserves_blacklist_from_old_to_new():
+    """高分新记录替换旧记录时，保留旧记录上的黑名单状态。"""
+    result = _dedupe_candidates([
+        {
+            "geek_id": "g1",
+            "job_name": "Java",
+            "match_score": 70,
+            "blacklisted": True,
+            "blacklist_reason": "面试未通过",
+            "blacklisted_at": "20260612_100000",
+        },
+        {"geek_id": "g1", "job_name": "Java", "match_score": 80},
+    ])
+    assert len(result) == 1
+    assert result[0]["match_score"] == 80
+    assert result[0]["blacklisted"] is True
+    assert result[0]["blacklist_reason"] == "面试未通过"
+
+
+def test_dedupe_preserves_blacklist_from_new_to_old():
+    """低分新记录不替换旧记录时，也要把黑名单状态合并回旧记录。"""
+    result = _dedupe_candidates([
+        {"geek_id": "g1", "job_name": "Java", "match_score": 80},
+        {
+            "geek_id": "g1",
+            "job_name": "Java",
+            "match_score": 70,
+            "blacklisted": True,
+            "blacklist_reason": "性格不匹配",
+            "blacklisted_at": "20260612_110000",
+        },
+    ])
+    assert len(result) == 1
+    assert result[0]["match_score"] == 80
+    assert result[0]["blacklisted"] is True
+    assert result[0]["blacklist_reason"] == "性格不匹配"
+
+
+def test_dedupe_preserves_greet_context_from_old_to_new():
+    """高分新记录替换旧记录时，保留详情页打招呼上下文。"""
+    context = {"chat_start": {"jid": "jid123", "lid": "lid123", "securityId": "sec123"}}
+    result = _dedupe_candidates([
+        {
+            "geek_id": "g1",
+            "job_name": "Java",
+            "match_score": 70,
+            "greet_context": context,
+            "greet_context_updated_at": "2026-06-17T10:00:00",
+        },
+        {"geek_id": "g1", "job_name": "Java", "match_score": 80},
+    ])
+    assert len(result) == 1
+    assert result[0]["match_score"] == 80
+    assert result[0]["greet_context"] == context
+    assert result[0]["greet_context_updated_at"] == "2026-06-17T10:00:00"
+
+
+def test_dedupe_merges_greet_sent_from_new_to_old():
+    """new 有 greet_sent=True → 直接替换。"""
+    result = _dedupe_candidates([
+        {"geek_id": "g1", "job_name": "Java", "match_score": 80},
+        {"geek_id": "g1", "job_name": "Java", "match_score": 70, "greet_sent": True},
+    ])
+    assert len(result) == 1
+    assert result[0]["greet_sent"] is True
+
+
+def test_dedupe_clears_greeting_in_progress_when_greeted():
+    """greeting_in_progress + greet_sent → 清除 greeting_in_progress。"""
+    result = _dedupe_candidates([
+        {"geek_id": "g1", "job_name": "Java", "match_score": 70,
+         "greet_sent": True, "greeting_in_progress": True},
+    ])
+    assert len(result) == 1
+    assert result[0]["greet_sent"] is True
+    assert "greeting_in_progress" not in result[0]
+
+
+def test_dedupe_keeps_greeting_in_progress_when_not_greeted():
+    """只有 greeting_in_progress、没有 greet_sent → 保留。"""
+    result = _dedupe_candidates([
+        {"geek_id": "g1", "job_name": "Java", "match_score": 70,
+         "greeting_in_progress": True},
+    ])
+    assert len(result) == 1
+    assert result[0]["greeting_in_progress"] is True
+
+
+def test_dedupe_no_geek_id_skipped():
+    """没有 geek_id 的记录不参与去重（被丢弃）。"""
+    result = _dedupe_candidates([
+        {"job_name": "Java", "match_score": 70},
+        {"geek_id": "g1", "job_name": "Java", "match_score": 60},
+    ])
+    assert len(result) == 1
+    assert result[0]["geek_id"] == "g1"
+
+
+def test_dedupe_empty_job_name_defaults_to_empty_string():
+    result = _dedupe_candidates([
+        {"geek_id": "g1", "match_score": 60},
+        {"geek_id": "g1", "match_score": 70},
+    ])
+    assert len(result) == 1
+    assert result[0]["match_score"] == 70
+
+
+def test_dedupe_empty_list():
+    assert _dedupe_candidates([]) == []
+
+
+# ========== get_greeted_geek_ids ==========
+
+def test_get_greeted_geek_ids_extracts_greeted():
+    candidates = [
+        {"geek_id": "g1", "greet_sent": True},
+        {"geek_id": "g2", "greet_sent": False},
+        {"geek_id": "g3", "greet_sent": True},
+        {"geek_id": "g4"},
+    ]
+    assert get_greeted_geek_ids(candidates) == {"g1", "g3"}
+
+
+def test_get_greeted_geek_ids_empty():
+    assert get_greeted_geek_ids([]) == set()
+
+
+# ========== is_already_greeted ==========
+
+def test_is_already_greeted_by_geek_id_and_job():
+    candidates = [
+        {"geek_id": "g1", "job_name": "Java", "greet_sent": True},
+        {"geek_id": "g1", "job_name": "Python", "greet_sent": False},
+    ]
+    assert is_already_greeted(candidates, "g1", "Java") is True
+    assert is_already_greeted(candidates, "g1", "Python") is False
+    assert is_already_greeted(candidates, "g2", "Java") is False
+
+
+def test_is_already_greeted_without_job_name():
+    """无 job_name 时，只要该 geek_id 在任何岗位打过招呼即返回 True。"""
+    candidates = [
+        {"geek_id": "g1", "job_name": "Java", "greet_sent": True},
+    ]
+    assert is_already_greeted(candidates, "g1") is True
+    assert is_already_greeted(candidates, "g2") is False
+
+
+def test_is_already_greeted_with_index():
+    candidates = [
+        {"geek_id": "g1", "job_name": "Java", "greet_sent": True},
+        {"geek_id": "g2", "job_name": "Python", "greet_sent": False},
+    ]
+    index = build_greeted_index(candidates)
+    assert is_already_greeted(candidates, "g1", "Java", index) is True
+    assert is_already_greeted(candidates, "g2", "Python", index) is False
+
+
+def test_is_already_greeted_index_without_job_name():
+    candidates = [
+        {"geek_id": "g1", "job_name": "Java", "greet_sent": True},
+    ]
+    index = build_greeted_index(candidates)
+    assert is_already_greeted(candidates, "g1", greeted_index=index) is True
+    assert is_already_greeted(candidates, "g9", greeted_index=index) is False
+
+
+# ========== build_greeted_index ==========
+
+def test_build_greeted_index_only_greeted():
+    candidates = [
+        {"geek_id": "g1", "job_name": "Java", "greet_sent": True},
+        {"geek_id": "g2", "job_name": "Python", "greet_sent": False},
+        {"geek_id": "g3", "job_name": "Go", "greet_sent": True},
+    ]
+    index = build_greeted_index(candidates)
+    assert ("g1", "Java") in index
+    assert ("g3", "Go") in index
+    assert ("g2", "Python") not in index
+
+
+def test_build_greeted_index_skips_no_geek_id():
+    candidates = [
+        {"job_name": "Java", "greet_sent": True},
+        {"geek_id": "g1", "job_name": "Java", "greet_sent": True},
+    ]
+    index = build_greeted_index(candidates)
+    assert len(index) == 1
+    assert ("g1", "Java") in index
+
+
+# ========== build_blacklist_index ==========
+
+def test_build_blacklist_index_is_cross_job_by_geek_id():
+    candidates = [
+        {"geek_id": "g1", "job_name": "Java", "blacklisted": True},
+        {"geek_id": "g1", "job_name": "Python"},
+        {"geek_id": "g2", "job_name": "Java", "blacklisted": False},
+        {"geek_id": "g3", "job_name": "Go", "blacklisted": True},
+    ]
+    assert build_blacklist_index(candidates) == {"g1", "g3"}
+
+
+# ========== save_candidates_all 原子写入 ==========
+
+def test_save_upgrades_candidate_record_schema_without_wrapping_list():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = os.path.join(tmpdir, "candidates_all.json")
+
+        save_candidates_all([
+            {"geek_id": "g1", "job_name": "Java", "match_score": 70},
+        ], target)
+
+        with open(target, "r", encoding="utf-8") as file_obj:
+            payload = json.load(file_obj)
+        assert isinstance(payload, list)
+        assert payload[0]["schema_version"] == 2
+
+
+def test_save_strips_result_view_transient_fields_without_mutating_input():
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        path = Path(tmp_dir) / "candidates.json"
+        candidate = {
+            "geek_id": "g1",
+            "job_name": "Java 工程师",
+            "match_score": 70,
+            "_display_status": "未沟通",
+            "_full_status": "完整状态",
+            "_extra_fields": ["本科", "30岁", "在职", "学校", "公司"],
+        }
+
+        save_candidates_all([candidate], path)
+        saved = load_candidates_all(path)[0]
+
+    assert "_display_status" not in saved
+    assert "_full_status" not in saved
+    assert "_extra_fields" not in saved
+    assert candidate["_full_status"] == "完整状态"
+
+
+def test_save_creates_backup_of_existing_file():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = os.path.join(tmpdir, "candidates_all.json")
+        # 先写入初始数据
+        with open(target, "w", encoding="utf-8") as f:
+            json.dump([{"geek_id": "old", "job_name": "Java"}], f)
+
+        with contextlib.redirect_stdout(io.StringIO()):
+            save_candidates_all([
+                {"geek_id": "g1", "job_name": "Java", "match_score": 70},
+            ], target)
+
+        # 备份文件应存在且包含旧数据
+        bak = target + ".bak"
+        assert os.path.exists(bak)
+        with open(bak, "r", encoding="utf-8") as f:
+            backup = json.load(f)
+        assert backup[0]["geek_id"] == "old"
+
+
+def test_save_no_tmp_file_left_behind():
+    """原子写入完成后 .tmp 文件不应残留。"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = os.path.join(tmpdir, "candidates_all.json")
+        with contextlib.redirect_stdout(io.StringIO()):
+            save_candidates_all([
+                {"geek_id": "g1", "job_name": "Java", "match_score": 70},
+            ], target)
+        tmp = target + ".tmp"
+        assert not os.path.exists(tmp)
+
+
+def test_save_no_backup_when_no_existing_file():
+    """首次保存（无现有文件）不应产生 .bak。"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = os.path.join(tmpdir, "candidates_all.json")
+        with contextlib.redirect_stdout(io.StringIO()):
+            save_candidates_all([
+                {"geek_id": "g1", "job_name": "Java", "match_score": 70},
+            ], target)
+        bak = target + ".bak"
+        assert not os.path.exists(bak)
+
+
+# ========== load_candidates_all ==========
+
+def test_load_returns_empty_when_no_file():
+    """首次运行没有候选人文件时应视为空数据，而不是数据损坏。"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = os.path.join(tmpdir, "candidates_all.json")
+        with contextlib.redirect_stdout(io.StringIO()):
+            result = load_candidates_all(target)
+    assert result == []
+
+
+def test_load_rejects_future_candidate_schema_without_overwriting_file():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = os.path.join(tmpdir, "candidates_all.json")
+        payload = [{
+            "geek_id": "g1",
+            "job_name": "Java",
+            "schema_version": 999,
+        }]
+        with open(target, "w", encoding="utf-8") as file_obj:
+            json.dump(payload, file_obj)
+
+        with contextlib.redirect_stdout(io.StringIO()):
+            try:
+                load_candidates_all(target)
+            except RuntimeError as exc:
+                assert "数据可能已丢失" in str(exc)
+            else:
+                raise AssertionError("future candidate schema must be rejected")
+
+        with open(target, "r", encoding="utf-8") as file_obj:
+            assert json.load(file_obj) == payload
+
+
+def test_load_restores_when_main_file_missing_but_backup_exists():
+    """主文件被误删但备份仍在时，应从备份恢复。"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = os.path.join(tmpdir, "candidates_all.json")
+        backup_data = [{"geek_id": "g1", "job_name": "Java"}]
+        with open(target + ".bak", "w", encoding="utf-8") as f:
+            json.dump(backup_data, f)
+
+        with contextlib.redirect_stdout(io.StringIO()):
+            result = load_candidates_all(target)
+
+        assert result == backup_data
+        assert os.path.exists(target)
+
+
+def test_load_returns_empty_when_both_files_corrupt():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = os.path.join(tmpdir, "candidates_all.json")
+        with open(target, "w") as f:
+            f.write("{broken")
+        with open(target + ".bak", "w") as f:
+            f.write("also{broken")
+        with contextlib.redirect_stdout(io.StringIO()):
+            try:
+                load_candidates_all(target)
+                assert False, "Expected RuntimeError"
+            except RuntimeError:
+                pass
+
+
+def test_load_restores_backup_and_copies_to_main():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = os.path.join(tmpdir, "candidates_all.json")
+        backup_data = [{"geek_id": "g1", "job_name": "Java"}]
+        with open(target, "w") as f:
+            f.write("{broken")
+        with open(target + ".bak", "w", encoding="utf-8") as f:
+            json.dump(backup_data, f)
+
+        with contextlib.redirect_stdout(io.StringIO()):
+            result = load_candidates_all(target)
+
+        assert result == backup_data
+        # 恢复后备份应被复制到主文件
+        with open(target, "r", encoding="utf-8") as f:
+            restored = json.load(f)
+        assert restored == backup_data
+
+
+# ========== save + load 集成 ==========
+
+def test_save_then_load_roundtrip():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = os.path.join(tmpdir, "candidates_all.json")
+        data = [
+            {"geek_id": "g1", "job_name": "Java", "match_score": 80, "greet_sent": True},
+            {"geek_id": "g2", "job_name": "Python", "match_score": 65},
+        ]
+        with contextlib.redirect_stdout(io.StringIO()):
+            save_candidates_all(data, target)
+            loaded = load_candidates_all(target)
+    assert len(loaded) == 2
+    assert loaded[0]["greet_sent"] is True
+
+
+def test_save_drops_ordinary_rejected_candidate_without_review_value():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = os.path.join(tmpdir, "candidates_all.json")
+        save_candidates_all([{
+            "geek_id": "rejected",
+            "job_name": "Java",
+            "match_score": 90,
+            "qualification_status": "rejected",
+        }], target)
+        assert load_candidates_all(target) == []
+
+
+def test_save_keeps_rejected_candidate_history_outside_active_score():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = os.path.join(tmpdir, "candidates_all.json")
+        save_candidates_all([{
+            "geek_id": "rejected-with-history",
+            "job_name": "Java",
+            "match_score": 90,
+            "qualification_status": "rejected",
+            "feedback_status": "误推",
+        }], target)
+        loaded = load_candidates_all(target)
+
+    assert len(loaded) == 1
+    assert loaded[0]["match_score"] == 0
+    assert loaded[0]["recommend_level"] == "未通过"
+    assert loaded[0]["qualification_status"] == "rejected"
+    assert loaded[0]["feedback_status"] == "误推"
+
+
+def test_save_keeps_rejected_candidate_that_required_manual_review():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = os.path.join(tmpdir, "candidates_all.json")
+        save_candidates_all([{
+            "geek_id": "manual-rejected",
+            "job_name": "Java",
+            "match_score": 0,
+            "qualification_status": "rejected",
+            "manual_review_required": True,
+        }], target)
+        loaded = load_candidates_all(target)
+
+    assert len(loaded) == 1
+    assert loaded[0]["geek_id"] == "manual-rejected"
+
+
+def test_save_preserves_score_for_explicit_human_review_rejection():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = os.path.join(tmpdir, "candidates_all.json")
+        save_candidates_all([{
+            "geek_id": "human-rejected",
+            "job_name": "Java",
+            "match_score": 64,
+            "qualification_status": "rejected",
+            "manual_review_required": False,
+            "review_rejected_at": "20260729_100000",
+            "review_rejected_reasons": ["评分处于待定区间（64 分）"],
+        }], target)
+        loaded = load_candidates_all(target)
+
+    assert len(loaded) == 1
+    assert loaded[0]["match_score"] == 64
+    assert loaded[0]["recommend_level"] == "未通过"
+
+
+def test_rescan_does_not_revive_explicit_human_review_rejection():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = os.path.join(tmpdir, "candidates_all.json")
+        save_candidates_all([{
+            "geek_id": "human-rejected",
+            "job_name": "Java",
+            "match_score": 64,
+            "last_evaluated_at": "20260728_100000",
+            "qualification_status": "rejected",
+            "review_rejected_at": "20260728_110000",
+            "review_rejected_reasons": ["人工判断不合适"],
+        }], target)
+
+        merge_candidates_all([{
+            "geek_id": "human-rejected",
+            "job_name": "Java",
+            "match_score": 80,
+            "last_evaluated_at": "20260729_100000",
+            "qualification_status": "qualified",
+        }], target)
+        loaded = load_candidates_all(target)[0]
+
+    assert loaded["match_score"] == 80
+    assert loaded["qualification_status"] == "rejected"
+    assert loaded["manual_review_required"] is False
+    assert loaded["review_rejected_reasons"] == ["人工判断不合适"]
+    assert "review_passed_at" not in loaded
+
+
+def test_rescan_keeps_hard_review_pass_only_for_the_same_review_reason():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = os.path.join(tmpdir, "candidates_all.json")
+        save_candidates_all([{
+            "geek_id": "hard-passed",
+            "job_name": "Java",
+            "match_score": 53,
+            "last_evaluated_at": "20260728_100000",
+            "qualification_status": "qualified",
+            "review_passed_at": "20260728_110000",
+            "review_passed_reasons": ["学历形式待确认"],
+        }], target)
+
+        merge_candidates_all([{
+            "geek_id": "hard-passed",
+            "job_name": "Java",
+            "match_score": 53,
+            "last_evaluated_at": "20260729_100000",
+            "qualification_status": "manual_review",
+            "manual_review_required": True,
+            "qualification_reasons": ["学历形式待确认"],
+        }], target)
+        same_reason = load_candidates_all(target)[0]
+
+        merge_candidates_all([{
+            "geek_id": "hard-passed",
+            "job_name": "Java",
+            "match_score": 53,
+            "last_evaluated_at": "20260730_100000",
+            "qualification_status": "manual_review",
+            "manual_review_required": True,
+            "qualification_reasons": ["工作经验待确认"],
+        }], target)
+        new_reason = load_candidates_all(target)[0]
+
+    assert same_reason["qualification_status"] == "qualified"
+    assert same_reason["manual_review_required"] is False
+    assert new_reason["qualification_status"] == "manual_review"
+    assert new_reason["manual_review_required"] is True
+    assert new_reason["qualification_reasons"] == ["工作经验待确认"]
+
+
+def test_merge_candidates_all_archives_previous_pass_when_latest_scan_fails():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = os.path.join(tmpdir, "candidates_all.json")
+        save_candidates_all([{
+            "geek_id": "g1",
+            "job_name": "Java",
+            "match_score": 80,
+            "batch_timestamp": "20260701_100000",
+        }], target)
+
+        merge_candidates_all([], target, replace_keys={("g1", "Java")})
+
+        loaded = load_candidates_all(target)
+
+    assert len(loaded) == 1
+    assert loaded[0]["qualification_status"] == "rejected"
+    assert loaded[0]["qualification_reasons"] == ["最新扫描未通过筛选"]
+    assert loaded[0]["first_seen_at"] == "20260701_100000"
+    assert loaded[0]["rejection_source"] == "previously_recommended"
+
+
+def test_complete_scan_replaces_old_plain_pending_but_keeps_review_work():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = os.path.join(tmpdir, "candidates_all.json")
+        save_candidates_all([
+            {"geek_id": "old-pending", "job_name": "Java", "match_score": 60},
+            {"geek_id": "manual", "job_name": "Java", "match_score": 60, "manual_review_required": True},
+            {"geek_id": "other-job", "job_name": "Python", "match_score": 60},
+        ], target)
+
+        merge_candidates_all(
+            [{"geek_id": "new-pending", "job_name": "Java", "match_score": 61}],
+            target,
+            prune_pending_jobs={"Java"},
+        )
+        loaded = load_candidates_all(target)
+
+    assert {c["geek_id"] for c in loaded} == {"new-pending", "manual", "other-job"}
+
+
+def test_partial_scan_keeps_old_plain_pending_snapshot():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = os.path.join(tmpdir, "candidates_all.json")
+        save_candidates_all([
+            {"geek_id": "old-pending", "job_name": "Java", "match_score": 60},
+        ], target)
+
+        merge_candidates_all(
+            [{"geek_id": "new-pending", "job_name": "Java", "match_score": 61}],
+            target,
+        )
+        loaded = load_candidates_all(target)
+
+    assert {c["geek_id"] for c in loaded} == {"old-pending", "new-pending"}
+
+
+def test_merge_candidates_all_archives_failed_candidate_with_feedback_only():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = os.path.join(tmpdir, "candidates_all.json")
+        save_candidates_all([
+            {
+                "geek_id": "g1",
+                "job_name": "Java",
+                "match_score": 80,
+                "feedback_status": "误推",
+            },
+            {
+                "geek_id": "g1",
+                "job_name": "Python",
+                "match_score": 75,
+            },
+        ], target)
+
+        merge_candidates_all([], target, replace_keys={("g1", "Java")})
+        loaded = load_candidates_all(target)
+
+    assert len(loaded) == 2
+    java_record = next(c for c in loaded if c["job_name"] == "Java")
+    assert java_record["match_score"] == 0
+    assert java_record["qualification_status"] == "rejected"
+    assert java_record["qualification_reasons"] == ["最新扫描未通过筛选"]
+    assert java_record["feedback_status"] == "误推"
+    assert next(c for c in loaded if c["job_name"] == "Python")["match_score"] == 75
+
+
+def test_manual_review_candidate_is_not_archived_as_previously_recommended():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = os.path.join(tmpdir, "candidates_all.json")
+        save_candidates_all([{
+            "geek_id": "manual-high",
+            "job_name": "Java",
+            "match_score": 72,
+            "qualification_status": "manual_review",
+            "manual_review_required": True,
+        }], target)
+
+        merge_candidates_all([], target, replace_keys={("manual-high", "Java")})
+        loaded = load_candidates_all(target)
+
+    assert len(loaded) == 1
+    assert loaded[0]["rejection_source"] == "user_history"
+
+
+def test_save_keeps_ai_evaluated_candidate_below_pass_score():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = os.path.join(tmpdir, "candidates_all.json")
+        save_candidates_all([{
+            "geek_id": "ai-low",
+            "job_name": "Java",
+            "match_score": 53,
+            "rule_score": 56,
+            "llm_evaluated": True,
+            "llm_adjustment": -3,
+        }], target)
+        loaded = load_candidates_all(target)
+        assert len(loaded) == 1
+        assert loaded[0]["geek_id"] == "ai-low"
+        assert loaded[0]["match_score"] == 53
+        assert loaded[0]["llm_adjustment"] == -3
+
+
+def test_save_keeps_failed_ai_candidate_below_pass_score_for_retry():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = os.path.join(tmpdir, "candidates_all.json")
+        save_candidates_all([{
+            "geek_id": "ai-failed-low",
+            "job_name": "Java",
+            "match_score": 53,
+            "llm_evaluated": False,
+            "llm_error": "请求超时",
+        }], target)
+        loaded = load_candidates_all(target)
+        assert len(loaded) == 1
+        assert loaded[0]["geek_id"] == "ai-failed-low"
+        assert loaded[0]["llm_error"] == "请求超时"
+
+
+# ========== load_candidates_all 边界场景 ==========
+
+def test_load_happy_path_from_valid_file():
+    """主文件正常时应直接加载，不触发备份恢复。"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = os.path.join(tmpdir, "candidates_all.json")
+        data = [{"geek_id": "g1", "job_name": "Java", "match_score": 70}]
+        with open(target, "w", encoding="utf-8") as f:
+            json.dump(data, f)
+
+        result = load_candidates_all(target)
+    assert len(result) == 1
+    assert result[0]["geek_id"] == "g1"
+
+
+def test_load_backup_corrupted_returns_empty():
+    """主文件损坏且备份也损坏时应抛出异常。"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = os.path.join(tmpdir, "candidates_all.json")
+        with open(target, "w") as f:
+            f.write("{broken")
+        with open(target + ".bak", "w") as f:
+            f.write("also{broken")
+        with contextlib.redirect_stdout(io.StringIO()):
+            try:
+                load_candidates_all(target)
+                assert False, "Expected RuntimeError"
+            except RuntimeError:
+                pass
+
+
+def test_corrupt_primary_raises_when_valid_backup_cannot_be_restored():
+    """A validated backup must not be reported as restored when the atomic copy fails."""
+    import unittest.mock as mock
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = Path(tmpdir) / "candidates_all.json"
+        backup = Path(str(target) + ".bak")
+        target.write_text("{broken", encoding="utf-8")
+        backup.write_text(
+            json.dumps([{"geek_id": "g1", "job_name": "Java", "match_score": 60}]),
+            encoding="utf-8",
+        )
+
+        with (
+            mock.patch("storage._atomic_copy", side_effect=OSError("disk read-only")),
+            contextlib.redirect_stdout(io.StringIO()),
+        ):
+            try:
+                load_candidates_all(str(target))
+                assert False, "Expected RuntimeError"
+            except RuntimeError as error:
+                assert "备份恢复失败" in str(error)
+
+        assert target.read_text(encoding="utf-8") == "{broken"
+        assert backup.exists()
+
+
+def test_failed_final_replace_keeps_old_snapshot_and_cleans_temp_file():
+    """Atomic save failure must leave the authoritative snapshot readable."""
+    import unittest.mock as mock
+    import storage
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = Path(tmpdir) / "candidates_all.json"
+        save_candidates_all(
+            [{"geek_id": "old", "job_name": "Java", "match_score": 60}],
+            str(target),
+        )
+        original_replace = storage.os.replace
+
+        def fail_final_replace(source, destination):
+            if Path(destination) == target:
+                raise OSError("disk read-only")
+            return original_replace(source, destination)
+
+        with mock.patch("storage.os.replace", side_effect=fail_final_replace):
+            try:
+                save_candidates_all(
+                    [{"geek_id": "new", "job_name": "Java", "match_score": 70}],
+                    str(target),
+                )
+                assert False, "Expected OSError"
+            except OSError as error:
+                assert "disk read-only" in str(error)
+
+        assert load_candidates_all(str(target))[0]["geek_id"] == "old"
+        assert not Path(str(target) + ".tmp").exists()
+
+
+# ========== save_candidates_all 边界场景 ==========
+
+def test_save_backup_failure_still_saves():
+    """备份创建失败时，保存操作本身不应中断。"""
+    import unittest.mock as mock
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = os.path.join(tmpdir, "candidates_all.json")
+        # 先创建一个文件，这样 save 会尝试备份
+        with open(target, "w", encoding="utf-8") as f:
+            json.dump([{"geek_id": "old"}], f)
+
+        with mock.patch('storage.shutil.copy2', side_effect=OSError("disk full")):
+            with contextlib.redirect_stdout(io.StringIO()):
+                save_candidates_all([
+                    {"geek_id": "g1", "job_name": "Java", "match_score": 70},
+                ], target)
+
+        # 数据应仍然保存成功
+        with open(target, "r", encoding="utf-8") as f:
+            saved = json.load(f)
+        assert len(saved) == 1
+        assert saved[0]["geek_id"] == "g1"
+
+
+def test_save_with_explicit_path_creates_backup():
+    """显式路径保存时，备份也应在同一目录下。"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = os.path.join(tmpdir, "nested", "candidates.json")
+        os.makedirs(os.path.dirname(target))
+        # 先写入旧数据
+        with open(target, "w", encoding="utf-8") as f:
+            json.dump([{"geek_id": "old"}], f)
+
+        with contextlib.redirect_stdout(io.StringIO()):
+            save_candidates_all([
+                {"geek_id": "g1", "job_name": "Java", "match_score": 70},
+            ], target)
+
+        bak = target + ".bak"
+        assert os.path.exists(bak)
+        with open(bak, "r", encoding="utf-8") as f:
+            backup = json.load(f)
+        assert backup[0]["geek_id"] == "old"
+
+
+def test_save_preserves_valid_backup_when_current_main_is_corrupt():
+    """损坏主文件不能覆盖最后一份可恢复备份。"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = os.path.join(tmpdir, "candidates_all.json")
+        backup_data = [{"geek_id": "recoverable", "job_name": "Java"}]
+        with open(target, "w", encoding="utf-8") as f:
+            f.write("{broken")
+        with open(target + ".bak", "w", encoding="utf-8") as f:
+            json.dump(backup_data, f)
+
+        with contextlib.redirect_stdout(io.StringIO()):
+            save_candidates_all(
+                [{"geek_id": "new", "job_name": "Java", "match_score": 70}],
+                target,
+            )
+
+        with open(target + ".bak", "r", encoding="utf-8") as f:
+            assert json.load(f) == backup_data
+        assert load_candidates_all(target)[0]["geek_id"] == "new"
+
+
+def test_repository_mutations_keep_updates_from_concurrent_workers():
+    """两个后台操作必须基于最新快照依次提交，不能互相覆盖。"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = os.path.join(tmpdir, "candidates_all.json")
+        save_candidates_all(
+            [{"geek_id": "g1", "job_name": "Java", "match_score": 70}],
+            target,
+        )
+        first_entered = threading.Event()
+        release_first = threading.Event()
+
+        def first_mutation(candidates):
+            candidates[0]["feedback_status"] = "合适"
+            first_entered.set()
+            assert release_first.wait(timeout=2)
+            return True
+
+        def second_mutation(candidates):
+            candidates[0]["followup_status"] = "已回复"
+            return True
+
+        first = threading.Thread(
+            target=lambda: mutate_candidates_all(first_mutation, target)
+        )
+        second = threading.Thread(
+            target=lambda: mutate_candidates_all(second_mutation, target)
+        )
+        first.start()
+        assert first_entered.wait(timeout=2)
+        second.start()
+        release_first.set()
+        first.join(timeout=2)
+        second.join(timeout=2)
+
+        assert not first.is_alive()
+        assert not second.is_alive()
+        saved = load_candidates_all(target)[0]
+        assert saved["feedback_status"] == "合适"
+        assert saved["followup_status"] == "已回复"
+
+
+def test_candidate_repository_uses_same_transaction_boundary():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target = os.path.join(tmpdir, "candidates_all.json")
+        repository = CandidateRepository(target)
+        repository.save(
+            [{"geek_id": "g1", "job_name": "Java", "match_score": 70}]
+        )
+
+        def mark_reviewed(candidates):
+            candidates[0]["review_passed_at"] = "20260730_120000"
+            return 1
+
+        assert repository.mutate(mark_reviewed) == 1
+        assert repository.load()[0]["review_passed_at"] == "20260730_120000"

@@ -1,0 +1,7 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>BOSS CLI 连接</title>
+<style>body{width:330px;padding:16px;font:14px system-ui;color:#222}label{display:block;margin:12px 0}input{box-sizing:border-box;width:100%;padding:8px;margin-top:4px}button{padding:8px 14px;margin-right:8px}#status{white-space:pre-wrap;line-height:1.6}</style>
+<h2>BOSS CLI 本地连接器</h2><p>先启动 <code>boss browser serve</code>，再填入该服务显示的端口和配对令牌。不会导出 BOSS Cookie。</p>
+<label>本机端口<input id="port" type="number" value="17891" min="1024" max="65535"></label>
+<label>配对令牌<input id="token" type="password" autocomplete="off"></label>
+<button id="connect">连接</button><button id="disconnect">断开</button><p id="status">未连接</p>
+<script src="popup.js"></script></html>

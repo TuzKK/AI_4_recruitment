@@ -1,0 +1,507 @@
+{"kind":"deck","id":"pr/d5o42x","name":"Deck"}
+{"kind":"layout","layoutId":"/ppt/slideMasters/slideMaster1.xml","name":"","type":"master","placeholders":[{"name":"title","type":"title","textPreview":"Click to edit Master title style"},{"name":"body","type":"body","textPreview":"Click to edit Master text styles | Second level | Third level | Fourth level | Fifth level"},{"name":"dateTime","type":"dateTime","textPreview":"6/4/2026"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout1.xml","name":"Title Slide","type":"title","placeholders":[{"name":"title","type":"title","textPreview":"Click to edit Master title style"},{"name":"subtitle","type":"subtitle","textPreview":"Click to edit Master subtitle style"},{"name":"dateTime","type":"dateTime","textPreview":"6/4/2026"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout2.xml","name":"Title and Content","type":"obj","placeholders":[{"name":"title","type":"title","textPreview":"Click to edit Master title style"},{"name":"content placeholder 2","textPreview":"Click to edit Master text styles | Second level | Third level | Fourth level | Fifth level"},{"name":"dateTime","type":"dateTime","textPreview":"6/4/2026"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout3.xml","name":"Section Header","type":"secHead","placeholders":[{"name":"title","type":"title","textPreview":"Click to edit Master title style"},{"name":"body","type":"body","textPreview":"Click to edit Master text styles"},{"name":"dateTime","type":"dateTime","textPreview":"6/4/2026"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout4.xml","name":"Two Content","type":"twoObj","placeholders":[{"name":"title","type":"title","textPreview":"Click to edit Master title style"},{"name":"content placeholder 2","textPreview":"Click to edit Master text styles | Second level | Third level | Fourth level | Fifth level"},{"name":"content placeholder 3","textPreview":"Click to edit Master text styles | Second level | Third level | Fourth level | Fifth level"},{"name":"dateTime","type":"dateTime","textPreview":"6/4/2026"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout5.xml","name":"Comparison","type":"twoTxTwoObj","placeholders":[{"name":"title","type":"title","textPreview":"Click to edit Master title style"},{"name":"body","type":"body","textPreview":"Click to edit Master text styles"},{"name":"content placeholder 3","textPreview":"Click to edit Master text styles | Second level | Third level | Fourth level | Fifth level"},{"name":"body","type":"body","textPreview":"Click to edit Master text styles"},{"name":"content placeholder 5","textPreview":"Click to edit Master text styles | Second level | Third level | Fourth level | Fifth level"},{"name":"dateTime","type":"dateTime","textPreview":"6/4/2026"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout6.xml","name":"Title Only","type":"titleOnly","placeholders":[{"name":"title","type":"title","textPreview":"Click to edit Master title style"},{"name":"dateTime","type":"dateTime","textPreview":"6/4/2026"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout7.xml","name":"Blank","type":"blank","placeholders":[{"name":"dateTime","type":"dateTime","textPreview":"6/4/2026"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout8.xml","name":"Content with Caption","type":"objTx","placeholders":[{"name":"title","type":"title","textPreview":"Click to edit Master title style"},{"name":"content placeholder 2","textPreview":"Click to edit Master text styles | Second level | Third level | Fourth level | Fifth level"},{"name":"body","type":"body","textPreview":"Click to edit Master text styles"},{"name":"dateTime","type":"dateTime","textPreview":"6/4/2026"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout9.xml","name":"Picture with Caption","type":"picTx","placeholders":[{"name":"title","type":"title","textPreview":"Click to edit Master title style"},{"name":"picture","type":"picture"},{"name":"body","type":"body","textPreview":"Click to edit Master text styles"},{"name":"dateTime","type":"dateTime","textPreview":"6/4/2026"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout10.xml","name":"Title and Vertical Text","type":"vertTx","placeholders":[{"name":"title","type":"title","textPreview":"Click to edit Master title style"},{"name":"body","type":"body","textPreview":"Click to edit Master text styles | Second level | Third level | Fourth level | Fifth level"},{"name":"dateTime","type":"dateTime","textPreview":"6/4/2026"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout11.xml","name":"Vertical Title and Text","type":"vertTitleAndTx","placeholders":[{"name":"title","type":"title","textPreview":"Click to edit Master title style"},{"name":"body","type":"body","textPreview":"Click to edit Master text styles | Second level | Third level | Fourth level | Fifth level"},{"name":"dateTime","type":"dateTime","textPreview":"6/4/2026"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"slide","id":"sl/2x4nap4r","slide":1,"title":"操作指南 v2.11.3","textShapes":6}
+{"kind":"shape","id":"sh/cvixczed","slide":1,"name":"Rectangle 1","bbox":[0,0,38.4,720]}
+{"kind":"shape","id":"sh/5gbq1ory","slide":1,"name":"Oval 2","bbox":[1008,-144,384,384]}
+{"kind":"shape","id":"sh/udg7adsj","slide":1,"name":"Oval 3","bbox":[1056,480,288,288]}
+{"kind":"textbox","id":"sh/nyd0z610","slide":1,"name":"Rounded Rectangle 4","text":"操作指南 v2.11.3","textPreview":"操作指南 v2.11.3","textChars":12,"textLines":1,"bbox":[115.2,144,153.6,33.6]}
+{"kind":"textbox","id":"sh/cj6tovah","slide":1,"name":"TextBox 5","text":"BOSS 招聘系统","textPreview":"BOSS 招聘系统","textChars":9,"textLines":1,"bbox":[115.2,211.2,864,144]}
+{"kind":"textbox","id":"sh/54zidony","slide":1,"name":"TextBox 6","text":"操作指南","textPreview":"操作指南","textChars":4,"textLines":1,"bbox":[115.2,336,864,115.2]}
+{"kind":"textbox","id":"sh/u9knih4b","slide":1,"name":"TextBox 7","text":"岗位配置 · 安全扫描 · AI/简历评估 · 自动打招呼 · 结果导出","textPreview":"岗位配置 · 安全扫描 · AI/简历评估 · 自动打招呼 · 结果导出","textChars":36,"textLines":1,"bbox":[115.2,480,768,48]}
+{"kind":"textbox","id":"sh/judg7ads","slide":1,"name":"TextBox 8","text":"适用对象：图形界面用户","textPreview":"适用对象：图形界面用户","textChars":11,"textLines":1,"bbox":[115.2,624,384,38.4]}
+{"kind":"textbox","id":"sh/nyd0z610","slide":1,"name":"TextBox 9","text":"2026 · 内部培训资料","textPreview":"2026 · 内部培训资料","textChars":13,"textLines":1,"bbox":[864,624,336,38.4]}
+{"kind":"notes","id":"nt/2x4nap4r","slide":1,"text":""}
+{"kind":"slide","id":"sl/pg3ex0nu","slide":2,"title":"OVERVIEW","textShapes":22}
+{"kind":"shape","id":"sh/5o7qpg3e","slide":2,"name":"Rectangle 1","bbox":[0,0,480,720]}
+{"kind":"textbox","id":"sh/g3ex0nux","slide":2,"name":"Rounded Rectangle 2","text":"OVERVIEW","textPreview":"OVERVIEW","textChars":8,"textLines":1,"bbox":[76.8,115.2,153.6,33.6]}
+{"kind":"textbox","id":"sh/r65wjudg","slide":2,"name":"TextBox 3","text":"系统能\n做什么","textPreview":"系统能 | 做什么","textChars":7,"textLines":2,"bbox":[76.8,172.8,336,144]}
+{"kind":"textbox","id":"sh/ylc7u54z","slide":2,"name":"TextBox 4","text":"把候选人获取、筛选、评分、打招呼和导出串成一个可重复执行的流程","textPreview":"把候选人获取、筛选、评分、打招呼和导出串成一个可重复执行的流程","textChars":31,"textLines":1,"bbox":[76.8,364.8,336,144]}
+{"kind":"textbox","id":"sh/9cvixcze","slide":2,"name":"Oval 5","text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[537.6,67.2,48,48]}
+{"kind":"textbox","id":"sh/gr2p8nqx","slide":2,"name":"TextBox 6","text":"规则筛选","textPreview":"规则筛选","textChars":4,"textLines":1,"bbox":[604.8,62.4,288,33.6]}
+{"kind":"textbox","id":"sh/rytsvu9k","slide":2,"name":"TextBox 7","text":"学历 / 经验 / 年龄 / 薪资 / 地点 / 必要条件","textPreview":"学历 / 经验 / 年龄 / 薪资 / 地点 / 必要条件","textChars":29,"textLines":1,"bbox":[604.8,96,624,48]}
+{"kind":"textbox","id":"sh/yd0z6103","slide":2,"name":"Oval 8","text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[537.6,168,48,48]}
+{"kind":"textbox","id":"sh/wb2hwfyx","slide":2,"name":"TextBox 9","text":"技能评分","textPreview":"技能评分","textChars":4,"textLines":1,"bbox":[604.8,163.2,288,33.6]}
+{"kind":"textbox","id":"sh/lwval87e","slide":2,"name":"TextBox 10","text":"关键词权重匹配，四维模型打分","textPreview":"关键词权重匹配，四维模型打分","textChars":14,"textLines":1,"bbox":[604.8,196.8,624,48]}
+{"kind":"textbox","id":"sh/e9cvixcz","slide":2,"name":"Oval 11","text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[537.6,268.8,48,48]}
+{"kind":"textbox","id":"sh/3q5o7qpg","slide":2,"name":"TextBox 12","text":"AI/简历评估","textPreview":"AI/简历评估","textChars":7,"textLines":1,"bbox":[604.8,264,288,35.2]}
+{"kind":"textbox","id":"sh/w3m94fu1","slide":2,"name":"TextBox 13","text":"规则评分 + AI 调整 + 简历调整","textPreview":"规则评分 + AI 调整 + 简历调整","textChars":19,"textLines":1,"bbox":[604.8,297.6,624,48]}
+{"kind":"textbox","id":"sh/loj2t83i","slide":2,"name":"Oval 14","text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[537.6,369.6,48,48]}
+{"kind":"textbox","id":"sh/ex0nuxc3","slide":2,"name":"TextBox 15","text":"安全扫描","textPreview":"安全扫描","textChars":4,"textLines":1,"bbox":[604.8,364.8,288,35.2]}
+{"kind":"textbox","id":"sh/3itgfmlk","slide":2,"name":"TextBox 16","text":"默认 listener + refresh，失败回退 DOM","textPreview":"默认 listener + refresh，失败回退 DOM","textChars":30,"textLines":1,"bbox":[604.8,398.4,624,48]}
+{"kind":"textbox","id":"sh/szqtcj6t","slide":2,"name":"Oval 17","text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[537.6,470.4,48,48]}
+{"kind":"textbox","id":"sh/lkjm1cfa","slide":2,"name":"TextBox 18","text":"黑名单/打招呼","textPreview":"黑名单/打招呼","textChars":7,"textLines":1,"bbox":[604.8,465.6,288,35.2]}
+{"kind":"textbox","id":"sh/lc7u54zi","slide":2,"name":"TextBox 19","text":"屏蔽重复候选人，按阈值沟通","textPreview":"屏蔽重复候选人，按阈值沟通","textChars":13,"textLines":1,"bbox":[604.8,499.2,624,48]}
+{"kind":"textbox","id":"sh/wra5gbq1","slide":2,"name":"Oval 20","text":"06","textPreview":"06","textChars":2,"textLines":1,"bbox":[537.6,571.2,48,48]}
+{"kind":"textbox","id":"sh/36hcrmhk","slide":2,"name":"TextBox 21","text":"导出统计","textPreview":"导出统计","textChars":4,"textLines":1,"bbox":[604.8,566.4,288,33.6]}
+{"kind":"textbox","id":"sh/eloj2t83","slide":2,"name":"TextBox 22","text":"Excel 导出 + 跟进转化统计","textPreview":"Excel 导出 + 跟进转化统计","textChars":17,"textLines":1,"bbox":[604.8,600,624,48]}
+{"kind":"textbox","id":"sh/l0rqd4vm","slide":2,"name":"TextBox 23","text":"2 / 15","textPreview":"2 / 15","textChars":6,"textLines":1,"bbox":[1171.2,672,96,38.4]}
+{"kind":"notes","id":"nt/pg3ex0nu","slide":2,"text":""}
+{"kind":"slide","id":"sl/s72x4nap","slide":3,"title":"工作流程全景","textShapes":30}
+{"kind":"shape","id":"sh/o7qpg3ex","slide":3,"name":"Rectangle 1","bbox":[76.8,57.6,7.68,48]}
+{"kind":"textbox","id":"sh/dsji5sne","slide":3,"name":"TextBox 2","text":"工作流程全景","textPreview":"工作流程全景","textChars":6,"textLines":1,"bbox":[105.6,52.8,576,57.6]}
+{"kind":"textbox","id":"sh/6dcbulwv","slide":3,"name":"TextBox 3","text":"从配置到导出，7 步完成完整筛选流程","textPreview":"从配置到导出，7 步完成完整筛选流程","textChars":18,"textLines":1,"bbox":[105.6,105.6,768,38.4]}
+{"kind":"shape","id":"sh/vy90je9c","slide":3,"name":"Rounded Rectangle 4","bbox":[48,211.2,153.6,336]}
+{"kind":"shape","id":"sh/oj2t83it","slide":3,"name":"Rectangle 5","bbox":[48,211.2,153.6,7.68]}
+{"kind":"textbox","id":"sh/d4vmtwra","slide":3,"name":"Oval 6","text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[100.8,240,48,48]}
+{"kind":"textbox","id":"sh/6hcrmhk3","slide":3,"name":"TextBox 7","text":"启动系统","textPreview":"启动系统","textChars":4,"textLines":1,"bbox":[57.6,307.2,134.4,38.4]}
+{"kind":"textbox","id":"sh/z25kb6xk","slide":3,"name":"TextBox 8","text":"双击打开程序","textPreview":"双击打开程序","textChars":6,"textLines":1,"bbox":[57.6,355.2,134.4,144]}
+{"kind":"textbox","id":"sh/vy90je9c","slide":3,"name":"TextBox 9","text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[203.52,336,19.2,38.4]}
+{"kind":"shape","id":"sh/6dcbulwv","slide":3,"name":"Rounded Rectangle 10","bbox":[222.72,211.2,153.6,336]}
+{"kind":"shape","id":"sh/d4vmtwra","slide":3,"name":"Rectangle 11","bbox":[222.72,211.2,153.6,7.68]}
+{"kind":"textbox","id":"sh/oj2t83it","slide":3,"name":"Oval 12","text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[275.52,240,48,48]}
+{"kind":"textbox","id":"sh/vmtwra5g","slide":3,"name":"TextBox 13","text":"配置岗位","textPreview":"配置岗位","textChars":4,"textLines":1,"bbox":[232.32,307.2,134.4,38.4]}
+{"kind":"textbox","id":"sh/61032lsz","slide":3,"name":"TextBox 14","text":"新建岗位规则\n或解析 JD","textPreview":"新建岗位规则 | 或解析 JD","textChars":13,"textLines":2,"bbox":[232.32,355.2,134.4,144]}
+{"kind":"textbox","id":"sh/dsji5sne","slide":3,"name":"TextBox 15","text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[378.24,336,19.2,38.4]}
+{"kind":"shape","id":"sh/o7qpg3ex","slide":3,"name":"Rounded Rectangle 16","bbox":[397.44,211.2,153.6,336]}
+{"kind":"shape","id":"sh/vahoza1g","slide":3,"name":"Rectangle 17","bbox":[397.44,211.2,153.6,7.68]}
+{"kind":"textbox","id":"sh/6tovahoz","slide":3,"name":"Oval 18","text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[450.24,240,48,48]}
+{"kind":"textbox","id":"sh/epkzupwb","slide":3,"name":"TextBox 19","text":"配置 AI","textPreview":"配置 AI","textChars":5,"textLines":1,"bbox":[407.04,307.2,134.4,38.4]}
+{"kind":"textbox","id":"sh/7adsji5s","slide":3,"name":"TextBox 20","text":"可选\n配置大模型","textPreview":"可选 | 配置大模型","textChars":8,"textLines":2,"bbox":[407.04,355.2,134.4,144]}
+{"kind":"textbox","id":"sh/wval87ed","slide":3,"name":"TextBox 21","text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[552.96,336,19.2,38.4]}
+{"kind":"shape","id":"sh/pg3ex0nu","slide":3,"name":"Rounded Rectangle 22","bbox":[572.16,211.2,153.6,336]}
+{"kind":"shape","id":"sh/e1w7mp0b","slide":3,"name":"Rectangle 23","bbox":[572.16,211.2,153.6,7.68]}
+{"kind":"textbox","id":"sh/7mp0bi9s","slide":3,"name":"Oval 24","text":"4","textPreview":"4","textChars":1,"textLines":1,"bbox":[624.96,240,48,48]}
+{"kind":"textbox","id":"sh/w7mp0bi9","slide":3,"name":"TextBox 25","text":"连接浏览器","textPreview":"连接浏览器","textChars":5,"textLines":1,"bbox":[581.76,307.2,134.4,38.4]}
+{"kind":"textbox","id":"sh/psfil0rq","slide":3,"name":"TextBox 26","text":"连接 Chrome\n打开推荐页","textPreview":"连接 Chrome | 打开推荐页","textChars":15,"textLines":2,"bbox":[581.76,355.2,134.4,144]}
+{"kind":"textbox","id":"sh/ed8bat47","slide":3,"name":"TextBox 27","text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[727.68,336,19.2,38.4]}
+{"kind":"shape","id":"sh/7u54zido","slide":3,"name":"Rounded Rectangle 28","bbox":[746.88,211.2,153.6,336]}
+{"kind":"shape","id":"sh/twra5gbq","slide":3,"name":"Rectangle 29","bbox":[746.88,211.2,153.6,7.68]}
+{"kind":"textbox","id":"sh/4byhgn29","slide":3,"name":"Oval 30","text":"5","textPreview":"5","textChars":1,"textLines":1,"bbox":[799.68,240,48,48]}
+{"kind":"textbox","id":"sh/bq1oryts","slide":3,"name":"TextBox 31","text":"运行筛选","textPreview":"运行筛选","textChars":4,"textLines":1,"bbox":[756.48,307.2,134.4,38.4]}
+{"kind":"textbox","id":"sh/m58z25kb","slide":3,"name":"TextBox 32","text":"安全扫描 +\n评分 + AI","textPreview":"安全扫描 + | 评分 + AI","textChars":14,"textLines":2,"bbox":[756.48,355.2,134.4,144]}
+{"kind":"textbox","id":"sh/t83itgfm","slide":3,"name":"TextBox 33","text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[902.4,336,19.2,38.4]}
+{"kind":"shape","id":"sh/4nap4r65","slide":3,"name":"Rounded Rectangle 34","bbox":[921.6,211.2,153.6,336]}
+{"kind":"shape","id":"sh/b2hwfyxo","slide":3,"name":"Rectangle 35","bbox":[921.6,211.2,153.6,7.68]}
+{"kind":"textbox","id":"sh/mhk3q5o7","slide":3,"name":"Oval 36","text":"6","textPreview":"6","textChars":1,"textLines":1,"bbox":[974.4,240,48,48]}
+{"kind":"textbox","id":"sh/tgfmlkjm","slide":3,"name":"TextBox 37","text":"查看结果","textPreview":"查看结果","textChars":4,"textLines":1,"bbox":[931.2,307.2,134.4,38.4]}
+{"kind":"textbox","id":"sh/4vmtwra5","slide":3,"name":"TextBox 38","text":"黑名单/简历\n跟进反馈","textPreview":"黑名单/简历 | 跟进反馈","textChars":11,"textLines":2,"bbox":[931.2,355.2,134.4,144]}
+{"kind":"textbox","id":"sh/c3ylc7u5","slide":3,"name":"TextBox 39","text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[1077.12,336,19.2,38.4]}
+{"kind":"shape","id":"sh/1kre1w7m","slide":3,"name":"Rounded Rectangle 40","bbox":[1096.32,211.2,153.6,336]}
+{"kind":"shape","id":"sh/uxc3ylc7","slide":3,"name":"Rectangle 41","bbox":[1096.32,211.2,153.6,7.68]}
+{"kind":"textbox","id":"sh/ji5snelo","slide":3,"name":"Oval 42","text":"7","textPreview":"7","textChars":1,"textLines":1,"bbox":[1149.12,240,48,48]}
+{"kind":"textbox","id":"sh/crmhk3q5","slide":3,"name":"TextBox 43","text":"导出/统计","textPreview":"导出/统计","textChars":5,"textLines":1,"bbox":[1105.92,307.2,134.4,38.4]}
+{"kind":"textbox","id":"sh/1cfa9w3m","slide":3,"name":"TextBox 44","text":"Excel 导出\n数据统计","textPreview":"Excel 导出 | 数据统计","textChars":13,"textLines":2,"bbox":[1105.92,355.2,134.4,144]}
+{"kind":"textbox","id":"sh/j6tovaho","slide":3,"name":"TextBox 46","text":"3 / 15","textPreview":"3 / 15","textChars":6,"textLines":1,"bbox":[1171.2,672,96,38.4]}
+{"kind":"notes","id":"nt/s72x4nap","slide":3,"text":""}
+{"kind":"slide","id":"sl/val87ed8","slide":4,"title":"主界面导航","textShapes":16}
+{"kind":"shape","id":"sh/qtcj6tov","slide":4,"name":"Rectangle 1","bbox":[76.8,57.6,7.68,48]}
+{"kind":"textbox","id":"sh/je9cvixc","slide":4,"name":"TextBox 2","text":"主界面导航","textPreview":"主界面导航","textChars":5,"textLines":1,"bbox":[105.6,52.8,576,57.6]}
+{"kind":"textbox","id":"sh/87ed8bat","slide":4,"name":"TextBox 3","text":"左侧固定导航栏 + 右侧内容区，6 个功能模块覆盖全流程","textPreview":"左侧固定导航栏 + 右侧内容区，6 个功能模块覆盖全流程","textChars":28,"textLines":1,"bbox":[105.6,105.6,768,38.4]}
+{"kind":"shape","id":"sh/q1orytsv","slide":4,"name":"Rectangle 5","bbox":[652.8,182.4,5.76,57.6]}
+{"kind":"textbox","id":"sh/fmlkjm1c","slide":4,"name":"TextBox 6","text":"首页","textPreview":"首页","textChars":2,"textLines":1,"bbox":[681.6,177.6,240,33.6]}
+{"kind":"textbox","id":"sh/8jqh0fep","slide":4,"name":"TextBox 7","text":"全局统计 + 快捷入口","textPreview":"全局统计 + 快捷入口","textChars":11,"textLines":1,"bbox":[681.6,211.2,528,33.6]}
+{"kind":"shape","id":"sh/x4nap4r6","slide":4,"name":"Rectangle 8","bbox":[652.8,264,5.76,57.6]}
+{"kind":"textbox","id":"sh/1w7mp0bi","slide":4,"name":"TextBox 9","text":"岗位配置","textPreview":"岗位配置","textChars":4,"textLines":1,"bbox":[681.6,259.2,240,33.6]}
+{"kind":"textbox","id":"sh/8bat47y1","slide":4,"name":"TextBox 10","text":"新建/修改/导入/导出规则","textPreview":"新建/修改/导入/导出规则","textChars":13,"textLines":1,"bbox":[681.6,292.8,528,33.6]}
+{"kind":"shape","id":"sh/jqh0fepk","slide":4,"name":"Rectangle 11","bbox":[652.8,345.6,5.76,57.6]}
+{"kind":"textbox","id":"sh/q5o7qpg3","slide":4,"name":"TextBox 12","text":"运行控制","textPreview":"运行控制","textChars":4,"textLines":1,"bbox":[681.6,340.8,240,33.6]}
+{"kind":"textbox","id":"sh/18jqh0fe","slide":4,"name":"TextBox 13","text":"连接浏览器 + 运行参数","textPreview":"连接浏览器 + 运行参数","textChars":12,"textLines":1,"bbox":[681.6,374.4,528,33.6]}
+{"kind":"shape","id":"sh/8nqxs72x","slide":4,"name":"Rectangle 14","bbox":[652.8,427.2,5.76,57.6]}
+{"kind":"textbox","id":"sh/j2t83itg","slide":4,"name":"TextBox 15","text":"筛选结果","textPreview":"筛选结果","textChars":4,"textLines":1,"bbox":[681.6,422.4,240,33.6]}
+{"kind":"textbox","id":"sh/qh0fepkz","slide":4,"name":"TextBox 16","text":"候选人列表 + 右键操作","textPreview":"候选人列表 + 右键操作","textChars":12,"textLines":1,"bbox":[681.6,456,528,33.6]}
+{"kind":"shape","id":"sh/1cfa9w3m","slide":4,"name":"Rectangle 17","bbox":[652.8,508.8,5.76,57.6]}
+{"kind":"textbox","id":"sh/crmhk3q5","slide":4,"name":"TextBox 18","text":"数据统计","textPreview":"数据统计","textChars":4,"textLines":1,"bbox":[681.6,504,240,33.6]}
+{"kind":"textbox","id":"sh/sfil0rqd","slide":4,"name":"TextBox 19","text":"按岗位/时间统计","textPreview":"按岗位/时间统计","textChars":8,"textLines":1,"bbox":[681.6,537.6,528,33.6]}
+{"kind":"shape","id":"sh/h0fepkzu","slide":4,"name":"Rectangle 20","bbox":[652.8,590.4,5.76,57.6]}
+{"kind":"textbox","id":"sh/a9w3m94f","slide":4,"name":"TextBox 21","text":"系统设置","textPreview":"系统设置","textChars":4,"textLines":1,"bbox":[681.6,585.6,240,33.6]}
+{"kind":"textbox","id":"sh/zupwb2hw","slide":4,"name":"TextBox 22","text":"AI 服务商 + API Key","textPreview":"AI 服务商 + API Key","textChars":16,"textLines":1,"bbox":[681.6,619.2,528,33.6]}
+{"kind":"shape","id":"sh/orytsvu9","slide":4,"name":"Rounded Rectangle 23","bbox":[652.8,652.8,556.8,48]}
+{"kind":"textbox","id":"sh/hcrmhk3q","slide":4,"name":"TextBox 24","text":"💡 使用顺序：岗位配置 → 系统设置 → 运行控制 → 筛选结果 → 数据统计","textPreview":"💡 使用顺序：岗位配置 → 系统设置 → 运行控制 → 筛选结果 → 数据统计","textChars":40,"textLines":1,"bbox":[672,657.6,528,38.4]}
+{"kind":"textbox","id":"sh/al87ed8b","slide":4,"name":"TextBox 25","text":"4 / 15","textPreview":"4 / 15","textChars":6,"textLines":1,"bbox":[1171.2,672,96,38.4]}
+{"kind":"image","id":"im/87ed8bat","slide":4,"name":"Picture 4","alt":"01-home.png","bbox":[76.8,172.8,528,304.57]}
+{"kind":"notes","id":"nt/val87ed8","slide":4,"text":""}
+{"kind":"slide","id":"sl/mlkjm1cf","slide":5,"title":"岗位配置","textShapes":21}
+{"kind":"shape","id":"sh/ovahoza1","slide":5,"name":"Rectangle 1","bbox":[76.8,57.6,7.68,48]}
+{"kind":"textbox","id":"sh/dg7adsji","slide":5,"name":"TextBox 2","text":"岗位配置","textPreview":"岗位配置","textChars":4,"textLines":1,"bbox":[105.6,52.8,576,57.6]}
+{"kind":"textbox","id":"sh/6hcrmhk3","slide":5,"name":"TextBox 3","text":"岗位规则直接决定候选人是否被淘汰，尤其是必要条件和工作地点","textPreview":"岗位规则直接决定候选人是否被淘汰，尤其是必要条件和工作地点","textChars":29,"textLines":1,"bbox":[105.6,105.6,960,38.4]}
+{"kind":"textbox","id":"sh/onyd0z61","slide":5,"name":"TextBox 5","text":"核心字段","textPreview":"核心字段","textChars":4,"textLines":1,"bbox":[720,163.2,480,38.4]}
+{"kind":"shape","id":"sh/d8v6psfi","slide":5,"name":"Oval 6","bbox":[720,225.6,14.4,14.4]}
+{"kind":"textbox","id":"sh/6dcbulwv","slide":5,"name":"TextBox 7","text":"岗位名称","textPreview":"岗位名称","textChars":4,"textLines":1,"bbox":[748.8,216,192,28.8]}
+{"kind":"textbox","id":"sh/vy90je9c","slide":5,"name":"TextBox 8","text":"当前岗位规则名称","textPreview":"当前岗位规则名称","textChars":8,"textLines":1,"bbox":[921.6,216,307.2,38.4]}
+{"kind":"shape","id":"sh/nuxc3ylc","slide":5,"name":"Oval 9","bbox":[720,281.28,14.4,14.4]}
+{"kind":"textbox","id":"sh/y90je9cv","slide":5,"name":"TextBox 10","text":"最低学历","textPreview":"最低学历","textChars":4,"textLines":1,"bbox":[748.8,271.68,192,28.8]}
+{"kind":"textbox","id":"sh/5wjudg7a","slide":5,"name":"TextBox 11","text":"低于该学历直接淘汰","textPreview":"低于该学历直接淘汰","textChars":9,"textLines":1,"bbox":[921.6,271.68,307.2,38.4]}
+{"kind":"shape","id":"sh/gbq1oryt","slide":5,"name":"Oval 12","bbox":[720,336.96,14.4,14.4]}
+{"kind":"textbox","id":"sh/n29gr2p8","slide":5,"name":"TextBox 13","text":"最低经验","textPreview":"最低经验","textChars":4,"textLines":1,"bbox":[748.8,327.36,192,28.8]}
+{"kind":"textbox","id":"sh/yhgn29gr","slide":5,"name":"TextBox 14","text":"工作年限不足直接淘汰","textPreview":"工作年限不足直接淘汰","textChars":10,"textLines":1,"bbox":[921.6,327.36,307.2,38.4]}
+{"kind":"shape","id":"sh/58z25kb6","slide":5,"name":"Oval 15","bbox":[720,392.64,14.4,14.4]}
+{"kind":"textbox","id":"sh/gn29gr2p","slide":5,"name":"TextBox 16","text":"最大年龄","textPreview":"最大年龄","textChars":4,"textLines":1,"bbox":[748.8,383.04,192,28.8]}
+{"kind":"textbox","id":"sh/neloj2t8","slide":5,"name":"TextBox 17","text":"超过上限直接淘汰，留空不限","textPreview":"超过上限直接淘汰，留空不限","textChars":13,"textLines":1,"bbox":[921.6,383.04,307.2,38.4]}
+{"kind":"shape","id":"sh/ytsvu9kn","slide":5,"name":"Oval 18","bbox":[720,448.32,14.4,14.4]}
+{"kind":"textbox","id":"sh/2x4nap4r","slide":5,"name":"TextBox 19","text":"薪资范围","textPreview":"薪资范围","textChars":4,"textLines":1,"bbox":[748.8,438.72,192,28.8]}
+{"kind":"textbox","id":"sh/vixczed8","slide":5,"name":"TextBox 20","text":"期望薪资明显超出预算时淘汰","textPreview":"期望薪资明显超出预算时淘汰","textChars":13,"textLines":1,"bbox":[921.6,438.72,307.2,38.4]}
+{"kind":"shape","id":"sh/k3q5o7qp","slide":5,"name":"Oval 21","bbox":[720,504,14.4,14.4]}
+{"kind":"textbox","id":"sh/donyd0z6","slide":5,"name":"TextBox 22","text":"工作地点","textPreview":"工作地点","textChars":4,"textLines":1,"bbox":[748.8,494.4,192,28.8]}
+{"kind":"textbox","id":"sh/6psfil0r","slide":5,"name":"TextBox 23","text":"支持多地点: 南京、上海/杭州","textPreview":"支持多地点: 南京、上海/杭州","textChars":15,"textLines":1,"bbox":[921.6,494.4,307.2,38.4]}
+{"kind":"shape","id":"sh/val87ed8","slide":5,"name":"Oval 24","bbox":[720,559.68,14.4,14.4]}
+{"kind":"textbox","id":"sh/kre1w7mp","slide":5,"name":"TextBox 25","text":"技能关键词","textPreview":"技能关键词","textChars":5,"textLines":1,"bbox":[748.8,550.08,192,28.8]}
+{"kind":"textbox","id":"sh/dcbulwva","slide":5,"name":"TextBox 26","text":"评分关键词；优先项另行加分","textPreview":"评分关键词；优先项另行加分","textChars":13,"textLines":1,"bbox":[921.6,550.08,307.2,38.4]}
+{"kind":"shape","id":"sh/2lszqtcj","slide":5,"name":"Oval 27","bbox":[720,615.36,14.4,14.4]}
+{"kind":"textbox","id":"sh/v6psfil0","slide":5,"name":"TextBox 28","text":"必要条件","textPreview":"必要条件","textChars":4,"textLines":1,"bbox":[748.8,605.76,192,28.8]}
+{"kind":"textbox","id":"sh/h4byhgn2","slide":5,"name":"TextBox 29","text":"不满足直接淘汰，如\"统招本科\"","textPreview":"不满足直接淘汰，如\"统招本科\"","textChars":15,"textLines":1,"bbox":[921.6,605.76,307.2,38.4]}
+{"kind":"shape","id":"sh/sji5snel","slide":5,"name":"Rounded Rectangle 30","bbox":[720,672,499.2,33.6]}
+{"kind":"textbox","id":"sh/3ylc7u54","slide":5,"name":"TextBox 31","text":"权重建议：1=普通  2=核心  3=强核心；优先项用于加分，不当作硬门槛","textPreview":"权重建议：1=普通  2=核心  3=强核心；优先项用于加分，不当作硬门槛","textChars":37,"textLines":1,"bbox":[739.2,672,480,33.6]}
+{"kind":"textbox","id":"sh/adsji5sn","slide":5,"name":"TextBox 32","text":"5 / 15","textPreview":"5 / 15","textChars":6,"textLines":1,"bbox":[1171.2,672,96,38.4]}
+{"kind":"image","id":"im/epkzupwb","slide":5,"name":"Picture 4","alt":"02-job-config-full.png","bbox":[226.39,138.67,291.85,582.05]}
+{"kind":"notes","id":"nt/mlkjm1cf","slide":5,"text":""}
+{"kind":"slide","id":"sl/58z25kb6","slide":6,"title":"招聘需求自动解析","textShapes":16}
+{"kind":"shape","id":"sh/ylc7u54z","slide":6,"name":"Rectangle 1","bbox":[76.8,57.6,7.68,48]}
+{"kind":"textbox","id":"sh/r65wjudg","slide":6,"name":"TextBox 2","text":"招聘需求自动解析","textPreview":"招聘需求自动解析","textChars":8,"textLines":1,"bbox":[105.6,52.8,576,57.6]}
+{"kind":"textbox","id":"sh/g3ex0nux","slide":6,"name":"TextBox 3","text":"粘贴 JD → 系统自动提取字段 → 人工检查修正 → 保存","textPreview":"粘贴 JD → 系统自动提取字段 → 人工检查修正 → 保存","textChars":30,"textLines":1,"bbox":[105.6,105.6,960,38.4]}
+{"kind":"shape","id":"sh/5o7qpg3e","slide":6,"name":"Rounded Rectangle 4","bbox":[76.8,192,268.8,268.8]}
+{"kind":"textbox","id":"sh/yxobm58z","slide":6,"name":"Oval 5","text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[177.6,220.8,67.2,67.2]}
+{"kind":"textbox","id":"sh/nih4byhg","slide":6,"name":"TextBox 6","text":"粘贴招聘需求","textPreview":"粘贴招聘需求","textChars":6,"textLines":1,"bbox":[96,307.2,230.4,38.4]}
+{"kind":"textbox","id":"sh/g7adsji5","slide":6,"name":"TextBox 7","text":"把 JD 文本粘贴到\n文本框中","textPreview":"把 JD 文本粘贴到 | 文本框中","textChars":15,"textLines":2,"bbox":[96,355.2,230.4,86.4]}
+{"kind":"shape","id":"sh/9s36hcrm","slide":6,"name":"Rounded Rectangle 8","bbox":[374.4,192,268.8,268.8]}
+{"kind":"textbox","id":"sh/d8v6psfi","slide":6,"name":"Oval 9","text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[475.2,220.8,67.2,67.2]}
+{"kind":"textbox","id":"sh/onyd0z61","slide":6,"name":"TextBox 10","text":"参考示例模板","textPreview":"参考示例模板","textChars":6,"textLines":1,"bbox":[393.6,307.2,230.4,38.4]}
+{"kind":"textbox","id":"sh/z25kb6xk","slide":6,"name":"TextBox 11","text":"不清楚格式？点击\n\"招聘需求示例\"","textPreview":"不清楚格式？点击 | \"招聘需求示例\"","textChars":17,"textLines":2,"bbox":[393.6,355.2,230.4,86.4]}
+{"kind":"shape","id":"sh/6hcrmhk3","slide":6,"name":"Rounded Rectangle 12","bbox":[672,192,268.8,268.8]}
+{"kind":"textbox","id":"sh/dg7adsji","slide":6,"name":"Oval 13","text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[772.8,220.8,67.2,67.2]}
+{"kind":"textbox","id":"sh/ovahoza1","slide":6,"name":"TextBox 14","text":"解析 + 检查","textPreview":"解析 + 检查","textChars":7,"textLines":1,"bbox":[691.2,307.2,230.4,38.4]}
+{"kind":"textbox","id":"sh/vahoza1g","slide":6,"name":"TextBox 15","text":"检查技能/优先项/必要条件\n手工修正偏差","textPreview":"检查技能/优先项/必要条件 | 手工修正偏差","textChars":20,"textLines":2,"bbox":[691.2,355.2,230.4,86.4]}
+{"kind":"shape","id":"sh/6tovahoz","slide":6,"name":"Rounded Rectangle 16","bbox":[969.6,192,268.8,268.8]}
+{"kind":"textbox","id":"sh/dsji5sne","slide":6,"name":"Oval 17","text":"4","textPreview":"4","textChars":1,"textLines":1,"bbox":[1070.4,220.8,67.2,67.2]}
+{"kind":"textbox","id":"sh/o7qpg3ex","slide":6,"name":"TextBox 18","text":"保存配置","textPreview":"保存配置","textChars":4,"textLines":1,"bbox":[988.8,307.2,230.4,38.4]}
+{"kind":"textbox","id":"sh/kjm1cfa9","slide":6,"name":"TextBox 19","text":"确认无误后保存\n生成岗位规则","textPreview":"确认无误后保存 | 生成岗位规则","textChars":14,"textLines":2,"bbox":[988.8,355.2,230.4,86.4]}
+{"kind":"shape","id":"sh/94fu18jq","slide":6,"name":"Rounded Rectangle 20","bbox":[76.8,508.8,1123.2,67.2]}
+{"kind":"textbox","id":"sh/2hwfyxob","slide":6,"name":"TextBox 21","text":"⚠️  解析功能是辅助，不是最终裁决。保存前必须人工检查：薪资、地点、必要条件、技能权重和优先项。","textPreview":"⚠️  解析功能是辅助，不是最终裁决。保存前必须人工检查：薪资、地点、必要条件、技能权重和优先项。","textChars":49,"textLines":1,"bbox":[115.2,513.6,1056,57.6]}
+{"kind":"textbox","id":"sh/gvy90je9","slide":6,"name":"TextBox 23","text":"6 / 15","textPreview":"6 / 15","textChars":6,"textLines":1,"bbox":[1171.2,672,96,38.4]}
+{"kind":"notes","id":"nt/58z25kb6","slide":6,"text":""}
+{"kind":"slide","id":"sl/0z61032l","slide":7,"title":"配置大模型","textShapes":22}
+{"kind":"shape","id":"sh/x4nap4r6","slide":7,"name":"Rectangle 1","bbox":[76.8,57.6,7.68,48]}
+{"kind":"textbox","id":"sh/8jqh0fep","slide":7,"name":"TextBox 2","text":"配置大模型","textPreview":"配置大模型","textChars":5,"textLines":1,"bbox":[105.6,52.8,576,57.6]}
+{"kind":"textbox","id":"sh/fa9w3m94","slide":7,"name":"TextBox 3","text":"可选配置。启用 AI 辅助评估时，需要先完成模型配置和连通性测试","textPreview":"可选配置。启用 AI 辅助评估时，需要先完成模型配置和连通性测试","textChars":32,"textLines":1,"bbox":[105.6,105.6,960,38.4]}
+{"kind":"textbox","id":"sh/xczed8v6","slide":7,"name":"TextBox 5","text":"配置 6 步","textPreview":"配置 6 步","textChars":6,"textLines":1,"bbox":[729.6,153.6,480,38.4]}
+{"kind":"textbox","id":"sh/8v6psfil","slide":7,"name":"Oval 6","text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[729.6,222.72,26.88,26.88]}
+{"kind":"textbox","id":"sh/je9cvixc","slide":7,"name":"TextBox 7","text":"选择服务商（通义千问 / DeepSeek / Kimi / OpenAI ...）","textPreview":"选择服务商（通义千问 / DeepSeek / Kimi / OpenAI ...）","textChars":42,"textLines":1,"bbox":[768,216,460.8,33.6]}
+{"kind":"textbox","id":"sh/qtcj6tov","slide":7,"name":"Oval 8","text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[729.6,275.52,26.88,26.88]}
+{"kind":"textbox","id":"sh/svu9knih","slide":7,"name":"TextBox 9","text":"填写 Base URL（系统给出默认地址）","textPreview":"填写 Base URL（系统给出默认地址）","textChars":21,"textLines":1,"bbox":[768,268.8,460.8,33.6]}
+{"kind":"textbox","id":"sh/hgn29gr2","slide":7,"name":"Oval 10","text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[729.6,328.32,26.88,26.88]}
+{"kind":"textbox","id":"sh/ap4r65wj","slide":7,"name":"TextBox 11","text":"输入 API Key（加密存储在系统钥匙串）","textPreview":"输入 API Key（加密存储在系统钥匙串）","textChars":22,"textLines":1,"bbox":[768,321.6,460.8,33.6]}
+{"kind":"textbox","id":"sh/za1gvy90","slide":7,"name":"Oval 12","text":"4","textPreview":"4","textChars":1,"textLines":1,"bbox":[729.6,381.12,26.88,26.88]}
+{"kind":"textbox","id":"sh/s36hcrmh","slide":7,"name":"TextBox 13","text":"获取或输入模型名称","textPreview":"获取或输入模型名称","textChars":9,"textLines":1,"bbox":[768,374.4,460.8,33.6]}
+{"kind":"textbox","id":"sh/hoza1gvy","slide":7,"name":"Oval 14","text":"5","textPreview":"5","textChars":1,"textLines":1,"bbox":[729.6,433.92,26.88,26.88]}
+{"kind":"textbox","id":"sh/a1gvy90j","slide":7,"name":"TextBox 15","text":"点击「测试连接」","textPreview":"点击「测试连接」","textChars":8,"textLines":1,"bbox":[768,427.2,460.8,33.6]}
+{"kind":"textbox","id":"sh/zidonyd0","slide":7,"name":"Oval 16","text":"6","textPreview":"6","textChars":1,"textLines":1,"bbox":[729.6,486.72,26.88,26.88]}
+{"kind":"textbox","id":"sh/s72x4nap","slide":7,"name":"TextBox 17","text":"测试通过 → 保存并添加到列表","textPreview":"测试通过 → 保存并添加到列表","textChars":15,"textLines":1,"bbox":[768,480,460.8,33.6]}
+{"kind":"shape","id":"sh/lszqtcj6","slide":7,"name":"Rounded Rectangle 18","bbox":[76.8,576,364.8,115.2]}
+{"kind":"textbox","id":"sh/pg3ex0nu","slide":7,"name":"TextBox 19","text":"🔐 安全存储","textPreview":"🔐 安全存储","textChars":7,"textLines":1,"bbox":[96,589.44,326.4,28.8]}
+{"kind":"textbox","id":"sh/wval87ed","slide":7,"name":"TextBox 20","text":"API Key 加密保存在系统钥匙串\n配置文件中不含明文 Key","textPreview":"API Key 加密保存在系统钥匙串 | 配置文件中不含明文 Key","textChars":32,"textLines":2,"bbox":[96,618.24,326.4,67.2]}
+{"kind":"shape","id":"sh/7adsji5s","slide":7,"name":"Rounded Rectangle 21","bbox":[470.4,576,364.8,115.2]}
+{"kind":"textbox","id":"sh/epkzupwb","slide":7,"name":"TextBox 22","text":"🔄 多接入方式","textPreview":"🔄 多接入方式","textChars":8,"textLines":1,"bbox":[489.6,589.44,326.4,28.8]}
+{"kind":"textbox","id":"sh/psfil0rq","slide":7,"name":"TextBox 23","text":"同一服务商按 provider+base_url\n区分不同接入方式","textPreview":"同一服务商按 provider+base_url | 区分不同接入方式","textChars":33,"textLines":2,"bbox":[489.6,618.24,326.4,67.2]}
+{"kind":"shape","id":"sh/w7mp0bi9","slide":7,"name":"Rounded Rectangle 24","bbox":[864,576,364.8,115.2]}
+{"kind":"textbox","id":"sh/7mp0bi9s","slide":7,"name":"TextBox 25","text":"🔍 模型管理","textPreview":"🔍 模型管理","textChars":7,"textLines":1,"bbox":[883.2,589.44,326.4,28.8]}
+{"kind":"textbox","id":"sh/e1w7mp0b","slide":7,"name":"TextBox 26","text":"搜索/多选/批量测试/新增检测\n支持下线模型提醒","textPreview":"搜索/多选/批量测试/新增检测 | 支持下线模型提醒","textChars":24,"textLines":2,"bbox":[883.2,618.24,326.4,67.2]}
+{"kind":"textbox","id":"sh/l0rqd4vm","slide":7,"name":"TextBox 27","text":"7 / 15","textPreview":"7 / 15","textChars":6,"textLines":1,"bbox":[1171.2,672,96,38.4]}
+{"kind":"image","id":"im/jm1cfa9w","slide":7,"name":"Picture 4","alt":"03-api-config-full.png","bbox":[117.61,149.04,526.48,434.65]}
+{"kind":"notes","id":"nt/0z61032l","slide":7,"text":""}
+{"kind":"slide","id":"sl/fu18jqh0","slide":8,"title":"连接 BOSS 直聘页面","textShapes":24}
+{"kind":"textbox","id":"sh/u9knih4b","slide":8,"name":"TextBox 1","text":"连接 BOSS 直聘页面","textPreview":"连接 BOSS 直聘页面","textChars":12,"textLines":1,"bbox":[76.8,48,576,57.6]}
+{"kind":"textbox","id":"sh/judg7ads","slide":8,"name":"TextBox 2","text":"系统连接 Chrome，并在扫描/打招呼前校验是否仍在推荐牛人页面","textPreview":"系统连接 Chrome，并在扫描/打招呼前校验是否仍在推荐牛人页面","textChars":33,"textLines":1,"bbox":[76.8,105.6,960,38.4]}
+{"kind":"textbox","id":"sh/c7u54zid","slide":8,"name":"Oval 3","text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[76.8,196.8,38.4,38.4]}
+{"kind":"textbox","id":"sh/1orytsvu","slide":8,"name":"TextBox 4","text":"点击「检测/连接浏览器」","textPreview":"点击「检测/连接浏览器」","textChars":12,"textLines":1,"bbox":[134.4,192,432,38.4]}
+{"kind":"shape","id":"sh/u18jqh0f","slide":8,"name":"Rectangle 5","bbox":[93.12,235.2,5.76,28.8]}
+{"kind":"textbox","id":"sh/jm1cfa9w","slide":8,"name":"Oval 6","text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[76.8,264,38.4,38.4]}
+{"kind":"textbox","id":"sh/cvixczed","slide":8,"name":"TextBox 7","text":"系统连接或启动 Chrome","textPreview":"系统连接或启动 Chrome","textChars":14,"textLines":1,"bbox":[134.4,259.2,432,38.4]}
+{"kind":"shape","id":"sh/5gbq1ory","slide":8,"name":"Rectangle 8","bbox":[93.12,302.4,5.76,28.8]}
+{"kind":"textbox","id":"sh/18jqh0fe","slide":8,"name":"Oval 9","text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[76.8,331.2,38.4,38.4]}
+{"kind":"textbox","id":"sh/8nqxs72x","slide":8,"name":"TextBox 10","text":"登录 BOSS 直聘账号","textPreview":"登录 BOSS 直聘账号","textChars":12,"textLines":1,"bbox":[134.4,326.4,432,38.4]}
+{"kind":"shape","id":"sh/j2t83itg","slide":8,"name":"Rectangle 11","bbox":[93.12,369.6,5.76,28.8]}
+{"kind":"textbox","id":"sh/qh0fepkz","slide":8,"name":"Oval 12","text":"4","textPreview":"4","textChars":1,"textLines":1,"bbox":[76.8,398.4,38.4,38.4]}
+{"kind":"textbox","id":"sh/1w7mp0bi","slide":8,"name":"TextBox 13","text":"打开「推荐牛人」页面","textPreview":"打开「推荐牛人」页面","textChars":10,"textLines":1,"bbox":[134.4,393.6,432,38.4]}
+{"kind":"shape","id":"sh/8bat47y1","slide":8,"name":"Rectangle 14","bbox":[93.12,436.8,5.76,28.8]}
+{"kind":"textbox","id":"sh/jqh0fepk","slide":8,"name":"Oval 15","text":"5","textPreview":"5","textChars":1,"textLines":1,"bbox":[76.8,465.6,38.4,38.4]}
+{"kind":"textbox","id":"sh/q5o7qpg3","slide":8,"name":"TextBox 16","text":"回到系统确认状态","textPreview":"回到系统确认状态","textChars":8,"textLines":1,"bbox":[134.4,460.8,432,38.4]}
+{"kind":"textbox","id":"sh/1kre1w7m","slide":8,"name":"TextBox 17","text":"浏览器状态判断","textPreview":"浏览器状态判断","textChars":7,"textLines":1,"bbox":[624,192,576,38.4]}
+{"kind":"shape","id":"sh/c3ylc7u5","slide":8,"name":"Rounded Rectangle 18","bbox":[624,268.8,576,96]}
+{"kind":"textbox","id":"sh/orytsvu9","slide":8,"name":"Rounded Rectangle 19","text":"未连接","textPreview":"未连接","textChars":3,"textLines":1,"bbox":[643.2,283.2,115.2,33.6]}
+{"kind":"textbox","id":"sh/hcrmhk3q","slide":8,"name":"TextBox 20","text":"没有连到 Chrome","textPreview":"没有连到 Chrome","textChars":11,"textLines":1,"bbox":[777.6,278.4,384,33.6]}
+{"kind":"textbox","id":"sh/al87ed8b","slide":8,"name":"TextBox 21","text":"→ 点击检测/连接浏览器","textPreview":"→ 点击检测/连接浏览器","textChars":12,"textLines":1,"bbox":[777.6,316.8,384,33.6]}
+{"kind":"shape","id":"sh/z61032ls","slide":8,"name":"Rounded Rectangle 22","bbox":[624,384,576,96]}
+{"kind":"textbox","id":"sh/sfil0rqd","slide":8,"name":"Rounded Rectangle 23","text":"需导航","textPreview":"需导航","textChars":3,"textLines":1,"bbox":[643.2,398.4,115.2,33.6]}
+{"kind":"textbox","id":"sh/h0fepkzu","slide":8,"name":"TextBox 24","text":"已连接但不在推荐页","textPreview":"已连接但不在推荐页","textChars":9,"textLines":1,"bbox":[777.6,393.6,384,33.6]}
+{"kind":"textbox","id":"sh/a9w3m94f","slide":8,"name":"TextBox 25","text":"→ 手工打开推荐页面","textPreview":"→ 手工打开推荐页面","textChars":10,"textLines":1,"bbox":[777.6,432,384,33.6]}
+{"kind":"shape","id":"sh/zupwb2hw","slide":8,"name":"Rounded Rectangle 26","bbox":[624,499.2,576,96]}
+{"kind":"textbox","id":"sh/obm58z25","slide":8,"name":"Rounded Rectangle 27","text":"已连接","textPreview":"已连接","textChars":3,"textLines":1,"bbox":[643.2,513.6,115.2,33.6]}
+{"kind":"textbox","id":"sh/hwfyxobm","slide":8,"name":"TextBox 28","text":"已连接到推荐牛人页面","textPreview":"已连接到推荐牛人页面","textChars":10,"textLines":1,"bbox":[777.6,508.8,384,33.6]}
+{"kind":"textbox","id":"sh/7u54zido","slide":8,"name":"TextBox 29","text":"→ 可以开始运行","textPreview":"→ 可以开始运行","textChars":8,"textLines":1,"bbox":[777.6,547.2,384,33.6]}
+{"kind":"textbox","id":"sh/ed8bat47","slide":8,"name":"TextBox 30","text":"⚠️  系统不会替你绕过验证码。出现验证时，先在浏览器完成验证，再回到系统继续。","textPreview":"⚠️  系统不会替你绕过验证码。出现验证时，先在浏览器完成验证，再回到系统继续。","textChars":40,"textLines":1,"bbox":[76.8,624,1152,57.6]}
+{"kind":"textbox","id":"sh/l0rqd4vm","slide":8,"name":"TextBox 31","text":"8 / 15","textPreview":"8 / 15","textChars":6,"textLines":1,"bbox":[1171.2,672,96,38.4]}
+{"kind":"notes","id":"nt/fu18jqh0","slide":8,"text":""}
+{"kind":"slide","id":"sl/qh0fepkz","slide":9,"title":"运行筛选","textShapes":22}
+{"kind":"shape","id":"sh/ovahoza1","slide":9,"name":"Rectangle 1","bbox":[76.8,57.6,7.68,48]}
+{"kind":"textbox","id":"sh/dg7adsji","slide":9,"name":"TextBox 2","text":"运行筛选","textPreview":"运行筛选","textChars":4,"textLines":1,"bbox":[105.6,52.8,576,57.6]}
+{"kind":"textbox","id":"sh/6hcrmhk3","slide":9,"name":"TextBox 3","text":"运行前确认：浏览器已连接 + 仍在推荐牛人页面 + 岗位选择正确","textPreview":"运行前确认：浏览器已连接 + 仍在推荐牛人页面 + 岗位选择正确","textChars":32,"textLines":1,"bbox":[105.6,105.6,960,38.4]}
+{"kind":"textbox","id":"sh/z25kb6xk","slide":9,"name":"TextBox 4","text":"运行参数","textPreview":"运行参数","textChars":4,"textLines":1,"bbox":[647.13,145.73,480,38.4]}
+{"kind":"shape","id":"sh/onyd0z61","slide":9,"name":"Rounded Rectangle 5","bbox":[647.13,203.33,528,48]}
+{"kind":"textbox","id":"sh/d8v6psfi","slide":9,"name":"TextBox 6","text":"选择岗位","textPreview":"选择岗位","textChars":4,"textLines":1,"bbox":[666.33,208.13,172.8,33.6]}
+{"kind":"textbox","id":"sh/6dcbulwv","slide":9,"name":"TextBox 7","text":"单岗位优先；全部岗位适合批量","textPreview":"单岗位优先；全部岗位适合批量","textChars":14,"textLines":1,"bbox":[839.13,208.13,316.8,33.6]}
+{"kind":"shape","id":"sh/vy90je9c","slide":9,"name":"Rounded Rectangle 8","bbox":[647.13,260.93,528,48]}
+{"kind":"textbox","id":"sh/nuxc3ylc","slide":9,"name":"TextBox 9","text":"安全扫描","textPreview":"安全扫描","textChars":4,"textLines":1,"bbox":[666.33,265.73,172.8,33.6]}
+{"kind":"textbox","id":"sh/y90je9cv","slide":9,"name":"TextBox 10","text":"默认开启；listener 优先，失败回退 DOM","textPreview":"默认开启；listener 优先，失败回退 DOM","textChars":25,"textLines":1,"bbox":[839.13,265.73,316.8,33.6]}
+{"kind":"shape","id":"sh/5wjudg7a","slide":9,"name":"Rounded Rectangle 11","bbox":[647.13,318.53,528,48]}
+{"kind":"textbox","id":"sh/gbq1oryt","slide":9,"name":"TextBox 12","text":"滚动/读取","textPreview":"滚动/读取","textChars":5,"textLines":1,"bbox":[666.33,323.33,172.8,33.6]}
+{"kind":"textbox","id":"sh/n29gr2p8","slide":9,"name":"TextBox 13","text":"安全 50-200；API 模式上限默认 80","textPreview":"安全 50-200；API 模式上限默认 80","textChars":23,"textLines":1,"bbox":[839.13,323.33,316.8,33.6]}
+{"kind":"shape","id":"sh/yhgn29gr","slide":9,"name":"Rounded Rectangle 14","bbox":[647.13,376.13,528,48]}
+{"kind":"textbox","id":"sh/58z25kb6","slide":9,"name":"TextBox 15","text":"AI/打招呼","textPreview":"AI/打招呼","textChars":6,"textLines":1,"bbox":[666.33,380.93,172.8,33.6]}
+{"kind":"textbox","id":"sh/gn29gr2p","slide":9,"name":"TextBox 16","text":"AI 需模型；新岗位先仅筛选","textPreview":"AI 需模型；新岗位先仅筛选","textChars":14,"textLines":1,"bbox":[839.13,380.93,316.8,33.6]}
+{"kind":"textbox","id":"sh/neloj2t8","slide":9,"name":"TextBox 17","text":"打招呼策略","textPreview":"打招呼策略","textChars":5,"textLines":1,"bbox":[647.13,443.33,480,38.4]}
+{"kind":"shape","id":"sh/ytsvu9kn","slide":9,"name":"Oval 18","bbox":[656.73,508.61,19.2,19.2]}
+{"kind":"textbox","id":"sh/2x4nap4r","slide":9,"name":"TextBox 19","text":"仅筛选","textPreview":"仅筛选","textChars":3,"textLines":1,"bbox":[695.13,499.01,192,28.8]}
+{"kind":"textbox","id":"sh/vixczed8","slide":9,"name":"TextBox 20","text":"只提取、评分、保存","textPreview":"只提取、评分、保存","textChars":9,"textLines":1,"bbox":[877.53,499.01,240,28.8]}
+{"kind":"textbox","id":"sh/k3q5o7qp","slide":9,"name":"TextBox 21","text":"首次测试推荐","textPreview":"首次测试推荐","textChars":6,"textLines":1,"bbox":[1079.13,499.01,144,28.8]}
+{"kind":"shape","id":"sh/donyd0z6","slide":9,"name":"Oval 22","bbox":[656.73,566.21,19.2,19.2]}
+{"kind":"textbox","id":"sh/6psfil0r","slide":9,"name":"TextBox 23","text":"仅强烈推荐","textPreview":"仅强烈推荐","textChars":5,"textLines":1,"bbox":[695.13,556.61,192,28.8]}
+{"kind":"textbox","id":"sh/val87ed8","slide":9,"name":"TextBox 24","text":"≥75 分才打招呼","textPreview":"≥75 分才打招呼","textChars":9,"textLines":1,"bbox":[877.53,556.61,240,28.8]}
+{"kind":"textbox","id":"sh/kre1w7mp","slide":9,"name":"TextBox 25","text":"保守策略","textPreview":"保守策略","textChars":4,"textLines":1,"bbox":[1079.13,556.61,144,28.8]}
+{"kind":"shape","id":"sh/dcbulwva","slide":9,"name":"Oval 26","bbox":[656.73,623.81,19.2,19.2]}
+{"kind":"textbox","id":"sh/2lszqtcj","slide":9,"name":"TextBox 27","text":"推荐+强烈推荐","textPreview":"推荐+强烈推荐","textChars":7,"textLines":1,"bbox":[695.13,614.21,192,28.8]}
+{"kind":"textbox","id":"sh/v6psfil0","slide":9,"name":"TextBox 28","text":"≥65 分就打招呼","textPreview":"≥65 分就打招呼","textChars":9,"textLines":1,"bbox":[877.53,614.21,240,28.8]}
+{"kind":"textbox","id":"sh/h4byhgn2","slide":9,"name":"TextBox 29","text":"积极策略","textPreview":"积极策略","textChars":4,"textLines":1,"bbox":[1079.13,614.21,144,28.8]}
+{"kind":"textbox","id":"sh/3ylc7u54","slide":9,"name":"TextBox 31","text":"9 / 15","textPreview":"9 / 15","textChars":6,"textLines":1,"bbox":[1171.2,672,96,38.4]}
+{"kind":"image","id":"im/5gbq1ory","slide":9,"name":"Picture 30","alt":"04-run-full.png","bbox":[116.47,144,484.49,574.49]}
+{"kind":"notes","id":"nt/qh0fepkz","slide":9,"text":""}
+{"kind":"slide","id":"sl/29gr2p8n","slide":10,"title":"评分体系与推荐等级","textShapes":35}
+{"kind":"shape","id":"sh/9gr2p8nq","slide":10,"name":"Rectangle 1","bbox":[76.8,57.6,7.68,48]}
+{"kind":"textbox","id":"sh/gvy90je9","slide":10,"name":"TextBox 2","text":"评分体系与推荐等级","textPreview":"评分体系与推荐等级","textChars":9,"textLines":1,"bbox":[105.6,52.8,576,57.6]}
+{"kind":"textbox","id":"sh/r2p8nqxs","slide":10,"name":"TextBox 3","text":"四维评分 + AI 调整 + 简历评估，三层叠加决定推荐等级","textPreview":"四维评分 + AI 调整 + 简历评估，三层叠加决定推荐等级","textChars":30,"textLines":1,"bbox":[105.6,105.6,960,38.4]}
+{"kind":"textbox","id":"sh/2hwfyxob","slide":10,"name":"TextBox 4","text":"四维评分模型（满分 100）","textPreview":"四维评分模型（满分 100）","textChars":14,"textLines":1,"bbox":[76.8,172.8,480,38.4]}
+{"kind":"shape","id":"sh/94fu18jq","slide":10,"name":"Rounded Rectangle 5","bbox":[76.8,230.4,268.8,172.8]}
+{"kind":"shape","id":"sh/kjm1cfa9","slide":10,"name":"Rectangle 6","bbox":[76.8,230.4,268.8,5.76]}
+{"kind":"textbox","id":"sh/rqd4vmtw","slide":10,"name":"TextBox 7","text":"基础分","textPreview":"基础分","textChars":3,"textLines":1,"bbox":[96,249.6,230.4,33.6]}
+{"kind":"textbox","id":"sh/25kb6xkf","slide":10,"name":"TextBox 8","text":"25","textPreview":"25","textChars":2,"textLines":1,"bbox":[96,288,230.4,48]}
+{"kind":"textbox","id":"sh/4fu18jqh","slide":10,"name":"TextBox 9","text":"固定基础分","textPreview":"固定基础分","textChars":5,"textLines":1,"bbox":[96,345.6,230.4,38.4]}
+{"kind":"shape","id":"sh/x0nuxc3y","slide":10,"name":"Rounded Rectangle 10","bbox":[374.4,230.4,268.8,172.8]}
+{"kind":"shape","id":"sh/m94fu18j","slide":10,"name":"Rectangle 11","bbox":[374.4,230.4,268.8,5.76]}
+{"kind":"textbox","id":"sh/fu18jqh0","slide":10,"name":"TextBox 12","text":"技能匹配","textPreview":"技能匹配","textChars":4,"textLines":1,"bbox":[393.6,249.6,230.4,33.6]}
+{"kind":"textbox","id":"sh/83itgfml","slide":10,"name":"TextBox 13","text":"0~50","textPreview":"0~50","textChars":4,"textLines":1,"bbox":[393.6,288,230.4,48]}
+{"kind":"textbox","id":"sh/xobm58z2","slide":10,"name":"TextBox 14","text":"关键词权重 × 命中","textPreview":"关键词权重 × 命中","textChars":10,"textLines":1,"bbox":[393.6,345.6,230.4,38.4]}
+{"kind":"shape","id":"sh/qxs72x4n","slide":10,"name":"Rounded Rectangle 15","bbox":[672,230.4,268.8,172.8]}
+{"kind":"shape","id":"sh/fil0rqd4","slide":10,"name":"Rectangle 16","bbox":[672,230.4,268.8,5.76]}
+{"kind":"textbox","id":"sh/4zidonyd","slide":10,"name":"TextBox 17","text":"经验超额","textPreview":"经验超额","textChars":4,"textLines":1,"bbox":[691.2,249.6,230.4,33.6]}
+{"kind":"textbox","id":"sh/xkf6dcbu","slide":10,"name":"TextBox 18","text":"0~15","textPreview":"0~15","textChars":4,"textLines":1,"bbox":[691.2,288,230.4,48]}
+{"kind":"textbox","id":"sh/xczed8v6","slide":10,"name":"TextBox 19","text":"超出要求年限加分","textPreview":"超出要求年限加分","textChars":8,"textLines":1,"bbox":[691.2,345.6,230.4,38.4]}
+{"kind":"shape","id":"sh/8v6psfil","slide":10,"name":"Rounded Rectangle 20","bbox":[969.6,230.4,268.8,172.8]}
+{"kind":"shape","id":"sh/fa9w3m94","slide":10,"name":"Rectangle 21","bbox":[969.6,230.4,268.8,5.76]}
+{"kind":"textbox","id":"sh/qpg3ex0n","slide":10,"name":"TextBox 22","text":"学历档次","textPreview":"学历档次","textChars":4,"textLines":1,"bbox":[988.8,249.6,230.4,33.6]}
+{"kind":"textbox","id":"sh/x4nap4r6","slide":10,"name":"TextBox 23","text":"0~10","textPreview":"0~10","textChars":4,"textLines":1,"bbox":[988.8,288,230.4,48]}
+{"kind":"textbox","id":"sh/8jqh0fep","slide":10,"name":"TextBox 24","text":"硕博/本科/大专分档","textPreview":"硕博/本科/大专分档","textChars":10,"textLines":1,"bbox":[988.8,345.6,230.4,38.4]}
+{"kind":"textbox","id":"sh/fyxobm58","slide":10,"name":"TextBox 25","text":"推荐等级","textPreview":"推荐等级","textChars":4,"textLines":1,"bbox":[76.8,441.6,480,38.4]}
+{"kind":"textbox","id":"sh/qd4vmtwr","slide":10,"name":"Rounded Rectangle 26","text":"强烈推荐","textPreview":"强烈推荐","textChars":4,"textLines":1,"bbox":[76.8,499.2,172.8,38.4]}
+{"kind":"textbox","id":"sh/xs72x4na","slide":10,"name":"TextBox 27","text":"≥ 75 分","textPreview":"≥ 75 分","textChars":6,"textLines":1,"bbox":[268.8,497.28,144,33.6]}
+{"kind":"textbox","id":"sh/87ed8bat","slide":10,"name":"TextBox 28","text":"自动打招呼（激进策略）","textPreview":"自动打招呼（激进策略）","textChars":11,"textLines":1,"bbox":[412.8,497.28,432,33.6]}
+{"kind":"textbox","id":"sh/2p8nqxs7","slide":10,"name":"Rounded Rectangle 29","text":"推    荐","textPreview":"推    荐","textChars":6,"textLines":1,"bbox":[76.8,552,172.8,38.4]}
+{"kind":"textbox","id":"sh/ra5gbq1o","slide":10,"name":"TextBox 30","text":"65-74 分","textPreview":"65-74 分","textChars":7,"textLines":1,"bbox":[268.8,550.08,144,33.6]}
+{"kind":"textbox","id":"sh/gvy90je9","slide":10,"name":"TextBox 31","text":"自动打招呼（保守策略）","textPreview":"自动打招呼（保守策略）","textChars":11,"textLines":1,"bbox":[412.8,550.08,432,33.6]}
+{"kind":"textbox","id":"sh/9gr2p8nq","slide":10,"name":"Rounded Rectangle 32","text":"待    定","textPreview":"待    定","textChars":6,"textLines":1,"bbox":[76.8,604.8,172.8,38.4]}
+{"kind":"textbox","id":"sh/2hwfyxob","slide":10,"name":"TextBox 33","text":"55-64 分","textPreview":"55-64 分","textChars":7,"textLines":1,"bbox":[268.8,602.88,144,33.6]}
+{"kind":"textbox","id":"sh/r2p8nqxs","slide":10,"name":"TextBox 34","text":"仅保存，不打招呼","textPreview":"仅保存，不打招呼","textChars":8,"textLines":1,"bbox":[412.8,602.88,432,33.6]}
+{"kind":"textbox","id":"sh/kjm1cfa9","slide":10,"name":"Rounded Rectangle 35","text":"淘    汰","textPreview":"淘    汰","textChars":6,"textLines":1,"bbox":[76.8,657.6,172.8,38.4]}
+{"kind":"textbox","id":"sh/94fu18jq","slide":10,"name":"TextBox 36","text":"< 55 分","textPreview":"< 55 分","textChars":6,"textLines":1,"bbox":[268.8,655.68,144,33.6]}
+{"kind":"textbox","id":"sh/25kb6xkf","slide":10,"name":"TextBox 37","text":"不进入结果统计","textPreview":"不进入结果统计","textChars":7,"textLines":1,"bbox":[412.8,655.68,432,33.6]}
+{"kind":"shape","id":"sh/rqd4vmtw","slide":10,"name":"Rounded Rectangle 38","bbox":[720,441.6,480,249.6]}
+{"kind":"textbox","id":"sh/bulwval8","slide":10,"name":"TextBox 39","text":"🤖 AI 二次评估","textPreview":"🤖 AI 二次评估","textChars":10,"textLines":1,"bbox":[748.8,451.2,432,38.4]}
+{"kind":"textbox","id":"sh/i9s36hcr","slide":10,"name":"TextBox 40","text":"• 对 ≥55 分候选人做 AI 二次评估","textPreview":"• 对 ≥55 分候选人做 AI 二次评估","textChars":21,"textLines":1,"bbox":[748.8,496.51,432,33.6]}
+{"kind":"textbox","id":"sh/p0bi9s36","slide":10,"name":"TextBox 41","text":"• 调整分范围：±10 分","textPreview":"• 调整分范围：±10 分","textChars":13,"textLines":1,"bbox":[748.8,534.91,432,33.6]}
+{"kind":"textbox","id":"sh/0fepkzup","slide":10,"name":"TextBox 42","text":"• 叠加公式：规则分 + AI 调整 + 简历调整","textPreview":"• 叠加公式：规则分 + AI 调整 + 简历调整","textChars":25,"textLines":1,"bbox":[748.8,573.31,432,33.6]}
+{"kind":"textbox","id":"sh/bi9s36hc","slide":10,"name":"TextBox 43","text":"• 默认并发 5 路，429 限流退避","textPreview":"• 默认并发 5 路，429 限流退避","textChars":19,"textLines":1,"bbox":[748.8,611.71,432,33.6]}
+{"kind":"textbox","id":"sh/ixczed8v","slide":10,"name":"TextBox 44","text":"• 简历支持 PDF/Word/TXT/MD/RTF/HTML","textPreview":"• 简历支持 PDF/Word/TXT/MD/RTF/HTML","textChars":31,"textLines":1,"bbox":[748.8,650.11,432,33.6]}
+{"kind":"textbox","id":"sh/tovahoza","slide":10,"name":"TextBox 45","text":"10 / 15","textPreview":"10 / 15","textChars":7,"textLines":1,"bbox":[1171.2,672,96,38.4]}
+{"kind":"notes","id":"nt/29gr2p8n","slide":10,"text":""}
+{"kind":"slide","id":"sl/re1w7mp0","slide":11,"title":"筛选结果","textShapes":21}
+{"kind":"shape","id":"sh/6tovahoz","slide":11,"name":"Rectangle 1","bbox":[76.8,57.6,7.68,48]}
+{"kind":"textbox","id":"sh/vahoza1g","slide":11,"name":"TextBox 2","text":"筛选结果","textPreview":"筛选结果","textChars":4,"textLines":1,"bbox":[105.6,52.8,576,57.6]}
+{"kind":"textbox","id":"sh/onyd0z61","slide":11,"name":"TextBox 3","text":"候选人列表 · 黑名单 · 导入简历做二次评估 · 导出 Excel","textPreview":"候选人列表 · 黑名单 · 导入简历做二次评估 · 导出 Excel","textChars":34,"textLines":1,"bbox":[105.6,105.6,960,38.4]}
+{"kind":"textbox","id":"sh/6hcrmhk3","slide":11,"name":"TextBox 5","text":"常用操作","textPreview":"常用操作","textChars":4,"textLines":1,"bbox":[816,117.29,384,38.4]}
+{"kind":"shape","id":"sh/z25kb6xk","slide":11,"name":"Rounded Rectangle 6","bbox":[816,240,403.2,52.8]}
+{"kind":"textbox","id":"sh/oj2t83it","slide":11,"name":"TextBox 7","text":"🔄","textPreview":"🔄","textChars":2,"textLines":1,"bbox":[835.2,189.29,48,33.6]}
+{"kind":"textbox","id":"sh/d4vmtwra","slide":11,"name":"TextBox 8","text":"刷新结果","textPreview":"刷新结果","textChars":4,"textLines":1,"bbox":[883.2,186.41,172.8,28.8]}
+{"kind":"textbox","id":"sh/h4byhgn2","slide":11,"name":"TextBox 9","text":"从 JSON 重新加载","textPreview":"从 JSON 重新加载","textChars":11,"textLines":1,"bbox":[1036.8,189.29,172.8,28.8]}
+{"kind":"shape","id":"sh/sji5snel","slide":11,"name":"Rounded Rectangle 10","bbox":[816,307.2,403.2,52.8]}
+{"kind":"textbox","id":"sh/3ylc7u54","slide":11,"name":"TextBox 11","text":"📊","textPreview":"📊","textChars":2,"textLines":1,"bbox":[835.2,256.49,48,33.6]}
+{"kind":"textbox","id":"sh/adsji5sn","slide":11,"name":"TextBox 12","text":"导出 Excel","textPreview":"导出 Excel","textChars":8,"textLines":1,"bbox":[883.2,253.61,172.8,28.8]}
+{"kind":"textbox","id":"sh/lszqtcj6","slide":11,"name":"TextBox 13","text":"生成/更新 XLSX","textPreview":"生成/更新 XLSX","textChars":10,"textLines":1,"bbox":[1036.8,256.49,172.8,28.8]}
+{"kind":"shape","id":"sh/s72x4nap","slide":11,"name":"Rounded Rectangle 14","bbox":[816,374.4,403.2,52.8]}
+{"kind":"textbox","id":"sh/3m94fu18","slide":11,"name":"TextBox 15","text":"📂","textPreview":"📂","textChars":2,"textLines":1,"bbox":[835.2,323.69,48,33.6]}
+{"kind":"textbox","id":"sh/a5gbq1or","slide":11,"name":"TextBox 16","text":"打开 JSON","textPreview":"打开 JSON","textChars":7,"textLines":1,"bbox":[883.2,320.81,172.8,28.8]}
+{"kind":"textbox","id":"sh/hoza1gvy","slide":11,"name":"TextBox 17","text":"用默认程序打开","textPreview":"用默认程序打开","textChars":7,"textLines":1,"bbox":[1036.8,323.69,172.8,28.8]}
+{"kind":"shape","id":"sh/s36hcrmh","slide":11,"name":"Rounded Rectangle 18","bbox":[816,441.6,403.2,52.8]}
+{"kind":"textbox","id":"sh/4zidonyd","slide":11,"name":"TextBox 19","text":"🗑","textPreview":"🗑","textChars":2,"textLines":1,"bbox":[835.2,390.89,48,33.6]}
+{"kind":"textbox","id":"sh/xkf6dcbu","slide":11,"name":"TextBox 20","text":"清空候选人","textPreview":"清空候选人","textChars":5,"textLines":1,"bbox":[883.2,388.01,172.8,28.8]}
+{"kind":"textbox","id":"sh/mtwra5gb","slide":11,"name":"TextBox 21","text":"操作前备份；黑名单记录保留","textPreview":"操作前备份；黑名单记录保留","textChars":13,"textLines":1,"bbox":[1036.8,390.89,172.8,28.8]}
+{"kind":"textbox","id":"sh/fepkzupw","slide":11,"name":"TextBox 22","text":"右键菜单","textPreview":"右键菜单","textChars":4,"textLines":1,"bbox":[816,472.49,384,38.4]}
+{"kind":"textbox","id":"sh/4r65wjud","slide":11,"name":"TextBox 23","text":"▸ 查看详情 / 更新跟进","textPreview":"▸ 查看详情 / 更新跟进","textChars":13,"textLines":1,"bbox":[835.2,530.09,384,28.8]}
+{"kind":"textbox","id":"sh/xc3ylc7u","slide":11,"name":"TextBox 24","text":"▸ 单独打招呼 / 加入黑名单","textPreview":"▸ 单独打招呼 / 加入黑名单","textChars":15,"textLines":1,"bbox":[835.2,563.69,384,28.8]}
+{"kind":"textbox","id":"sh/mlkjm1cf","slide":11,"name":"TextBox 25","text":"▸ 标记反馈 / 导入简历","textPreview":"▸ 标记反馈 / 导入简历","textChars":13,"textLines":1,"bbox":[835.2,597.29,384,28.8]}
+{"kind":"textbox","id":"sh/f6dcbulw","slide":11,"name":"TextBox 26","text":"▸ 移出黑名单 / 导出选中","textPreview":"▸ 移出黑名单 / 导出选中","textChars":14,"textLines":1,"bbox":[835.2,630.89,384,28.8]}
+{"kind":"textbox","id":"sh/4fu18jqh","slide":11,"name":"TextBox 27","text":"11 / 15","textPreview":"11 / 15","textChars":7,"textLines":1,"bbox":[1171.2,672,96,38.4]}
+{"kind":"image","id":"im/y90je9cv","slide":11,"name":"Picture 4","alt":"05-results.png","bbox":[76.8,203.69,687.99,396.85]}
+{"kind":"notes","id":"nt/re1w7mp0","slide":11,"text":""}
+{"kind":"slide","id":"sl/4fu18jqh","slide":12,"title":"数据统计","textShapes":21}
+{"kind":"shape","id":"sh/s72x4nap","slide":12,"name":"Rectangle 1","bbox":[76.8,57.6,7.68,48]}
+{"kind":"textbox","id":"sh/lszqtcj6","slide":12,"name":"TextBox 2","text":"数据统计","textPreview":"数据统计","textChars":4,"textLines":1,"bbox":[105.6,52.8,576,57.6]}
+{"kind":"textbox","id":"sh/adsji5sn","slide":12,"name":"TextBox 3","text":"按岗位、时间范围和跟进转化统计，判断规则质量","textPreview":"按岗位、时间范围和跟进转化统计，判断规则质量","textChars":22,"textLines":1,"bbox":[105.6,105.6,960,38.4]}
+{"kind":"textbox","id":"sh/sji5snel","slide":12,"name":"TextBox 5","text":"统计指标","textPreview":"统计指标","textChars":4,"textLines":1,"bbox":[744.96,144,480,38.4]}
+{"kind":"shape","id":"sh/h4byhgn2","slide":12,"name":"Rounded Rectangle 6","bbox":[744.96,201.6,240,96]}
+{"kind":"shape","id":"sh/ap4r65wj","slide":12,"name":"Rectangle 7","bbox":[744.96,201.6,5.76,96]}
+{"kind":"textbox","id":"sh/za1gvy90","slide":12,"name":"TextBox 8","text":"总候选人","textPreview":"总候选人","textChars":4,"textLines":1,"bbox":[764.16,211.2,211.2,28.8]}
+{"kind":"textbox","id":"sh/z61032ls","slide":12,"name":"TextBox 9","text":"≥55 分的人数","textPreview":"≥55 分的人数","textChars":8,"textLines":1,"bbox":[764.16,249.6,211.2,33.6]}
+{"kind":"shape","id":"sh/al87ed8b","slide":12,"name":"Rounded Rectangle 10","bbox":[1004.16,201.6,240,96]}
+{"kind":"shape","id":"sh/hcrmhk3q","slide":12,"name":"Rectangle 11","bbox":[1004.16,201.6,5.76,96]}
+{"kind":"textbox","id":"sh/orytsvu9","slide":12,"name":"TextBox 12","text":"强烈推荐","textPreview":"强烈推荐","textChars":4,"textLines":1,"bbox":[1023.36,211.2,211.2,28.8]}
+{"kind":"textbox","id":"sh/zupwb2hw","slide":12,"name":"TextBox 13","text":"≥75 分","textPreview":"≥75 分","textChars":5,"textLines":1,"bbox":[1023.36,249.6,211.2,33.6]}
+{"kind":"shape","id":"sh/a9w3m94f","slide":12,"name":"Rounded Rectangle 14","bbox":[744.96,312,240,96]}
+{"kind":"shape","id":"sh/h0fepkzu","slide":12,"name":"Rectangle 15","bbox":[744.96,312,5.76,96]}
+{"kind":"textbox","id":"sh/sfil0rqd","slide":12,"name":"TextBox 16","text":"推荐","textPreview":"推荐","textChars":2,"textLines":1,"bbox":[764.16,321.6,211.2,28.8]}
+{"kind":"textbox","id":"sh/zqtcj6to","slide":12,"name":"TextBox 17","text":"65-74 分","textPreview":"65-74 分","textChars":7,"textLines":1,"bbox":[764.16,360,211.2,33.6]}
+{"kind":"shape","id":"sh/65wjudg7","slide":12,"name":"Rounded Rectangle 18","bbox":[1004.16,312,240,96]}
+{"kind":"shape","id":"sh/ed8bat47","slide":12,"name":"Rectangle 19","bbox":[1004.16,312,5.76,96]}
+{"kind":"textbox","id":"sh/7u54zido","slide":12,"name":"TextBox 20","text":"待定","textPreview":"待定","textChars":2,"textLines":1,"bbox":[1023.36,321.6,211.2,28.8]}
+{"kind":"textbox","id":"sh/wfyxobm5","slide":12,"name":"TextBox 21","text":"55-64 分","textPreview":"55-64 分","textChars":7,"textLines":1,"bbox":[1023.36,360,211.2,33.6]}
+{"kind":"shape","id":"sh/l0rqd4vm","slide":12,"name":"Rounded Rectangle 22","bbox":[744.96,422.4,240,96]}
+{"kind":"shape","id":"sh/eloj2t83","slide":12,"name":"Rectangle 23","bbox":[744.96,422.4,5.76,96]}
+{"kind":"textbox","id":"sh/36hcrmhk","slide":12,"name":"TextBox 24","text":"已打招呼","textPreview":"已打招呼","textChars":4,"textLines":1,"bbox":[764.16,432,211.2,28.8]}
+{"kind":"textbox","id":"sh/wra5gbq1","slide":12,"name":"TextBox 25","text":"已发送消息数","textPreview":"已发送消息数","textChars":6,"textLines":1,"bbox":[764.16,470.4,211.2,33.6]}
+{"kind":"shape","id":"sh/lc7u54zi","slide":12,"name":"Rounded Rectangle 26","bbox":[1004.16,422.4,240,96]}
+{"kind":"shape","id":"sh/epkzupwb","slide":12,"name":"Rectangle 27","bbox":[1004.16,422.4,5.76,96]}
+{"kind":"textbox","id":"sh/7adsji5s","slide":12,"name":"TextBox 28","text":"已反馈","textPreview":"已反馈","textChars":3,"textLines":1,"bbox":[1023.36,432,211.2,30.4]}
+{"kind":"textbox","id":"sh/tgfmlkjm","slide":12,"name":"TextBox 29","text":"合适/误推/误杀/放弃","textPreview":"合适/误推/误杀/放弃","textChars":11,"textLines":1,"bbox":[1023.36,470.4,211.2,33.6]}
+{"kind":"shape","id":"sh/4vmtwra5","slide":12,"name":"Rounded Rectangle 30","bbox":[744.96,532.8,240,96]}
+{"kind":"shape","id":"sh/bat47y1k","slide":12,"name":"Rectangle 31","bbox":[744.96,532.8,5.76,96]}
+{"kind":"textbox","id":"sh/mp0bi9s3","slide":12,"name":"TextBox 32","text":"回复率","textPreview":"回复率","textChars":3,"textLines":1,"bbox":[764.16,542.4,211.2,30.4]}
+{"kind":"textbox","id":"sh/tsvu9kni","slide":12,"name":"TextBox 33","text":"已回复 ÷ 已沟通","textPreview":"已回复 ÷ 已沟通","textChars":9,"textLines":1,"bbox":[764.16,580.8,211.2,33.6]}
+{"kind":"shape","id":"sh/47y1kre1","slide":12,"name":"Rounded Rectangle 34","bbox":[1004.16,532.8,240,96]}
+{"kind":"shape","id":"sh/bm58z25k","slide":12,"name":"Rectangle 35","bbox":[1004.16,532.8,5.76,96]}
+{"kind":"textbox","id":"sh/m1cfa9w3","slide":12,"name":"TextBox 36","text":"约面率","textPreview":"约面率","textChars":3,"textLines":1,"bbox":[1023.36,542.4,211.2,30.4]}
+{"kind":"textbox","id":"sh/twra5gbq","slide":12,"name":"TextBox 37","text":"已约面 ÷ 已回复","textPreview":"已约面 ÷ 已回复","textChars":9,"textLines":1,"bbox":[1023.36,580.8,211.2,33.6]}
+{"kind":"shape","id":"sh/4byhgn29","slide":12,"name":"Rounded Rectangle 38","bbox":[81.65,648.48,1123.2,48]}
+{"kind":"textbox","id":"sh/8nqxs72x","slide":12,"name":"TextBox 39","text":"💡 误推率高，先查关键词/必要条件；回复率低，先查话术、岗位吸引力和沟通节奏。","textPreview":"💡 误推率高，先查关键词/必要条件；回复率低，先查话术、岗位吸引力和沟通节奏。","textChars":40,"textLines":1,"bbox":[120.05,653.28,1056,38.4]}
+{"kind":"textbox","id":"sh/18jqh0fe","slide":12,"name":"TextBox 40","text":"12 / 15","textPreview":"12 / 15","textChars":7,"textLines":1,"bbox":[1171.2,672,96,38.4]}
+{"kind":"image","id":"im/lszqtcj6","slide":12,"name":"Picture 4","alt":"06-stats.png","bbox":[37.77,198.77,687.99,396.85]}
+{"kind":"notes","id":"nt/4fu18jqh","slide":12,"text":""}
+{"kind":"slide","id":"sl/lwval87e","slide":13,"title":"推荐操作习惯","textShapes":35}
+{"kind":"shape","id":"sh/l0rqd4vm","slide":13,"name":"Rectangle 1","bbox":[76.8,57.6,7.68,48]}
+{"kind":"textbox","id":"sh/wfyxobm5","slide":13,"name":"TextBox 2","text":"推荐操作习惯","textPreview":"推荐操作习惯","textChars":6,"textLines":1,"bbox":[105.6,52.8,576,57.6]}
+{"kind":"textbox","id":"sh/36hcrmhk","slide":13,"name":"TextBox 3","text":"新岗位先试跑，成熟岗位日常跑","textPreview":"新岗位先试跑，成熟岗位日常跑","textChars":14,"textLines":1,"bbox":[105.6,105.6,960,38.4]}
+{"kind":"shape","id":"sh/eloj2t83","slide":13,"name":"Rounded Rectangle 4","bbox":[57.6,172.8,556.8,480]}
+{"kind":"shape","id":"sh/lc7u54zi","slide":13,"name":"Rectangle 5","bbox":[57.6,172.8,556.8,5.76]}
+{"kind":"textbox","id":"sh/wra5gbq1","slide":13,"name":"Rounded Rectangle 6","text":"新岗位首次跑","textPreview":"新岗位首次跑","textChars":6,"textLines":1,"bbox":[86.4,201.6,240,38.4]}
+{"kind":"textbox","id":"sh/7adsji5s","slide":13,"name":"Oval 7","text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[96,271.68,30.72,30.72]}
+{"kind":"textbox","id":"sh/epkzupwb","slide":13,"name":"TextBox 8","text":"先只配置规则，不启用 AI","textPreview":"先只配置规则，不启用 AI","textChars":13,"textLines":1,"bbox":[144,268.8,432,33.6]}
+{"kind":"textbox","id":"sh/8jqh0fep","slide":13,"name":"Oval 9","text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[96,329.28,30.72,30.72]}
+{"kind":"textbox","id":"sh/x4nap4r6","slide":13,"name":"TextBox 10","text":"打招呼策略选「不打招呼（仅筛选）」","textPreview":"打招呼策略选「不打招呼（仅筛选）」","textChars":17,"textLines":1,"bbox":[144,326.4,432,33.6]}
+{"kind":"textbox","id":"sh/qd4vmtwr","slide":13,"name":"Oval 11","text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[96,386.88,30.72,30.72]}
+{"kind":"textbox","id":"sh/fyxobm58","slide":13,"name":"TextBox 12","text":"安全扫描开启，滚动轮次 50-200","textPreview":"安全扫描开启，滚动轮次 50-200","textChars":18,"textLines":1,"bbox":[144,384,432,33.6]}
+{"kind":"textbox","id":"sh/8v6psfil","slide":13,"name":"Oval 13","text":"4","textPreview":"4","textChars":1,"textLines":1,"bbox":[96,444.48,30.72,30.72]}
+{"kind":"textbox","id":"sh/xczed8v6","slide":13,"name":"TextBox 14","text":"看结果里的误杀、误放","textPreview":"看结果里的误杀、误放","textChars":10,"textLines":1,"bbox":[144,441.6,432,33.6]}
+{"kind":"textbox","id":"sh/qpg3ex0n","slide":13,"name":"Oval 15","text":"5","textPreview":"5","textChars":1,"textLines":1,"bbox":[96,502.08,30.72,30.72]}
+{"kind":"textbox","id":"sh/fa9w3m94","slide":13,"name":"TextBox 16","text":"调整岗位规则","textPreview":"调整岗位规则","textChars":6,"textLines":1,"bbox":[144,499.2,432,33.6]}
+{"kind":"textbox","id":"sh/8z25kb6x","slide":13,"name":"Oval 17","text":"6","textPreview":"6","textChars":1,"textLines":1,"bbox":[96,559.68,30.72,30.72]}
+{"kind":"textbox","id":"sh/1gvy90je","slide":13,"name":"TextBox 18","text":"确认规则后开启「仅强烈推荐」","textPreview":"确认规则后开启「仅强烈推荐」","textChars":14,"textLines":1,"bbox":[144,556.8,432,33.6]}
+{"kind":"shape","id":"sh/loj2t83i","slide":13,"name":"Rounded Rectangle 19","bbox":[662.4,172.8,556.8,480]}
+{"kind":"shape","id":"sh/w3m94fu1","slide":13,"name":"Rectangle 20","bbox":[662.4,172.8,556.8,5.76]}
+{"kind":"textbox","id":"sh/3itgfmlk","slide":13,"name":"Rounded Rectangle 21","text":"成熟岗位日常","textPreview":"成熟岗位日常","textChars":6,"textLines":1,"bbox":[691.2,201.6,240,38.4]}
+{"kind":"textbox","id":"sh/ex0nuxc3","slide":13,"name":"Oval 22","text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[700.8,271.68,30.72,30.72]}
+{"kind":"textbox","id":"sh/lwval87e","slide":13,"name":"TextBox 23","text":"✅","textPreview":"✅","textChars":1,"textLines":1,"bbox":[739.2,266.88,38.4,33.6]}
+{"kind":"textbox","id":"sh/wb2hwfyx","slide":13,"name":"TextBox 24","text":"检查浏览器连接","textPreview":"检查浏览器连接","textChars":7,"textLines":1,"bbox":[787.2,268.8,384,33.6]}
+{"kind":"textbox","id":"sh/3q5o7qpg","slide":13,"name":"Oval 25","text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[700.8,329.28,30.72,30.72]}
+{"kind":"textbox","id":"sh/e9cvixcz","slide":13,"name":"TextBox 26","text":"🎯","textPreview":"🎯","textChars":2,"textLines":1,"bbox":[739.2,324.48,38.4,33.6]}
+{"kind":"textbox","id":"sh/l87ed8ba","slide":13,"name":"TextBox 27","text":"确认仍在推荐牛人页","textPreview":"确认仍在推荐牛人页","textChars":9,"textLines":1,"bbox":[787.2,326.4,384,33.6]}
+{"kind":"textbox","id":"sh/sneloj2t","slide":13,"name":"Oval 28","text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[700.8,386.88,30.72,30.72]}
+{"kind":"textbox","id":"sh/6hcrmhk3","slide":13,"name":"TextBox 29","text":"▶","textPreview":"▶","textChars":1,"textLines":1,"bbox":[739.2,382.08,38.4,33.6]}
+{"kind":"textbox","id":"sh/z25kb6xk","slide":13,"name":"TextBox 30","text":"运行筛选","textPreview":"运行筛选","textChars":4,"textLines":1,"bbox":[787.2,384,384,33.6]}
+{"kind":"textbox","id":"sh/onyd0z61","slide":13,"name":"Oval 31","text":"4","textPreview":"4","textChars":1,"textLines":1,"bbox":[700.8,444.48,30.72,30.72]}
+{"kind":"textbox","id":"sh/d8v6psfi","slide":13,"name":"TextBox 32","text":"📋","textPreview":"📋","textChars":2,"textLines":1,"bbox":[739.2,439.68,38.4,33.6]}
+{"kind":"textbox","id":"sh/6tovahoz","slide":13,"name":"TextBox 33","text":"查看筛选结果","textPreview":"查看筛选结果","textChars":6,"textLines":1,"bbox":[787.2,441.6,384,33.6]}
+{"kind":"textbox","id":"sh/vahoza1g","slide":13,"name":"Oval 34","text":"5","textPreview":"5","textChars":1,"textLines":1,"bbox":[700.8,502.08,30.72,30.72]}
+{"kind":"textbox","id":"sh/ovahoza1","slide":13,"name":"TextBox 35","text":"📊","textPreview":"📊","textChars":2,"textLines":1,"bbox":[739.2,497.28,38.4,33.6]}
+{"kind":"textbox","id":"sh/dg7adsji","slide":13,"name":"TextBox 36","text":"导出 Excel","textPreview":"导出 Excel","textChars":8,"textLines":1,"bbox":[787.2,499.2,384,33.6]}
+{"kind":"textbox","id":"sh/61032lsz","slide":13,"name":"Oval 37","text":"6","textPreview":"6","textChars":1,"textLines":1,"bbox":[700.8,559.68,30.72,30.72]}
+{"kind":"textbox","id":"sh/vmtwra5g","slide":13,"name":"TextBox 38","text":"🔍","textPreview":"🔍","textChars":2,"textLines":1,"bbox":[739.2,554.88,38.4,33.6]}
+{"kind":"textbox","id":"sh/zed8v6ps","slide":13,"name":"TextBox 39","text":"查看统计，判断是否微调规则","textPreview":"查看统计，判断是否微调规则","textChars":13,"textLines":1,"bbox":[787.2,556.8,384,33.6]}
+{"kind":"textbox","id":"sh/6xkf6dcb","slide":13,"name":"TextBox 40","text":"13 / 15","textPreview":"13 / 15","textChars":7,"textLines":1,"bbox":[1171.2,672,96,38.4]}
+{"kind":"notes","id":"nt/lwval87e","slide":13,"text":""}
+{"kind":"slide","id":"sl/25kb6xkf","slide":14,"title":"常见问题速查","textShapes":20}
+{"kind":"shape","id":"sh/kre1w7mp","slide":14,"name":"Rectangle 1","bbox":[76.8,57.6,7.68,48]}
+{"kind":"textbox","id":"sh/dcbulwva","slide":14,"name":"TextBox 2","text":"常见问题速查","textPreview":"常见问题速查","textChars":6,"textLines":1,"bbox":[105.6,52.8,576,57.6]}
+{"kind":"shape","id":"sh/2x4nap4r","slide":14,"name":"Rounded Rectangle 3","bbox":[76.8,144,1123.2,76.8]}
+{"kind":"shape","id":"sh/vixczed8","slide":14,"name":"Rectangle 4","bbox":[76.8,144,5.76,76.8]}
+{"kind":"textbox","id":"sh/k3q5o7qp","slide":14,"name":"Rounded Rectangle 5","text":"Q1","textPreview":"Q1","textChars":2,"textLines":1,"bbox":[105.6,158.4,48,48]}
+{"kind":"textbox","id":"sh/donyd0z6","slide":14,"name":"TextBox 6","text":"提示「未连接」","textPreview":"提示「未连接」","textChars":7,"textLines":1,"bbox":[172.8,148.8,288,33.6]}
+{"kind":"textbox","id":"sh/29gr2p8n","slide":14,"name":"TextBox 7","text":"回到运行控制 → 点击检测/连接浏览器 → 确认 Chrome 已启动且打开推荐页","textPreview":"回到运行控制 → 点击检测/连接浏览器 → 确认 Chrome 已启动且打开推荐页","textChars":41,"textLines":1,"bbox":[172.8,182.4,988.8,33.6]}
+{"kind":"shape","id":"sh/vu9knih4","slide":14,"name":"Rounded Rectangle 8","bbox":[76.8,235.2,1123.2,76.8]}
+{"kind":"shape","id":"sh/3ylc7u54","slide":14,"name":"Rectangle 9","bbox":[76.8,235.2,5.76,76.8]}
+{"kind":"textbox","id":"sh/adsji5sn","slide":14,"name":"Rounded Rectangle 10","text":"Q2","textPreview":"Q2","textChars":2,"textLines":1,"bbox":[105.6,249.6,48,48]}
+{"kind":"textbox","id":"sh/h4byhgn2","slide":14,"name":"TextBox 11","text":"提示「需导航」","textPreview":"提示「需导航」","textChars":7,"textLines":1,"bbox":[172.8,240,288,33.6]}
+{"kind":"textbox","id":"sh/sji5snel","slide":14,"name":"TextBox 12","text":"Chrome 已连接但不在推荐页 → 手工打开目标岗位的推荐牛人页面","textPreview":"Chrome 已连接但不在推荐页 → 手工打开目标岗位的推荐牛人页面","textChars":34,"textLines":1,"bbox":[172.8,273.6,988.8,33.6]}
+{"kind":"shape","id":"sh/3m94fu18","slide":14,"name":"Rounded Rectangle 13","bbox":[76.8,326.4,1123.2,76.8]}
+{"kind":"shape","id":"sh/a5gbq1or","slide":14,"name":"Rectangle 14","bbox":[76.8,326.4,5.76,76.8]}
+{"kind":"textbox","id":"sh/lszqtcj6","slide":14,"name":"Rounded Rectangle 15","text":"Q3","textPreview":"Q3","textChars":2,"textLines":1,"bbox":[105.6,340.8,48,48]}
+{"kind":"textbox","id":"sh/s72x4nap","slide":14,"name":"TextBox 16","text":"BOSS 弹出验证码","textPreview":"BOSS 弹出验证码","textChars":10,"textLines":1,"bbox":[172.8,331.2,288,33.6]}
+{"kind":"textbox","id":"sh/zidonyd0","slide":14,"name":"TextBox 17","text":"系统暂停等待 → 在浏览器完成验证 → 停止本轮，稍后重新运行","textPreview":"系统暂停等待 → 在浏览器完成验证 → 停止本轮，稍后重新运行","textChars":31,"textLines":1,"bbox":[172.8,364.8,988.8,33.6]}
+{"kind":"shape","id":"sh/a1gvy90j","slide":14,"name":"Rounded Rectangle 18","bbox":[76.8,417.6,1123.2,76.8]}
+{"kind":"shape","id":"sh/ylc7u54z","slide":14,"name":"Rectangle 19","bbox":[76.8,417.6,5.76,76.8]}
+{"kind":"textbox","id":"sh/r65wjudg","slide":14,"name":"Rounded Rectangle 20","text":"Q4","textPreview":"Q4","textChars":2,"textLines":1,"bbox":[105.6,432,48,48]}
+{"kind":"textbox","id":"sh/gr2p8nqx","slide":14,"name":"TextBox 21","text":"AI 评估失败","textPreview":"AI 评估失败","textChars":7,"textLines":1,"bbox":[172.8,422.4,288,33.6]}
+{"kind":"textbox","id":"sh/9cvixcze","slide":14,"name":"TextBox 22","text":"检查 API Key → Base URL → 模型名称 → 是否已开通 → 额度是否耗尽（不要先改规则）","textPreview":"检查 API Key → Base URL → 模型名称 → 是否已开通 → 额度是否耗尽（不要先改规则）","textChars":53,"textLines":1,"bbox":[172.8,456,988.8,33.6]}
+{"kind":"shape","id":"sh/yxobm58z","slide":14,"name":"Rounded Rectangle 23","bbox":[76.8,508.8,1123.2,76.8]}
+{"kind":"shape","id":"sh/nih4byhg","slide":14,"name":"Rectangle 24","bbox":[76.8,508.8,5.76,76.8]}
+{"kind":"textbox","id":"sh/g3ex0nux","slide":14,"name":"Rounded Rectangle 25","text":"Q5","textPreview":"Q5","textChars":2,"textLines":1,"bbox":[105.6,523.2,48,48]}
+{"kind":"textbox","id":"sh/5o7qpg3e","slide":14,"name":"TextBox 26","text":"提示页面跑偏","textPreview":"提示页面跑偏","textChars":6,"textLines":1,"bbox":[172.8,513.6,288,33.6]}
+{"kind":"textbox","id":"sh/y1kre1w7","slide":14,"name":"TextBox 27","text":"浏览器不在推荐牛人页或职位不一致 → 切回目标岗位推荐页后重跑","textPreview":"浏览器不在推荐牛人页或职位不一致 → 切回目标岗位推荐页后重跑","textChars":31,"textLines":1,"bbox":[172.8,547.2,988.8,33.6]}
+{"kind":"shape","id":"sh/rmhk3q5o","slide":14,"name":"Rounded Rectangle 28","bbox":[76.8,600,1123.2,76.8]}
+{"kind":"shape","id":"sh/dsji5sne","slide":14,"name":"Rectangle 29","bbox":[76.8,600,5.76,76.8]}
+{"kind":"textbox","id":"sh/o7qpg3ex","slide":14,"name":"Rounded Rectangle 30","text":"Q6","textPreview":"Q6","textChars":2,"textLines":1,"bbox":[105.6,614.4,48,48]}
+{"kind":"textbox","id":"sh/vmtwra5g","slide":14,"name":"TextBox 31","text":"候选人很少/质量差","textPreview":"候选人很少/质量差","textChars":9,"textLines":1,"bbox":[172.8,604.8,288,33.6]}
+{"kind":"textbox","id":"sh/61032lsz","slide":14,"name":"TextBox 32","text":"先开安全扫描；再查职位、地点、必要条件、关键词、滚动轮次和推荐池","textPreview":"先开安全扫描；再查职位、地点、必要条件、关键词、滚动轮次和推荐池","textChars":32,"textLines":1,"bbox":[172.8,638.4,988.8,33.6]}
+{"kind":"textbox","id":"sh/d4vmtwra","slide":14,"name":"TextBox 33","text":"14 / 15","textPreview":"14 / 15","textChars":7,"textLines":1,"bbox":[1171.2,672,96,38.4]}
+{"kind":"notes","id":"nt/25kb6xkf","slide":14,"text":""}
+{"kind":"slide","id":"sl/7y1kre1w","slide":15,"title":"快速检查清单","textShapes":28}
+{"kind":"shape","id":"sh/yd0z6103","slide":15,"name":"Oval 1","bbox":[-192,-192,480,480]}
+{"kind":"textbox","id":"sh/rytsvu9k","slide":15,"name":"TextBox 2","text":"快速检查清单","textPreview":"快速检查清单","textChars":6,"textLines":1,"bbox":[76.8,48,576,57.6]}
+{"kind":"textbox","id":"sh/g7adsji5","slide":15,"name":"TextBox 3","text":"运行前","textPreview":"运行前","textChars":3,"textLines":1,"bbox":[76.8,144,480,38.4]}
+{"kind":"textbox","id":"sh/9s36hcrm","slide":15,"name":"TextBox 4","text":"☑  岗位规则已保存","textPreview":"☑  岗位规则已保存","textChars":10,"textLines":1,"bbox":[96,201.6,528,33.6]}
+{"kind":"textbox","id":"sh/y1kre1w7","slide":15,"name":"TextBox 5","text":"☑  BOSS 网页端已登录","textPreview":"☑  BOSS 网页端已登录","textChars":14,"textLines":1,"bbox":[96,244.8,528,33.6]}
+{"kind":"textbox","id":"sh/rmhk3q5o","slide":15,"name":"TextBox 6","text":"☑  Chrome 已连接","textPreview":"☑  Chrome 已连接","textChars":13,"textLines":1,"bbox":[96,288,528,33.6]}
+{"kind":"textbox","id":"sh/g3ex0nux","slide":15,"name":"TextBox 7","text":"☑  当前页面是目标岗位推荐牛人页面","textPreview":"☑  当前页面是目标岗位推荐牛人页面","textChars":18,"textLines":1,"bbox":[96,331.2,528,33.6]}
+{"kind":"textbox","id":"sh/5o7qpg3e","slide":15,"name":"TextBox 8","text":"☑  系统选择岗位与 BOSS 页面一致","textPreview":"☑  系统选择岗位与 BOSS 页面一致","textChars":20,"textLines":1,"bbox":[96,374.4,528,33.6]}
+{"kind":"textbox","id":"sh/5gbq1ory","slide":15,"name":"TextBox 9","text":"☑  安全扫描默认开启","textPreview":"☑  安全扫描默认开启","textChars":11,"textLines":1,"bbox":[96,417.6,528,33.6]}
+{"kind":"textbox","id":"sh/cvixczed","slide":15,"name":"TextBox 10","text":"☑  启用 AI 时模型已测试通过","textPreview":"☑  启用 AI 时模型已测试通过","textChars":17,"textLines":1,"bbox":[96,460.8,528,33.6]}
+{"kind":"textbox","id":"sh/nap4r65w","slide":15,"name":"TextBox 11","text":"运行后","textPreview":"运行后","textChars":3,"textLines":1,"bbox":[672,144,480,38.4]}
+{"kind":"textbox","id":"sh/upwb2hwf","slide":15,"name":"TextBox 12","text":"☑  筛选结果页已刷新","textPreview":"☑  筛选结果页已刷新","textChars":11,"textLines":1,"bbox":[691.2,201.6,528,33.6]}
+{"kind":"textbox","id":"sh/54zidony","slide":15,"name":"TextBox 13","text":"☑  Excel 已导出","textPreview":"☑  Excel 已导出","textChars":12,"textLines":1,"bbox":[691.2,244.8,528,33.6]}
+{"kind":"textbox","id":"sh/cj6tovah","slide":15,"name":"TextBox 14","text":"☑  数据统计已查看","textPreview":"☑  数据统计已查看","textChars":10,"textLines":1,"bbox":[691.2,288,528,33.6]}
+{"kind":"textbox","id":"sh/nyd0z610","slide":15,"name":"TextBox 15","text":"☑  黑名单/简历评估已核对","textPreview":"☑  黑名单/简历评估已核对","textChars":14,"textLines":1,"bbox":[691.2,331.2,528,33.6]}
+{"kind":"textbox","id":"sh/udg7adsj","slide":15,"name":"TextBox 16","text":"☑  必要时备份 JSON","textPreview":"☑  必要时备份 JSON","textChars":13,"textLines":1,"bbox":[691.2,374.4,528,33.6]}
+{"kind":"textbox","id":"sh/1032lszq","slide":15,"name":"TextBox 17","text":"关键数据文件","textPreview":"关键数据文件","textChars":6,"textLines":1,"bbox":[76.8,547.2,1152,38.4]}
+{"kind":"shape","id":"sh/cfa9w3m9","slide":15,"name":"Rounded Rectangle 18","bbox":[76.8,595.2,220.8,57.6]}
+{"kind":"textbox","id":"sh/obm58z25","slide":15,"name":"TextBox 19","text":"job_config.json","textPreview":"job_config.json","textChars":15,"textLines":1,"bbox":[86.4,595.2,201.6,28.8]}
+{"kind":"textbox","id":"sh/hwfyxobm","slide":15,"name":"TextBox 20","text":"岗位规则","textPreview":"岗位规则","textChars":4,"textLines":1,"bbox":[86.4,624,201.6,24]}
+{"kind":"shape","id":"sh/65wjudg7","slide":15,"name":"Rounded Rectangle 21","bbox":[316.8,595.2,220.8,57.6]}
+{"kind":"textbox","id":"sh/zqtcj6to","slide":15,"name":"TextBox 22","text":"api_config.json","textPreview":"api_config.json","textChars":15,"textLines":1,"bbox":[326.4,595.2,201.6,28.8]}
+{"kind":"textbox","id":"sh/oza1gvy9","slide":15,"name":"TextBox 23","text":"模型配置","textPreview":"模型配置","textChars":4,"textLines":1,"bbox":[326.4,624,201.6,24]}
+{"kind":"shape","id":"sh/hk3q5o7q","slide":15,"name":"Rounded Rectangle 24","bbox":[556.8,595.2,220.8,57.6]}
+{"kind":"textbox","id":"sh/6xkf6dcb","slide":15,"name":"TextBox 25","text":"candidates_all.json","textPreview":"candidates_all.json","textChars":19,"textLines":1,"bbox":[566.4,595.2,201.6,28.8]}
+{"kind":"textbox","id":"sh/zed8v6ps","slide":15,"name":"TextBox 26","text":"候选人数据","textPreview":"候选人数据","textChars":5,"textLines":1,"bbox":[566.4,624,201.6,24]}
+{"kind":"shape","id":"sh/orytsvu9","slide":15,"name":"Rounded Rectangle 27","bbox":[796.8,595.2,220.8,57.6]}
+{"kind":"textbox","id":"sh/hcrmhk3q","slide":15,"name":"TextBox 28","text":"candidates_all.xlsx","textPreview":"candidates_all.xlsx","textChars":19,"textLines":1,"bbox":[806.4,595.2,201.6,28.8]}
+{"kind":"textbox","id":"sh/72x4nap4","slide":15,"name":"TextBox 29","text":"Excel 导出","textPreview":"Excel 导出","textChars":8,"textLines":1,"bbox":[806.4,624,201.6,24]}
+{"kind":"shape","id":"sh/ih4byhgn","slide":15,"name":"Rounded Rectangle 30","bbox":[1036.8,595.2,220.8,57.6]}
+{"kind":"textbox","id":"sh/p8nqxs72","slide":15,"name":"TextBox 31","text":"selectors.json","textPreview":"selectors.json","textChars":14,"textLines":1,"bbox":[1046.4,595.2,201.6,28.8]}
+{"kind":"textbox","id":"sh/0nuxc3yl","slide":15,"name":"TextBox 32","text":"页面选择器","textPreview":"页面选择器","textChars":5,"textLines":1,"bbox":[1046.4,624,201.6,24]}
+{"kind":"textbox","id":"sh/7ed8bat4","slide":15,"name":"TextBox 33","text":"BOSS 招聘系统 v2.11.3 · 操作指南 · 2026","textPreview":"BOSS 招聘系统 v2.11.3 · 操作指南 · 2026","textChars":31,"textLines":1,"bbox":[76.8,672,1152,27.47]}
+{"kind":"textbox","id":"sh/itgfmlkj","slide":15,"name":"TextBox 34","text":"15 / 15","textPreview":"15 / 15","textChars":7,"textLines":1,"bbox":[1171.2,672,96,38.4]}
+{"kind":"notes","id":"nt/7y1kre1w","slide":15,"text":""}

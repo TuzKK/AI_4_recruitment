@@ -1,0 +1,6 @@
+{
+  "tasks": [
+    { "id": "illustration-09", "promptFiles": ["prompts/09-slide-current-status.md"], "image": "09-slide-current-status.png", "provider": "dashscope", "ar": "16:9", "quality": "2k", "model": "qwen-image-2.0-pro" }
+  ],
+  "jobs": 1
+}

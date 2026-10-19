@@ -1,0 +1,113 @@
+{
+  "tasks": [
+    {
+      "id": "illustration-01",
+      "promptFiles": ["prompts/01-slide-cover.md"],
+      "image": "01-slide-cover.png",
+      "provider": "dashscope",
+      "ar": "16:9",
+      "quality": "2k",
+      "model": "qwen-image-2.0-pro"
+    },
+    {
+      "id": "illustration-02",
+      "promptFiles": ["prompts/02-slide-why-ai.md"],
+      "image": "02-slide-why-ai.png",
+      "provider": "dashscope",
+      "ar": "16:9",
+      "quality": "2k",
+      "model": "qwen-image-2.0-pro"
+    },
+    {
+      "id": "illustration-03",
+      "promptFiles": ["prompts/03-slide-three-layer.md"],
+      "image": "03-slide-three-layer.png",
+      "provider": "dashscope",
+      "ar": "16:9",
+      "quality": "2k",
+      "model": "qwen-image-2.0-pro"
+    },
+    {
+      "id": "illustration-04",
+      "promptFiles": ["prompts/04-slide-workflow.md"],
+      "image": "04-slide-workflow.png",
+      "provider": "dashscope",
+      "ar": "16:9",
+      "quality": "2k",
+      "model": "qwen-image-2.0-pro"
+    },
+    {
+      "id": "illustration-05",
+      "promptFiles": ["prompts/05-slide-job-parsing.md"],
+      "image": "05-slide-job-parsing.png",
+      "provider": "dashscope",
+      "ar": "16:9",
+      "quality": "2k",
+      "model": "qwen-image-2.0-pro"
+    },
+    {
+      "id": "illustration-06",
+      "promptFiles": ["prompts/06-slide-screening-funnel.md"],
+      "image": "06-slide-screening-funnel.png",
+      "provider": "dashscope",
+      "ar": "16:9",
+      "quality": "2k",
+      "model": "qwen-image-2.0-pro"
+    },
+    {
+      "id": "illustration-07",
+      "promptFiles": ["prompts/07-slide-explainable-ai.md"],
+      "image": "07-slide-explainable-ai.png",
+      "provider": "dashscope",
+      "ar": "16:9",
+      "quality": "2k",
+      "model": "qwen-image-2.0-pro"
+    },
+    {
+      "id": "illustration-08",
+      "promptFiles": ["prompts/08-slide-structural-change.md"],
+      "image": "08-slide-structural-change.png",
+      "provider": "dashscope",
+      "ar": "16:9",
+      "quality": "2k",
+      "model": "qwen-image-2.0-pro"
+    },
+    {
+      "id": "illustration-09",
+      "promptFiles": ["prompts/09-slide-current-status.md"],
+      "image": "09-slide-current-status.png",
+      "provider": "dashscope",
+      "ar": "16:9",
+      "quality": "2k",
+      "model": "qwen-image-2.0-pro"
+    },
+    {
+      "id": "illustration-10",
+      "promptFiles": ["prompts/10-slide-data-loop.md"],
+      "image": "10-slide-data-loop.png",
+      "provider": "dashscope",
+      "ar": "16:9",
+      "quality": "2k",
+      "model": "qwen-image-2.0-pro"
+    },
+    {
+      "id": "illustration-11",
+      "promptFiles": ["prompts/11-slide-value-proposition.md"],
+      "image": "11-slide-value-proposition.png",
+      "provider": "dashscope",
+      "ar": "16:9",
+      "quality": "2k",
+      "model": "qwen-image-2.0-pro"
+    },
+    {
+      "id": "illustration-12",
+      "promptFiles": ["prompts/12-slide-back-cover.md"],
+      "image": "12-slide-back-cover.png",
+      "provider": "dashscope",
+      "ar": "16:9",
+      "quality": "2k",
+      "model": "qwen-image-2.0-pro"
+    }
+  ],
+  "jobs": 4
+}

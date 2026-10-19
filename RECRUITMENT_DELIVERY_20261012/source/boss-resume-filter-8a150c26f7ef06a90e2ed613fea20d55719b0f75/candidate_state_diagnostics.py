@@ -1,0 +1,405 @@
+"""Deterministic consistency checks for persisted candidate states."""
+from __future__ import annotations
+
+from collections import defaultdict
+from dataclasses import dataclass
+from typing import Any, Iterable
+
+from candidate_workflow import (
+    CONTACTED_FOLLOWUP_STATUSES,
+    NEGATIVE_CONTACT_FEEDBACK,
+    SUPPORTED_FEEDBACK_STATUSES,
+    SUPPORTED_FOLLOWUP_STATUSES,
+    SUPPORTED_QUALIFICATION_STATUSES,
+    normalize_followup_at,
+)
+from constants import SCORE_THRESHOLD_PASS, SCORE_THRESHOLD_RECOMMEND, SCORE_THRESHOLD_STRONG
+from data_schema import canonical_candidate_identity
+
+
+FOLLOWUP_STATUS_OPTIONS = SUPPORTED_FOLLOWUP_STATUSES
+FEEDBACK_STATUS_OPTIONS = SUPPORTED_FEEDBACK_STATUSES
+QUALIFICATION_STATUS_OPTIONS = SUPPORTED_QUALIFICATION_STATUSES
+ACTIVE_FOLLOWUP_STATUSES = {"已打招呼", "已回复", "待约面", "已约面"}
+
+
+@dataclass(frozen=True)
+class CandidateStateIssue:
+    severity: str
+    candidate_key: str
+    name: str
+    job_name: str
+    title: str
+    detail: str
+    suggestion: str
+
+
+def diagnose_candidate_states(candidates: list[dict[str, Any]]) -> list[CandidateStateIssue]:
+    """Return deterministic state consistency issues for candidate records."""
+    issues: list[CandidateStateIssue] = []
+    issues.extend(_diagnose_individual_candidates(candidates))
+    issues.extend(_diagnose_duplicate_records(candidates))
+    issues.extend(_diagnose_blacklist_consistency(candidates))
+    return issues
+
+
+def summarize_candidate_state_diagnostics(
+    candidates: list[dict[str, Any]],
+    issues: list[CandidateStateIssue] | None = None,
+) -> str:
+    """Format candidate-state diagnostics for plain-text dialogs or exports."""
+    if issues is None:
+        issues = diagnose_candidate_states(candidates)
+    counts = {
+        "error": sum(1 for item in issues if item.severity == "error"),
+        "warning": sum(1 for item in issues if item.severity == "warning"),
+        "info": sum(1 for item in issues if item.severity == "info"),
+    }
+    lines = [
+        "候选人状态体检",
+        f"候选人：{len(candidates)} 人",
+        f"发现问题：{len(issues)} 项（严重 {counts['error']}，提醒 {counts['warning']}，建议 {counts['info']}）",
+    ]
+    if not issues:
+        lines.extend(["", "未发现明显状态冲突。"])
+        return "\n".join(lines)
+
+    lines.append("")
+    for idx, issue in enumerate(issues, 1):
+        label = {"error": "严重", "warning": "提醒", "info": "建议"}.get(issue.severity, "提醒")
+        person = issue.name or issue.candidate_key or "未知候选人"
+        job = issue.job_name or "未知岗位"
+        lines.extend([
+            f"{idx}. [{label}] {person} / {job} / {issue.title}",
+            f"   问题：{issue.detail}",
+            f"   建议：{issue.suggestion}",
+            "",
+        ])
+    return "\n".join(lines).rstrip()
+
+
+def _diagnose_individual_candidates(candidates: Iterable[dict[str, Any]]) -> list[CandidateStateIssue]:
+    issues: list[CandidateStateIssue] = []
+    for candidate in candidates:
+        followup_status = _clean_text(candidate.get("followup_status"))
+        feedback_status = _clean_text(candidate.get("feedback_status"))
+        qualification_status = _clean_text(candidate.get("qualification_status")) or "qualified"
+        match_score_value = _as_int(candidate.get("match_score"))
+        match_score = match_score_value or 0
+        next_followup_raw = _clean_text(candidate.get("next_followup_at"))
+        next_followup_at = normalize_followup_at(next_followup_raw)
+
+        if match_score_value is None:
+            issues.append(_issue(
+                candidate, "error", "匹配分缺失或无效",
+                "候选人的匹配分缺失，或不是系统可以识别的整数。",
+                "重新扫描或重新评估该候选人；修复分数前系统将禁止联系。",
+            ))
+        if followup_status and followup_status not in FOLLOWUP_STATUS_OPTIONS:
+            issues.append(_issue(
+                candidate, "error", "未知跟进状态",
+                f"当前跟进状态为“{followup_status}”，不在系统支持范围内。",
+                "打开“更新跟进”，重新选择一个列表里已有的状态。",
+            ))
+        if feedback_status and feedback_status not in FEEDBACK_STATUS_OPTIONS:
+            issues.append(_issue(
+                candidate, "error", "未知人工反馈",
+                f"当前人工反馈为“{feedback_status}”，不在系统支持范围内。",
+                "打开“标记反馈”，重新选择一个列表里已有的反馈。",
+            ))
+        if qualification_status not in QUALIFICATION_STATUS_OPTIONS:
+            issues.append(_issue(
+                candidate, "error", "未知资格审查状态",
+                f"当前资格审查状态为“{qualification_status}”。",
+                "重新做 AI 评估，或人工确认这个人到底是通过、淘汰还是待确认。",
+            ))
+
+        if next_followup_raw and not next_followup_at:
+            issues.append(_issue(
+                candidate, "warning", "下次跟进日期无效",
+                f"当前值为“{next_followup_raw}”，系统无法识别。",
+                "打开“更新跟进”，重新选择今天、明天或填写 YYYY-MM-DD。",
+            ))
+        if next_followup_at and followup_status in {"未沟通", "不合适", "已归档"}:
+            issues.append(_issue(
+                candidate, "warning", "结束状态仍有跟进提醒",
+                f"跟进状态为“{followup_status}”，但仍安排了下次跟进。",
+                "确认状态；如果已经结束，将下次跟进日期设为不设置。",
+            ))
+        if followup_status in {"待约面", "已约面"} and not next_followup_at:
+            title = "待约面未安排时间" if followup_status == "待约面" else "已约面未安排时间"
+            issues.append(_issue(
+                candidate, "warning", title,
+                f"候选人已进入{followup_status}，但没有下次跟进日期。",
+                "打开“更新跟进”，安排下一次确认面试安排或结果的日期。",
+            ))
+        elif followup_status == "已打招呼" and not next_followup_at:
+            issues.append(_issue(
+                candidate, "info", "跟进时间待安排",
+                f"候选人状态为“{followup_status}”，尚未安排下次处理日期。",
+                "可在“今日待办”的待安排分组中设置日期；旧记录无需立即处理。",
+            ))
+
+        if candidate.get("greet_sent") is True:
+            if followup_status in ("", "未沟通"):
+                issues.append(_issue(
+                    candidate, "error", "已打招呼但跟进状态未更新",
+                    "候选人已标记为已打招呼，但跟进状态仍是未沟通或空。",
+                    "将跟进状态更新为“已打招呼”，并保留发送时间。",
+                ))
+            if not candidate.get("greet_sent_at") or not candidate.get("greet_method"):
+                issues.append(_issue(
+                    candidate, "warning", "打招呼记录不完整",
+                    "候选人已标记为已打招呼，但没有记录发送时间或发送方式。",
+                    "如果是历史数据，可以暂不处理；以后通过本程序发送成功时会自动记录。",
+                ))
+
+        if (
+            followup_status in CONTACTED_FOLLOWUP_STATUSES
+            and candidate.get("greet_sent") is not True
+        ):
+            issues.append(_issue(
+                candidate, "error", "沟通进度与已打招呼记录不一致",
+                f"跟进状态为“{followup_status}”，但没有已打招呼记录。",
+                "核实实际沟通情况；如果确实已经沟通，重新保存当前跟进状态。",
+            ))
+
+        if candidate.get("greet_confirmation_pending") and candidate.get("greet_sent") is True:
+            issues.append(_issue(
+                candidate, "error", "已发送与待核实并存",
+                "同一候选人同时标记为已发送成功和发送结果待核实。",
+                "核实 BOSS 沟通列表后，只保留一个确定状态。",
+            ))
+
+        if candidate.get("manual_review_required") and qualification_status != "manual_review":
+            if qualification_status == "rejected":
+                issues.append(_issue(
+                    candidate, "error", "淘汰与待复核标记并存",
+                    "候选人同时被标记为淘汰和需要人工复核，两个结论互相冲突。",
+                    "以最新证据为准，重新确认淘汰或待复核状态。",
+                ))
+            else:
+                issues.append(_issue(
+                    candidate, "warning", "人工复核字段待归一",
+                    "候选人仍使用旧的人工复核标记；当前界面会按待复核安全处理。",
+                    "下次保存时系统会自动归一为待复核资格状态。",
+                ))
+
+        if candidate.get("review_passed_at") and candidate.get("review_rejected_at"):
+            issues.append(_issue(
+                candidate, "error", "复核通过与不通过并存",
+                "同一候选人同时保留复核通过和复核不通过记录。",
+                "核对最近一次人工结论，只保留最新的复核结果。",
+            ))
+
+        recommend_level = _clean_text(candidate.get("recommend_level"))
+        expected_level = _expected_recommend_level(match_score_value, qualification_status)
+        if recommend_level and expected_level and recommend_level != expected_level:
+            issues.append(_issue(
+                candidate, "warning", "推荐指数与分数不一致",
+                f"当前推荐指数为“{recommend_level}”，按分数应为“{expected_level}”。",
+                "重新评估候选人；实际联系将以统一状态门禁为准。",
+            ))
+
+        if (
+            feedback_status == "合适"
+            and (
+                qualification_status in {"rejected", "manual_review"}
+                or candidate.get("manual_review_required")
+            )
+        ):
+            issues.append(_issue(
+                candidate, "warning", "人工合适结论仍有资格阻断",
+                "人工反馈为“合适”，但资格审查仍是淘汰或待人工确认。",
+                "核对硬性条件；确认无误后执行“确认通过”，淘汰结论有误则标记为误杀。",
+            ))
+
+        if (
+            feedback_status in NEGATIVE_CONTACT_FEEDBACK
+            and candidate.get("contact_approved_at")
+        ):
+            issues.append(_issue(
+                candidate, "error", "人工负面反馈与联系批准并存",
+                f"人工反馈为“{feedback_status}”，但仍保留联系批准记录。",
+                "以最新人工判断为准；重新保存该反馈会清除旧的联系批准。",
+            ))
+
+        if (
+            candidate.get("contact_approved_at")
+            and (
+                match_score < SCORE_THRESHOLD_PASS
+                or qualification_status in {"rejected", "manual_review"}
+                or candidate.get("manual_review_required")
+            )
+        ):
+            issues.append(_issue(
+                candidate, "warning", "人工联系批准当前不可用",
+                "候选人的分数或资格结论已经不再满足人工联系条件。",
+                "先处理当前筛选或资格问题；系统不会使用这条批准记录发送。",
+            ))
+
+        if qualification_status == "rejected":
+            if candidate.get("greet_sent") or followup_status in ACTIVE_FOLLOWUP_STATUSES:
+                issues.append(_issue(
+                    candidate, "error", "淘汰候选人仍处于沟通状态",
+                    "候选人资格审查已淘汰，但仍显示已打招呼或后续跟进状态。",
+                    "先核实 BOSS 沟通情况；如果确实淘汰，把跟进状态改为“不合适”或“已归档”。",
+                ))
+            if candidate.get("greet_context"):
+                issues.append(_issue(
+                    candidate, "info", "淘汰候选人仍保留打招呼上下文",
+                    "候选人已淘汰，但仍保存可用于发送的上下文信息。",
+                    "通常不用处理；只要不对这个人打招呼即可。",
+                ))
+
+        if match_score < SCORE_THRESHOLD_PASS and not _has_low_score_retention_reason(candidate):
+            issues.append(_issue(
+                candidate, "warning", "低分候选人缺少保留理由",
+                f"匹配分 {match_score} 低于通过线，但没有反馈、AI、简历评估或黑名单等保留理由。",
+                "如果这个人不需要继续看，后续可以清理；如果要保留，请补充反馈或跟进状态。",
+            ))
+
+        if candidate.get("resume_eval_adjustment") is not None:
+            missing = [
+                label for label, value in (
+                    ("评估理由", candidate.get("resume_eval_reason")),
+                    ("评估时间", candidate.get("resume_eval_at")),
+                )
+                if not value
+            ]
+            if missing:
+                issues.append(_issue(
+                    candidate, "warning", "简历评估信息不完整",
+                    "缺少" + "、".join(missing) + "。",
+                    "重新导入并评估简历，或撤销这次不完整的简历评估。",
+                ))
+
+        context = candidate.get("greet_context")
+        if context and not ((context or {}).get("chat_start")):
+            issues.append(_issue(
+                candidate, "warning", "打招呼上下文不完整",
+                "候选人保存了打招呼上下文，但缺少直发所需信息。",
+                "重新扫描这个岗位；在补到上下文前，打招呼可能需要先打开对应推荐页。",
+            ))
+
+        if candidate.get("blacklisted") and followup_status in ACTIVE_FOLLOWUP_STATUSES:
+            issues.append(_issue(
+                candidate, "warning", "已屏蔽候选人仍是活跃跟进",
+                f"候选人已屏蔽，但跟进状态仍为“{followup_status}”。",
+                "如果已经决定屏蔽，把跟进状态改为“不合适”或“已归档”。",
+            ))
+
+    return issues
+
+
+def _diagnose_duplicate_records(candidates: Iterable[dict[str, Any]]) -> list[CandidateStateIssue]:
+    groups: dict[tuple[str, str], list[dict[str, Any]]] = defaultdict(list)
+    for candidate in candidates:
+        identity = canonical_candidate_identity(candidate)
+        if all(identity):
+            groups[identity].append(candidate)
+
+    issues: list[CandidateStateIssue] = []
+    for (_geek_id, _job_name), records in groups.items():
+        if len(records) <= 1:
+            continue
+        scores = {str(item.get("match_score", "")) for item in records}
+        followups = {_clean_text(item.get("followup_status")) for item in records if _clean_text(item.get("followup_status"))}
+        detail = f"同一候选人在同一岗位下存在 {len(records)} 条记录。"
+        if len(scores) > 1 or len(followups) > 1:
+            detail += " 分数或跟进状态不完全一致。"
+        issues.append(_issue(
+            records[0], "error", "重复候选人记录",
+            detail,
+            "先不要批量操作这个人；建议刷新保存一次，仍重复再人工保留最新的一条。",
+        ))
+    return issues
+
+
+def _diagnose_blacklist_consistency(candidates: Iterable[dict[str, Any]]) -> list[CandidateStateIssue]:
+    by_geek: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for candidate in candidates:
+        geek_id = _clean_text(candidate.get("geek_id"))
+        if geek_id:
+            by_geek[geek_id].append(candidate)
+
+    issues: list[CandidateStateIssue] = []
+    for _geek_id, records in by_geek.items():
+        states = {bool(item.get("blacklisted")) for item in records}
+        if len(states) <= 1:
+            continue
+        names = "、".join(dict.fromkeys(_clean_text(item.get("job_name")) or "未知岗位" for item in records))
+        issues.append(_issue(
+            records[0], "warning", "跨岗位黑名单状态不一致",
+            f"同一候选人在不同岗位下的屏蔽状态不一致，涉及岗位：{names}。",
+            "确认这个人是否应该被屏蔽；如果应该屏蔽，就在所有岗位里保持一致。",
+        ))
+    return issues
+
+
+def _has_low_score_retention_reason(candidate: dict[str, Any]) -> bool:
+    return bool(
+        candidate.get("feedback_status")
+        or candidate.get("blacklisted")
+        or candidate.get("llm_evaluated")
+        or candidate.get("llm_error")
+        or candidate.get("resume_eval_adjustment") is not None
+        or candidate.get("qualification_status") in {"manual_review", "rejected"}
+        or candidate.get("manual_review_required")
+        or candidate.get("review_passed_at")
+        or candidate.get("review_rejected_at")
+        or candidate.get("rejection_source")
+        or candidate.get("greet_sent")
+        or candidate.get("greet_confirmation_pending")
+        or candidate.get("followup_status") not in {None, "", "未沟通"}
+    )
+
+
+def _issue(
+    candidate: dict[str, Any],
+    severity: str,
+    title: str,
+    detail: str,
+    suggestion: str,
+) -> CandidateStateIssue:
+    return CandidateStateIssue(
+        severity=severity,
+        candidate_key=_candidate_key(candidate),
+        name=_clean_text(candidate.get("name")),
+        job_name=_clean_text(candidate.get("job_name")),
+        title=title,
+        detail=detail,
+        suggestion=suggestion,
+    )
+
+
+def _candidate_key(candidate: dict[str, Any]) -> str:
+    geek_id, job_identity = canonical_candidate_identity(candidate)
+    if geek_id and job_identity:
+        return f"{geek_id}:{job_identity}"
+    return geek_id or _clean_text(candidate.get("name")) or "unknown"
+
+
+def _clean_text(value: Any) -> str:
+    return " ".join(str(value or "").strip().split())
+
+
+def _as_int(value: Any) -> int | None:
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def _expected_recommend_level(score: int | None, qualification_status: str) -> str:
+    if score is None:
+        return ""
+    if qualification_status == "rejected":
+        return "未通过"
+    if score >= SCORE_THRESHOLD_STRONG:
+        return "强烈推荐"
+    if score >= SCORE_THRESHOLD_RECOMMEND:
+        return "推荐"
+    if score >= SCORE_THRESHOLD_PASS:
+        return "待定"
+    return "未通过"

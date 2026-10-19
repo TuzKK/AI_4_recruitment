@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-950: #08111f;
+    --bg-900: #10233d;
+    --panel-900: rgba(10, 22, 40, 0.78);
+    --panel-800: rgba(18, 34, 58, 0.88);
+    --line-soft: rgba(148, 163, 184, 0.16);
+    --text-main: #e5eef9;
+    --text-muted: #8ea6c4;
+    --accent-cyan: #56d5ff;
+    --accent-amber: #ffb457;
+    --accent-green: #67f0ae;
+  }
+
+  html {
+    background:
+      radial-gradient(circle at top left, rgba(86, 213, 255, 0.14), transparent 30%),
+      radial-gradient(circle at top right, rgba(255, 180, 87, 0.12), transparent 28%),
+      linear-gradient(180deg, #09111d 0%, #0c1830 48%, #08111f 100%);
+    min-height: 100%;
+  }
+
+  body {
+    min-height: 100vh;
+    color: var(--text-main);
+    font-family: "Avenir Next", "PingFang SC", "Noto Sans SC", "Helvetica Neue", sans-serif;
+    background: transparent;
+  }
+
+  #root {
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    background: var(--panel-900);
+    border: 1px solid var(--line-soft);
+    box-shadow: 0 24px 80px rgba(2, 10, 22, 0.32);
+    backdrop-filter: blur(18px);
+  }
+
+  .glass-panel-strong {
+    background: linear-gradient(180deg, rgba(10, 25, 45, 0.96), rgba(8, 17, 31, 0.92));
+    border: 1px solid rgba(86, 213, 255, 0.12);
+    box-shadow: 0 26px 90px rgba(2, 10, 22, 0.42);
+  }
+
+  .section-shell {
+    @apply rounded-[28px] glass-panel;
+  }
+
+  .muted-copy {
+    color: var(--text-muted);
+  }
+}

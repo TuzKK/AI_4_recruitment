@@ -1,0 +1,112 @@
+# 环境配置
+.env
+api_config.local.json
+api_config.local.corrupted-*.json
+education_tool_config.local.json
+.education_tool_preferences.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+node_modules/
+venv/
+env/
+ENV/
+pack_venv/
+
+# 简历数据（敏感）
+resumes/
+output/
+backups/
+.data_manifest.json
+.data_transaction.json*
+.data_transaction.lock
+.data_transactions/
+
+# 浏览器运行状态（含 Cookies、登录态、历史记录、本地存储）
+.storage/
+.chrome_profile/
+.chrome_debug_port
+
+# 候选人数据（累积数据，本地存储）
+candidates_all.json
+candidates_all.xlsx
+candidates_all.backup*.json
+contact_queue.json*
+
+# 打包输出
+dist/
+build/
+updates/
+*.spec
+*.rar
+*.zip
+*.pdf
+
+# 日志和调试
+*.log
+debug_*.py
+debug_*.log
+tmp/
+build_log*.txt
+test_output.txt
+*.html
+!docs/index.html
+.last_update_check
+.update_state.json
+.update-state-*
+.boss_access_guard.json*
+.run_preferences.json
+release_notes_cache.json
+.build_progress.json
+.build_state.json
+.release_state.json*
+.release_flow_state.json*
+.release_test_evidence.json*
+tests/manual/recon_output/
+tests/manual/build_greet_recovery_contract.py
+tests/manual/capture_manual_greet_network.py
+tests/manual/probe_candidate_recovery_strict.py
+tests/manual/probe_detail_api_refetch.py
+tests/manual/probe_existing_detail_credentials.py
+tests/manual/test_candidate_detail_recovery.py
+tests/manual/test_greet_context_capture.py
+
+# 孤儿文件（无引用，不纳入版本控制）
+input.txt
+sample_job_requirements.txt
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 系统
+.DS_Store
+Thumbs.db
+
+# keyring 配置（可能含敏感信息）
+.keyring/
+
+# 配置备份
+*.bak
+
+# Claude Code
+.claude/
+.agents/
+.baoyu-skills/
+skills-lock.json
+
+# 微信相关
+wechat/
+.venv/
+.venv-ci/
+.ocr_venv/
+
+# UI 验证临时产物（会话截图/日志，勿提交）
+_ui*.png
+_app_*.log

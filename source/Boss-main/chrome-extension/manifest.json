@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "BOSS 本地招聘连接器",
+  "version": "1.1.1",
+  "description": "将现有 BOSS 招聘页面连接到本机招聘程序，无需重启 Chrome 或重新登录。",
+  "minimum_chrome_version": "116",
+  "permissions": ["scripting", "storage", "alarms"],
+  "host_permissions": ["https://www.zhipin.com/*", "https://zhipin.com/*", "http://127.0.0.1:8000/*"],
+  "background": {"service_worker": "worker.js", "type": "module"},
+  "action": {"default_popup": "popup.html", "default_title": "连接现有 BOSS 页面"}
+}
