@@ -124,24 +124,25 @@ def test_stop_during_review_prevents_greeting_and_resume_reuses_approval(tmp_pat
     assert boss.sent == [('id-1', MESSAGE)]
 
 
-def test_changed_resume_on_resume_requires_rescoring_before_contact(tmp_path):
+def test_changed_coarse_text_on_resume_requires_new_message_review(tmp_path):
     store, boss = RunStore(tmp_path), RecordingBoss()
     run_id = store.create(JOB, 1, 30, 75, '', message_mode='llm')
     model = MessagingModel([{'message': MESSAGE}, httpx.ReadTimeout('timeout')])
     run_pipeline(store, run_id, model, boss)
     class ChangedBoss(RecordingBoss):
-        def full_resume(self, cid):
-            return dict(super().full_resume(cid), text='改为市场营销岗位的完整简历')
+        def cards(self):
+            return [dict(super().cards()[0], text='负责数据接入；熟悉 SQL；本科毕业；新增实施项目')]
     changed = ChangedBoss()
-    run_pipeline(store, run_id, MessagingModel([]), changed)
-    assert changed.greeted == []
-    assert store.get(run_id)['candidates']['id-1']['state'] == 'coarse_done'
+    resumed = MessagingModel([{'message': MESSAGE}, {'approved': True, 'reason': '重新核对'}])
+    run_pipeline(store, run_id, resumed, changed)
+    assert len(resumed.calls) == 2 and changed.greeted == ['id-1']
+    assert '新增实施项目' in resumed.calls[0]['messages'][1]['content']
 
 
-def test_rejected_screening_never_calls_message_model(tmp_path):
+def test_rejected_coarse_screening_never_calls_message_model(tmp_path):
     class RejectModel(MessagingModel):
         def assess(self, stage, *args):
-            return {'decision': 'contact' if stage == 'precontact' else 'reject', 'score': 10,
+            return {'decision': 'reject', 'score': 10,
                     'scoring_version': 'test'}
     store, boss = RunStore(tmp_path), RecordingBoss()
     run_id = store.create(JOB, 1, 30, 75, '', message_mode='llm')

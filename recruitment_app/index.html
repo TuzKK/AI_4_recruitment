@@ -15,14 +15,16 @@ small{color:#667487}
 .table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;margin-top:15px;font-size:14px}th,td{text-align:left;padding:9px;border-bottom:1px solid #e2e8f0;vertical-align:top}th{background:#f0f5fc;white-space:nowrap}
 .reason{min-width:240px}.gap{min-width:140px;color:#7a4b20}
 </style></head><body><main>
-<h1>招聘筛选</h1><p>填写岗位需求和目标人数，开始后自动筛选。联系前简历不完整时会暂缓联系。</p>
+<h1>招聘筛选</h1><p>按顺序逐人执行：粗筛通过即联系，再读取完整简历精筛。未取得完整简历时记为等待，可稍后恢复；人数上限按打招呼名额计算。</p>
 <form id="run-form">
+<details><summary>BOSS 请求频率（仅允许调慢）</summary><div class="row"><div><label for="request-seconds">请求最小间隔（秒）</label><input id="request-seconds" type="number" min="5" max="30" value="5" required></div><div><label for="greet-seconds">首次打招呼最小间隔（秒）</label><input id="greet-seconds" type="number" min="20" max="60" value="20" required></div></div><small>账号核验、查询和页面操作共享限速；遇到限流会暂停并冷却。</small></details>
+<div id="rate-status" role="status">BOSS 默认请求间隔5秒，打招呼间隔20秒</div>
 <label for="job">完整招聘需求</label><textarea id="job" required placeholder="粘贴职位名称、职责、任职要求和优先条件"></textarea>
 <label for="quota">本次打招呼人数上限</label><input id="quota" type="number" min="1" max="100" value="10" required>
-<label for="message-mode">精筛通过后的消息方式</label>
+<label for="message-mode">粗筛通过后的首条消息方式</label>
 <select id="message-mode"><option value="fixed">固定消息</option><option value="llm">AI问候与提问（生成后自动复核）</option></select>
 <div id="fixed-message"><label for="message">打招呼后的第一条消息</label><textarea id="message" required>你好，我们在招「{职位名称}」，你的经历与岗位方向匹配。方便聊聊相关项目和求职意向吗？</textarea></div>
-<p id="ai-message-help" hidden>Qwen Plus根据招聘要求和简历生成约100字的问候与1—2个问题，再独立复核。复核通过才打招呼并发送；不通过会重写一次，仍不通过则跳过。API异常时暂停任务。</p>
+<p id="ai-message-help" hidden>Qwen Plus根据招聘要求和粗筛可见资料生成约100字的问候与1—2个问题，再独立复核。复核通过才打招呼并发送；不通过会重写一次，仍不通过则跳过。API异常时暂停任务。</p>
 <details><summary>评分阈值</summary><div class="row"><div><label for="coarse">粗筛</label><input id="coarse" type="number" min="0" max="100" value="30"></div><div><label for="fine">精筛</label><input id="fine" type="number" min="0" max="100" value="75"></div></div></details>
 <button id="start" type="submit">开始筛选</button><button class="secondary" id="stop" type="button" disabled>暂停</button><button class="secondary" id="resume" type="button" hidden>恢复上次任务</button>
 </form><div id="status" role="status">等待开始</div><small>结果保存在 recruitment_app/.runtime/results/职位名称_日期/。请保持已登录的 BOSS Chrome 页面和本地连接器运行。</small>

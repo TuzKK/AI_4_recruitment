@@ -121,13 +121,14 @@ def test_pipeline_exports_only_verified_contacts(tmp_path):
     assert "测试甲｜id-1｜100" in output.read_text(encoding="utf-8")
 
 
-def test_incomplete_resume_never_greets(tmp_path):
+def test_incomplete_resume_waits_after_contact(tmp_path):
     store = RunStore(tmp_path)
     boss = FakeBoss(complete=False)
     run_id = store.create(JOB, 1, 30, 75, "你好")
     run_pipeline(store, run_id, FakeModel(), boss)
-    assert boss.greeted == []
-    assert store.get(run_id)["contacted"] == 0
+    assert boss.greeted == ["id-1"]
+    assert store.get(run_id)["contacted"] == 1
+    assert store.get(run_id)["status"] == "waiting_resume"
 
 
 def test_pipeline_uses_detailed_assessment_and_persists_reason(tmp_path):
@@ -171,5 +172,5 @@ def test_greeting_quota_counts_attempts_even_when_message_fails(tmp_path):
     run_id = store.create(JOB, 2, 30, 75, "你好")
     run_pipeline(store, run_id, FakeModel(), boss)
     assert len(boss.greeted) == 1
-    assert store.get(run_id)["contacted"] == 0
+    assert store.get(run_id)["contacted"] == 1
     assert store.get(run_id)["status"] == "paused"

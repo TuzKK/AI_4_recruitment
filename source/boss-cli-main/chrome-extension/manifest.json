@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "BOSS CLI 本地连接器",
-  "version": "0.2.21",
+  "version": "0.2.26",
   "description": "让 BOSS-cli 复用已登录的 Chrome 页面，不导出 Cookie。",
   "minimum_chrome_version": "120",
   "permissions": [
@@ -17,6 +17,9 @@
     "http://127.0.0.1/*"
   ],
   "content_scripts": [{
+    "matches": ["https://www.zhipin.com/*", "https://zhipin.com/*", "https://m.zhipin.com/*"],
+    "js": ["rate-observer.js"], "all_frames": true, "run_at": "document_start", "world": "MAIN"
+  }, {
     "matches": ["https://www.zhipin.com/web/frame/recommend/*", "https://www.zhipin.com/web/frame/c-resume/*"],
     "js": ["resume-tap.js"],
     "all_frames": true,

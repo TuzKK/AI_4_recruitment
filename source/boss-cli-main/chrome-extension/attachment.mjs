@@ -37,7 +37,16 @@ export async function fetchAttachmentPage(url, deadline) {
   const response = await fetch(parsed.href, {credentials:'include',cache:'no-store',
     signal:AbortSignal.timeout(Math.max(1, Math.min(18000, deadline-Date.now()-1000)))});
   const contentType = response.headers.get('Content-Type') || '';
+  if(response.status===429)return {status:429,retry_after:response.headers.get('Retry-After')};
   const expectedSize = Number(response.headers.get('Content-Length') || 0);
+  if(/json/i.test(contentType)&&expectedSize<=maxBytes){
+    const text=await response.text();
+    if(text.length<=maxBytes){
+      let body;try{body=JSON.parse(text);}catch{}
+      if(body?.code===9)return {status:response.status,body:{code:9},retry_after:response.headers.get('Retry-After')};
+    }
+    throw new Error(`Attachment did not return a bounded PDF (HTTP ${response.status})`);
+  }
   if (!response.ok || !/application\/pdf|application\/octet-stream/i.test(contentType) ||
       expectedSize > maxBytes) throw new Error(`Attachment did not return a bounded PDF (HTTP ${response.status})`);
   const bytes = new Uint8Array(await response.arrayBuffer());

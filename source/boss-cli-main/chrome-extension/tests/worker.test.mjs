@@ -3,11 +3,12 @@ import assert from 'node:assert/strict';
 let sends=0;
 let uid='new-account';
 globalThis.chrome={
-  storage:{local:{get:async()=>({enabled:false})},session:{set:async()=>{},get:async()=>({})}},
+  storage:{local:{get:async()=>({enabled:false}),set:async()=>{}},session:{set:async()=>{},get:async()=>({})}},
   runtime:{onMessage:{addListener(){}},onStartup:{addListener(){}}},
   alarms:{onAlarm:{addListener(){}}},
   tabs:{get:async()=>({url:'https://www.zhipin.com/web/chat/index'})},
   scripting:{executeScript:async input=>{
+    if(input.files || input.func?.name==='rateSignalPage')return [];
     const [operation,args]=input.args;
     if(operation==='inspect') return [{frameId:0,documentId:'same-doc',result:{content:true,account:'same-name'}}];
     if(args.path==='/wapi/zpuser/wap/getUserInfo.json') return [{result:{status:200,body:{code:0,zpData:{userInfo:uid?{uid}: {name:'same-name'}}}}}];

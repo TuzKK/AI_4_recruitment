@@ -13,10 +13,16 @@ from urllib.parse import urlsplit
 from .boss import BossBrowser
 from .llm import JobModel
 from .generic_model import GenericJobModel
+from .hybrid_model import HybridJobModel, HybridGenericJobModel
 from .local_eval import evaluate_local_cases, load_local_cases
 from .runner import RunStore, run_pipeline
 
 ROOT = Path(__file__).resolve().parent
+
+
+class LocalRecruitmentServer(ThreadingHTTPServer):
+    # Windows SO_REUSEADDR permits two listeners to share this endpoint.
+    allow_reuse_address = False
 
 
 def create_server(root: Path | None = None, *, host: str = "127.0.0.1", port: int = 8765,
@@ -24,10 +30,10 @@ def create_server(root: Path | None = None, *, host: str = "127.0.0.1", port: in
     if host != "127.0.0.1":
         raise ValueError("本地页面只允许绑定 127.0.0.1")
     store = RunStore(root or ROOT / ".runtime")
-    store.recover()
     token = secrets.token_urlsafe(24)
     custom_model_factory = model_factory
-    model_factory = model_factory or JobModel.from_environment
+    custom_boss_factory = boss_factory
+    model_factory = model_factory or HybridJobModel.from_environment
     boss_factory = boss_factory or BossBrowser.connected
     local_cases_factory = local_cases_factory or load_local_cases
     active = set()
@@ -60,26 +66,31 @@ def create_server(root: Path | None = None, *, host: str = "127.0.0.1", port: in
             data = store.get(run_id)
             # Only message previews and screening summaries are exposed, not raw resumes.
             return {"id": data["id"], "status": data["status"], "title": data["title"],
+                    "end_reason": data.get("end_reason"),
+                    "rate_limits": data.get('rate_limits', {'request_seconds':5, 'greet_seconds':20}),
                     "contacted": data["contacted"], "quota": data["quota"], "error": data["error"],
                     "message_mode": data.get('message_mode', 'fixed'),
                     "scoring_version": data.get('scoring_version', 'legacy-v3'),
                     "scanned": len(data["candidates"]),
                     "fine_passed": sum(c.get("fine", {}).get("decision") == "high_match" for c in data["candidates"].values()),
                     "insufficient": sum(c.get("state") == "insufficient_resume" for c in data["candidates"].values()),
+                    "waiting_resume": sum(c.get("state") == "waiting_resume" for c in data["candidates"].values()),
+                    "greetings_used": sum(bool(c.get("greeting_attempted") or c.get("greet_verified") or
+                                              c.get("state") == "sent_verified") for c in data["candidates"].values()),
                     "needs_review": sum(c.get("state") == "needs_review" for c in data["candidates"].values()),
                     "candidates": [{"id": cid, "name": c.get("name", cid),
                                     "coarse_score": c.get("coarse", {}).get("score"),
                                     "fine_score": c.get("fine", {}).get("score"),
                                     "coarse_coverage": c.get('coarse', {}).get('evidence_coverage'),
                                     "fine_coverage": c.get('fine', {}).get('evidence_coverage'),
-                                    "decision": c.get("fine", c.get("coarse", {})).get("decision"),
-                                    "reason": c.get("fine", c.get("coarse", {})).get("reason", "旧记录未提供理由"),
-                                    "gaps": c.get("fine", c.get("coarse", {})).get("gaps", []),
-                                    "rule_adjustments": c.get("fine", c.get("coarse", {})).get("rule_adjustments", []),
+                                    "decision": (c.get("fine") or c.get("coarse", {})).get("decision"),
+                                    "reason": (c.get("fine") or c.get("coarse", {})).get("reason", "旧记录未提供理由"),
+                                    "gaps": (c.get("fine") or c.get("coarse", {})).get("gaps", []),
+                                    "rule_adjustments": (c.get("fine") or c.get("coarse", {})).get("rule_adjustments", []),
                                     "contact_state": c.get('state'),
                                     "message_text": (c.get('outreach') or {}).get('message', ''),
                                     "message_status": (c.get('outreach') or {}).get('status', 'pending'),
-                                    "message_reason": c.get('message_error') or (c.get('outreach') or {}).get('reason', '')}
+                                    "message_reason": c.get('greeting_error') or c.get('resume_error') or c.get('message_error') or (c.get('outreach') or {}).get('reason', '')}
                                    for cid, c in data["candidates"].items()]}
 
         def _launch(self, run_id):
@@ -92,11 +103,13 @@ def create_server(root: Path | None = None, *, host: str = "127.0.0.1", port: in
                 try:
                     factory = model_factory
                     if not custom_model_factory and store.get(run_id).get('scoring_version') == 'generic-v1':
-                        factory = GenericJobModel.from_environment
+                        factory = HybridGenericJobModel.from_environment
+                    if not custom_boss_factory:
+                        BossBrowser.configure_connection(store.get(run_id).get('rate_limits', {'request_seconds':5, 'greet_seconds':20}))
                     run_pipeline(store, run_id, factory(), boss_factory())
                 except Exception as exc:  # noqa: BLE001 - background boundary must persist failures
-                    if store.get(run_id)["status"] != "failed":
-                        store.update(run_id, status="failed", error=str(exc)[:300])
+                    if store.get(run_id)["status"] not in {"failed", "paused"}:
+                        store.update(run_id, status="paused" if getattr(exc, 'rate_limited', False) else "failed", error=str(exc)[:300])
                 finally:
                     with active_lock:
                         active.discard(run_id)
@@ -107,6 +120,11 @@ def create_server(root: Path | None = None, *, host: str = "127.0.0.1", port: in
             if not self._same_origin():
                 return self._send(403, {"error": "来源无效"})
             path = urlsplit(self.path).path
+            if path == '/api/connector-status':
+                try:
+                    return self._send(200, BossBrowser.connection_status())
+                except Exception:
+                    return self._send(200, {'connected': False, 'rate_limit': {}})
             if path == "/":
                 html = (ROOT / "index.html").read_text(encoding="utf-8").replace("__CSRF__", token)
                 return self._send(200, html.encode("utf-8"), "text/html; charset=utf-8")
@@ -222,7 +240,8 @@ def create_server(root: Path | None = None, *, host: str = "127.0.0.1", port: in
                     default_coarse = 50 if payload.get('scoring_version') == 'generic-v1' else 30
                     run_id = store.create(payload["job"], payload["quota"], payload.get("coarse_threshold", default_coarse),
                                           payload.get("fine_threshold", 75), payload.get("message", ''),
-                                          payload.get('message_mode', 'fixed'), payload.get('scoring_version', 'legacy-v3'))
+                                          payload.get('message_mode', 'fixed'), payload.get('scoring_version', 'legacy-v3'),
+                                          payload.get('rate_limits'))
                     self._launch(run_id)
                     return self._send(201, {"id": run_id})
                 if path.startswith("/api/runs/") and path.endswith("/stop"):
@@ -239,7 +258,8 @@ def create_server(root: Path | None = None, *, host: str = "127.0.0.1", port: in
             except (KeyError, ValueError, TypeError, FileNotFoundError) as exc:
                 return self._send(400, {"error": str(exc)[:200]})
 
-    server = ThreadingHTTPServer((host, port), Handler)
+    server = LocalRecruitmentServer((host, port), Handler)
+    store.recover()
     server.daemon_threads = True
     return server
 

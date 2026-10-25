@@ -373,6 +373,8 @@ def load_local_cases(root: Path) -> list[dict]:
 
 def _cached_judgement(model, cache_dir: Path, rubric: dict, stage: str, text: str) -> dict:
     """Cache remote responses by every input that affects the prompt."""
+    if callable(getattr(model, 'for_stage', None)):
+        model = model.for_stage(stage)
     envelope = {"version": "detailed-v3-spans", "model": getattr(model, "model", "unknown"),
                 "stage": stage, "rubric": rubric, "text": text}
     digest = hashlib.sha256(json.dumps(envelope, ensure_ascii=False, sort_keys=True).encode("utf-8")).hexdigest()
@@ -401,6 +403,8 @@ def _cached_judgement(model, cache_dir: Path, rubric: dict, stage: str, text: st
 
 
 def repair_judgement(model, cache_dir, rubric, stage, text, judgement, issues):
+    if callable(getattr(model, 'for_stage', None)):
+        model = model.for_stage(stage)
     envelope = {"version": "citation-repair-v3-spans", "model": getattr(model, "model", "unknown"),
                 "rubric": rubric, "stage": stage, "text": text, "judgement": judgement, "issues": issues}
     digest = hashlib.sha256(json.dumps(envelope, ensure_ascii=False, sort_keys=True).encode()).hexdigest()

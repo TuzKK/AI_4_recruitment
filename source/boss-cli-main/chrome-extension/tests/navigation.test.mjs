@@ -3,10 +3,12 @@ import assert from 'node:assert/strict';
 let currentUrl='https://www.zhipin.com/web/chat/index';
 let navigations=0;
 const key=[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode('uid:123')))].map(x=>x.toString(16).padStart(2,'0')).join('');
-globalThis.chrome={storage:{local:{get:async()=>({enabled:false})},session:{set:async()=>{},get:async()=>({})}},
+globalThis.chrome={storage:{local:{get:async()=>({enabled:false}),set:async()=>{}},session:{set:async()=>{},get:async()=>({})}},
   runtime:{onMessage:{addListener(){}},onStartup:{addListener(){}}},alarms:{onAlarm:{addListener(){}}},
   tabs:{get:async()=>({url:currentUrl}),update:async(_id,{url})=>{currentUrl=url;navigations++;}},
-  scripting:{executeScript:async({args})=>{
+  scripting:{executeScript:async input=>{
+    if(input.files || input.func?.name==='rateSignalPage')return [];
+    const {args}=input;
     if(args[0]==='inspect') return [{frameId:0,documentId:'doc',result:{content:true}}];
     if(args[0]==='api') return [{result:{status:200,body:{code:0,zpData:{userInfo:{uid:123}}}}}];
     return [];

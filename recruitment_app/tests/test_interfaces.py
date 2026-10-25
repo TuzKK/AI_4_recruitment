@@ -109,6 +109,7 @@ def test_browser_only_accepts_verified_full_resume_for_same_candidate():
 
 def test_precontact_cards_include_only_identity_matched_readable_abstract():
     session = StubSession({"frames": [{"resumeTap": {"messages": [{"type": "IFRAME_DONE",
+        "at": __import__('time').time() * 1000 + 60000,
         "data": {"abstractData": {"encryptGeekId": "c1", "geekBaseInfo": {"intro": "做过客户实施"}}}}]}}]})
     text = BossBrowser(session).cards()[0]["text"]
     assert "做过客户实施" in text
@@ -128,12 +129,13 @@ def test_long_resume_is_not_silently_truncated(tmp_path):
     boss = LongResume()
     run_id = store.create(JOB, 1, 30, 75, "你好")
     run_pipeline(store, run_id, FakeModel(), boss)
-    assert boss.greeted == []
+    assert boss.greeted == ["id-1"]
     assert store.get(run_id)["candidates"]["id-1"]["state"] == "resume_too_long"
 
 
 def test_first_message_requires_matching_session_and_history_confirmation():
     class SendSession:
+        account_key = __import__('hashlib').sha256(b'uid:100').hexdigest()
         def __init__(self):
             self.sent = []
 
@@ -153,7 +155,8 @@ def test_first_message_requires_matching_session_and_history_confirmation():
             return {"friendId": 12, "uid": 345, "encryptFriendId": candidate_id, "friendSource": 0}
 
         def _history(self, friend_id):
-            return [{"received": False, "body": {"text": "你好"}}] if self.session.sent else []
+            return [{"from": {"uid": 100}, "to": {"uid": 345},
+                     "received": True, "body": {"text": "你好"}}] if self.session.sent else []
 
     session = SendSession()
     assert SendBoss(session).send_first("candidate_123456", "你好") is True
@@ -163,6 +166,7 @@ def test_first_message_requires_matching_session_and_history_confirmation():
 
 def test_first_message_waits_for_new_session(monkeypatch):
     class Session:
+        account_key = __import__('hashlib').sha256(b'uid:100').hexdigest()
         def __init__(self):
             self.sent = False
 
@@ -186,7 +190,8 @@ def test_first_message_waits_for_new_session(monkeypatch):
             return {"friendId": 12, "uid": 345, "encryptFriendId": candidate_id, "friendSource": 0}
 
         def _history(self, friend_id):
-            return [{"received": False, "body": {"text": "你好"}}] if self.session.sent else []
+            return [{"from": {"uid": 100}, "to": {"uid": 345},
+                     "received": True, "body": {"text": "你好"}}] if self.session.sent else []
 
     monkeypatch.setattr("recruitment_app.boss.time.sleep", lambda _: None)
     boss = DelayedBoss(Session())

@@ -8,3 +8,17 @@ node_modules/
 __MACOSX/
 .DS_Store
 ._*
+
+# Local data, credentials, and generated test output
+.runtime/
+.review-*/
+.pytest_cache/
+.ruff_cache/
+__pycache__/
+*.pyc
+*.private.json
+*.private.txt
+.env
+.env.*
+!.env.example
+!.env.*.example

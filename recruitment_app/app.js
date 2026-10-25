@@ -9,8 +9,9 @@ function updateMessageMode(){
 $('message-mode').addEventListener('change',updateMessageMode);
 updateMessageMode();
 const messageStatuses={pending:'待准备',reviewing:'复核中',rewriting:'重写中',approved:'复核通过',rejected:'复核未通过',fixed:'固定消息'};
-const contactStates={qualified:'待联系',message_rejected:'已跳过',sent_verified:'已发送',needs_review:'发送待核查',
-  greet_pending:'正在打招呼',greet_verified:'已打招呼',message_pending:'正在发送',fine_done:'精筛未通过',
+const endReasons={quota_reached:'已达到本轮联系名额',no_more_candidates:'连续加载后未发现新候选人，尚未达到联系目标',scan_limit:'已达到单轮200人扫描上限，可继续下一轮',waiting_resume:'已联系，等待完整简历',needs_review:'存在发送结果待核查的记录'};
+const contactStates={qualified:'待联系',message_rejected:'已跳过',sent_verified:'已联系且精筛通过',waiting_resume:'已联系，等待完整简历',needs_review:'发送待核查',
+  greet_pending:'正在打招呼',greet_not_sent:'未发送，可修复后恢复',candidate_unavailable:'候选人已离开当前列表，未发送，继续下一人',greet_verified:'已打招呼',message_pending:'正在发送',fine_done:'精筛未通过',
   coarse_done:'粗筛已完成',insufficient_resume:'简历不完整',resume_too_long:'简历超出长度限制'};
 async function call(path,method='GET',body){
   const response=await fetch(path,{method,headers:{'Content-Type':'application/json','X-Run-Token':runToken},body:body?JSON.stringify(body):undefined});
@@ -32,18 +33,20 @@ async function refresh(){
       body.appendChild(tr);
     }
     $('run-table').hidden=!(s.candidates||[]).length;
-    $('status').textContent=`状态：${s.status}\n岗位：${s.title||'分析中'}\n已扫描：${s.scanned}  精筛通过：${s.fine_passed}  资料不足：${s.insufficient}\n已完成联系：${s.contacted}/${s.quota}  待核查：${s.needs_review}${s.error?'\n错误：'+s.error:''}`;
+    $('status').textContent=`状态：${s.status==='waiting_resume'?'等待简历（稍后点击恢复）':s.status}\n岗位：${s.title||'分析中'}\n已扫描：${s.scanned}  精筛通过：${s.fine_passed}  等待简历：${s.waiting_resume??0}  资料不足：${s.insufficient}\n已确认打招呼：${s.contacted}/${s.quota}  已使用名额：${s.greetings_used??s.contacted}  待核查：${s.needs_review}${s.error?'\n错误：'+s.error:''}`;
     $('start').disabled=['running','stop_requested','queued'].includes(s.status);
+    if(s.end_reason)$('status').textContent+='\n结束原因：'+(endReasons[s.end_reason]||s.end_reason);
     $('stop').disabled=s.status!=='running';
-    if(['finished','failed','paused'].includes(s.status)){clearInterval(timer);timer=null;$('start').disabled=false;$('stop').disabled=true;}
-    $('resume').hidden=!['paused','failed'].includes(s.status);
+    if(['finished','failed','paused','waiting_resume'].includes(s.status)){clearInterval(timer);timer=null;$('start').disabled=false;$('stop').disabled=true;}
+    $('resume').hidden=!['paused','failed','waiting_resume'].includes(s.status);
   }catch(error){$('status').textContent=error.message;clearInterval(timer);timer=null;}
 }
 $('run-form').addEventListener('submit',async event=>{
   event.preventDefault();$('start').disabled=true;$('status').textContent='正在启动…';
   try{const data=await call('/api/runs','POST',{job:$('job').value,quota:Number($('quota').value),
     message_mode:$('message-mode').value,message:$('message-mode').value==='fixed'?$('message').value:'',
-    coarse_threshold:Number($('coarse').value),fine_threshold:Number($('fine').value)});
+    coarse_threshold:Number($('coarse').value),fine_threshold:Number($('fine').value),
+    rate_limits:{request_seconds:Number($('request-seconds').value),greet_seconds:Number($('greet-seconds').value)}});
     current=data.id;localStorage.setItem('lastRun',current);$('stop').disabled=false;await refresh();timer=setInterval(refresh,1500);
   }catch(error){$('status').textContent=error.message;$('start').disabled=false;}
 });
@@ -57,6 +60,23 @@ async function restore(){
   }catch(error){$('status').textContent=error.message;}
 }
 restore();
+let ratePollBusy=false;
+async function refreshRate(){
+  if(ratePollBusy)return;
+  ratePollBusy=true;
+  try{
+    const s=await call('/api/connector-status');
+    const r=s.rate_limit||{};
+    const seconds=Math.max(0,Math.ceil(((r.until||0)-Date.now())/1000));
+    $('rate-status').textContent=!s.connected?'BOSS连接器未连接':
+      s.rate_limit_version!==1?'请升级连接器以启用统一限速':
+      r.state==='cooldown'&&seconds>0?`BOSS限流冷却：剩余${seconds}秒，结束后可恢复任务`:
+      r.state==='waiting'&&seconds>0?`限速等待：剩余${seconds}秒（尚未执行下一次请求）`:
+      `BOSS限速已启用：请求至少${r.request_seconds||5}秒，打招呼至少${r.greet_seconds||20}秒`;
+  }catch{ $('rate-status').textContent='暂时无法读取连接器状态'; }
+  finally{ratePollBusy=false;}
+}
+void refreshRate();setInterval(refreshRate,2000);
 
 let localEvalId=null,localTimer=null;
 function renderLocalRows(rows){

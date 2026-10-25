@@ -13,6 +13,13 @@ class BossApiError(Exception):
         self.response = response
 
 
+class BrowserCommandError(BossApiError):
+    def __init__(self, message, *, not_dispatched=False, rate_limited=False):
+        super().__init__(message)
+        self.not_dispatched = not_dispatched
+        self.rate_limited = rate_limited
+
+
 class SessionExpiredError(BossApiError):
     """Raised when __zp_stoken__ has expired (code=37)."""
 

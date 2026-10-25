@@ -10,7 +10,7 @@ import click
 import httpx
 
 from .constants import CONFIG_DIR
-from .exceptions import BossApiError
+from .exceptions import BossApiError, BrowserCommandError
 
 
 def bridge_file():
@@ -60,15 +60,17 @@ class BrowserSession:
     cookies: dict = field(default_factory=dict)
     transport: str = 'browser'
 
-    def rpc(self, route, payload=None):
+    def rpc(self, route, payload=None, *, timeout=130):
         try:
-            with httpx.Client(base_url=self.base_url, trust_env=False, timeout=32) as client:
+            with httpx.Client(base_url=self.base_url, trust_env=False, timeout=timeout) as client:
                 headers = {'Authorization': f'Bearer {self.token}'}
                 response = (client.get(route, headers=headers) if payload is None else
                             client.post(route, json=payload, headers=headers))
                 data = response.json()
                 if response.status_code != 200:
-                    raise BossApiError(data.get('error', '浏览器连接失败'))
+                    raise BrowserCommandError(data.get('error', '浏览器连接失败'),
+                                              not_dispatched=data.get('not_dispatched') is True,
+                                              rate_limited=data.get('rate_limited') is True)
                 return data
         except (httpx.HTTPError, ValueError):
             raise BossApiError('浏览器连接服务不可用或超时；请检查 boss browser serve。动作结果未知时不要重发') from None

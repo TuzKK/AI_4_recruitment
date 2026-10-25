@@ -10,6 +10,18 @@ const makeMessage = (url, overrides={}) => ({
 const fileUrl = 'https://m.zhipin.com/wflow/zpgeek/download/preview4boss?file=abc';
 const wrapped = `bosszp://bosszhipin.app/openwith?type=resume&url=${encodeURIComponent(fileUrl)}`;
 
+test('attachment preserves rate limit metadata', async()=>{
+  globalThis.location={origin:'https://m.zhipin.com'};
+  globalThis.fetch=async()=>new Response('',{status:429,headers:{'Retry-After':'240'}});
+  assert.deepEqual(await fetchAttachmentPage(fileUrl,Date.now()+5000),{status:429,retry_after:'240'});
+});
+
+test('attachment preserves business rate limit without exposing body data',async()=>{
+  globalThis.location={origin:'https://m.zhipin.com'};
+  globalThis.fetch=async()=>new Response('{"code":9,"private_data":"ignored"}',{headers:{'Content-Type':'application/json'}});
+  assert.deepEqual(await fetchAttachmentPage(fileUrl,Date.now()+5000),{status:200,body:{code:9},retry_after:null});
+});
+
 test('selects only the requested candidate attachment and fixed BOSS preview route', () => {
   const messages = [makeMessage(wrapped), makeMessage(wrapped, {mid:'124'})];
   assert.equal(selectAttachmentUrl(messages, 42, '123'), fileUrl);
